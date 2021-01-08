@@ -1,4 +1,4 @@
-package com.xc.justforjoy;
+package com.xc.justforjoy.controller;
 
 import com.xc.justforjoy.service.WelcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
