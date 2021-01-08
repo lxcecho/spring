@@ -1,6 +1,6 @@
-package com.xc.justforjoy.introductoin.impl;
+package com.xc.justforjoy.introduction.impl;
 
-import com.xc.justforjoy.introductoin.LittleUniverse;
+import com.xc.justforjoy.introduction.LittleUniverse;
 
 /**
  * @author lxcecho

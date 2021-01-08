@@ -1,4 +1,4 @@
-package com.xc.justforjoy.introductoin;
+package com.xc.justforjoy.introduction;
 
 /**
  * @author lxcecho
