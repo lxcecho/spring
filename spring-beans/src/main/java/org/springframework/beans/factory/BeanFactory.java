@@ -159,7 +159,7 @@ public interface BeanFactory {
 	 * @throws BeansException if the bean could not be created
 	 */
 	// 根据bean的名字和class类型从容器中获取bean实例，
-	// 增加类型校验进一步确保精准的获取到的实例
+	// 增加类型校验进一步确保精准的获取到的实例(类型安全验证机制)
 	<T> T getBean(String name, Class<T> requiredType) throws BeansException;
 
 	/**
@@ -259,7 +259,7 @@ public interface BeanFactory {
 	 * @param name the name of the bean to query
 	 * @return whether a bean with the given name is present
 	 */
-	// 是否在容器有这个名字的bean
+	// 提供对bean的检索，看看是否在IOC容器有这个名字的bean
 	boolean containsBean(String name);
 
 	/**

@@ -1,12 +1,15 @@
 package com.xc.justforjoy;
 
 import com.xc.justforjoy.controller.HelloController;
+import com.xc.justforjoy.entity.User;
 import com.xc.justforjoy.service.HelloService;
 import com.xc.justforjoy.service.HiService;
+import com.xc.justforjoy.service.WelcomeService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author lxcecho
@@ -19,7 +22,7 @@ public class Entrance {
 		System.out.println("HELLO LXCECHO.");
 
 		// 基于XML配置方式的Bean注入
-		/*ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath:spring/spring-config.xml");
+		ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath:spring/spring-config.xml");
 		WelcomeService welcomeService = (WelcomeService) ioc.getBean("welcomeService");
 		welcomeService.sayHello("IOC ... ");
 		User user1 = (User) ioc.getBean("user1");
@@ -30,18 +33,18 @@ public class Entrance {
 		System.out.println(user2 + "\n" + user22);
 		User user3 = (User) ioc.getBean("user3");
 		User user33 = (User) ioc.getBean("user3");
-		System.out.println(user3 + "\n" + user33);*/
+		System.out.println(user3 + "\n" + user33);
 
 		// 基于注解方式的Bean注入
-		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+		/*ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
 
-		/*HelloController helloController = (HelloController)applicationContext.getBean("helloController");
-		helloController.handleRequest();*/
+		*//*HelloController helloController = (HelloController)applicationContext.getBean("helloController");
+		helloController.handleRequest();*//*
 
 		HiService hiService = (HiService) applicationContext.getBean("hiServiceImpl");
 		hiService.sayHi();
 		HelloService helloService = (HelloService) applicationContext.getBean("helloServiceImpl");
-		helloService.sayHello();
+		helloService.sayHello();*/
 
 
 	}
