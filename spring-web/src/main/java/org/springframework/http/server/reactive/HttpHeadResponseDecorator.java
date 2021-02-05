@@ -30,6 +30,7 @@ import org.springframework.http.HttpHeaders;
  * @author Rossen Stoyanchev
  * @since 5.0
  */
+// 装饰器模式应用
 public class HttpHeadResponseDecorator extends ServerHttpResponseDecorator {
 
 
