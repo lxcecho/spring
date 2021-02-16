@@ -39,4 +39,5 @@ rootProject.children.each {project ->
 
 include "springdemo"
 include 'springiocdemo'
+include 'springmvcdemo'
 
