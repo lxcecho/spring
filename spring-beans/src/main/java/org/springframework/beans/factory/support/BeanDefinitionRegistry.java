@@ -45,6 +45,8 @@ import org.springframework.core.AliasRegistry;
  * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader
  * @see PropertiesBeanDefinitionReader
  */
+// BeanDefinition的注册器，抽象了 bean 的注册逻辑，
+// 包括registerBeanDefinition、removeBeanDefinition、getBeanDefinition 等注册管理 BeanDefinition 的方法
 public interface BeanDefinitionRegistry extends AliasRegistry {
 
 	/**

@@ -117,6 +117,7 @@ import org.springframework.util.StringUtils;
  * @see #getBean
  * @see #resolveDependency
  */
+// Spring IoC的核心类， 即实现了BeanFactory  ，也实现了BeanDefinitionRegistry
 @SuppressWarnings("serial")
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
@@ -923,7 +924,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	// Implementation of BeanDefinitionRegistry interface
 	//---------------------------------------------------------------------
 
-	// 向IOC容器注册解析的BeanDefinition
+	// 向IOC容器注册解析的 BeanDefinition
 	@Override
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
 			throws BeanDefinitionStoreException {
@@ -1079,6 +1080,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		return isAllowBeanDefinitionOverriding();
 	}
 
+	// 注册 Bean 对象
 	@Override
 	public void registerSingleton(String beanName, Object singletonObject) throws IllegalStateException {
 		super.registerSingleton(beanName, singletonObject);

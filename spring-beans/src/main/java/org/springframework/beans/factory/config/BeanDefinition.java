@@ -38,6 +38,8 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
+// 容器中的每一个 bean 都会有一个对应的 BeanDefinition 实例，该实例负责保存 bean 对象的所有必要信息，
+// 包括 bean 对象的 class 类型、是否是抽象类、构造方法和参数、其他属性等等
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
