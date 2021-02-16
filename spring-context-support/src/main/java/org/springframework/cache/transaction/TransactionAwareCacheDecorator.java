@@ -42,10 +42,12 @@ import org.springframework.util.Assert;
  * @since 3.2
  * @see TransactionAwareCacheManagerProxy
  */
+// 装饰器模式应用——用来处理事务缓存
 public class TransactionAwareCacheDecorator implements Cache {
 
 	private final Cache targetCache;
 
+	// TransactionAwareCacheDecorator 就是对Cache 的一个包装
 
 	/**
 	 * Create a new TransactionAwareCache for the given target Cache.
