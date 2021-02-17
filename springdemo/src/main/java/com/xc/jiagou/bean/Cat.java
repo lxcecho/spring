@@ -7,6 +7,7 @@ package com.xc.jiagou.bean;
 public  class Cat extends Animal {
 
 	public Cat(){
-		System.out.println("-------Cat Constractor------");
+		System.out.println("-------Cat Constructor------");
 	}
+
 }

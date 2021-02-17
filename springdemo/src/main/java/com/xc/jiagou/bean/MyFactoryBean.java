@@ -7,6 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
  * @since 2021/2/16
  */
 public class MyFactoryBean implements FactoryBean {
+
 	@Override
 	public Object getObject() throws Exception {
 		return new Fox();
@@ -17,8 +18,10 @@ public class MyFactoryBean implements FactoryBean {
 		return Fox.class;
 	}
 
+
 	@Override
 	public boolean isSingleton() {
 		return true;
 	}
+
 }

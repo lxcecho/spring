@@ -16,14 +16,14 @@ import java.lang.reflect.Proxy;
  * @since 2021/2/16
  */
 //@Component
-public class MyBeanFactoryPostProccesor implements BeanFactoryPostProcessor {
+public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 
 		// jdk 动态代理  UserMapper 接口
 		UserMapper userMapper = (UserMapper) Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{UserMapper.class},
+				new Class<?>[]{UserMapper.class},
 				new MyMapperProxy());
 
 		beanFactory.registerSingleton("userMapper",userMapper);

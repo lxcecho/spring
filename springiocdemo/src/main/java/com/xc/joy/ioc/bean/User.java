@@ -17,7 +17,9 @@ import javax.annotation.PreDestroy;
 public class User{
 
 	private String name;
+
 	private int age;
+
 	@Autowired   //  1.primary  2.fallback   fox
 	private Fox fox;
 

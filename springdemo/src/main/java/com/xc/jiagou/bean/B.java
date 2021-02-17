@@ -16,8 +16,10 @@ public class B {
 	public B(){
 
 	}
+
 	public B(A a){
 		this.a = a;
 		System.out.println(a);
 	}
+
 }

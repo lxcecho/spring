@@ -18,7 +18,7 @@ public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegi
 		BeanDefinition beanDefinition = new RootBeanDefinition(Cat.class);
 		// beanDefinition.getPropertyValues().add("name","")
 		// beanDefinition.getConstructorArgumentValues().addGenericArgumentValue("");
-		// beanDefinition.setBeanClassName("bat.ke.qq.com.bean.Fox");
+		// beanDefinition.setBeanClassName("com.xc.joy.ioc.bean.Fox");
 
 		registry.registerBeanDefinition("cat",beanDefinition);
 

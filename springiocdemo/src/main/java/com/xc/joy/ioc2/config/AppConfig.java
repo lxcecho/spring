@@ -1,6 +1,7 @@
 package com.xc.joy.ioc2.config;
 
 
+import com.xc.joy.ioc2.core.MyMapperScan;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,9 +16,9 @@ import javax.sql.DataSource;
  * @since 2021/2/16
  */
 @Configuration
-//@MapperScan("bat.ke.qq.com.dao")
+//@MapperScan("com.xc.joy.ioc2.dao")
 @ComponentScan("com.xc.joy.ioc2")
-//@MyMapperScan("bat.ke.qq.com.dao")
+//@MyMapperScan("com.xc.joy.ioc2.dao")
 public class AppConfig {
 
 	/**
@@ -28,7 +29,7 @@ public class AppConfig {
 	public DataSource dataSource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://121.42.14.67:3306/db_study?characterEncoding=utf8&useSSL=false&serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		return dataSource;

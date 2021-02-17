@@ -13,7 +13,7 @@ public class MyImportSelector implements ImportSelector {
 
 	@Override
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-		return new String[]{"bat.ke.qq.com.bean.Cat"};
+		return new String[]{"com.xc.joy.ioc.bean.Cat"};
 	}
 
 }

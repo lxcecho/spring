@@ -31,6 +31,7 @@ public class User implements InitializingBean, DisposableBean, SmartInitializing
 	}
 
 	String name;
+
 	int age;
 
 

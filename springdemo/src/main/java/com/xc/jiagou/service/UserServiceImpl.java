@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService {
 
 	//@Autowired
 	public UserServiceImpl(UserDao userDao) {
-		System.out.println("---constructer---"+userDao);
+		System.out.println("---constructor---"+userDao);
 		this.userDao = userDao;
 	}
 
 	public UserServiceImpl(UserDao userDao, Person person) {
-		System.out.println("---constructer---"+userDao+","+person);
+		System.out.println("---constructor---"+userDao+","+person);
 		this.userDao = userDao;
 	}
 	public UserServiceImpl(UserDao userDao, User user) {
-		System.out.println("---constructer---"+userDao+","+user);
+		System.out.println("---constructor---"+userDao+","+user);
 		this.userDao = userDao;
 	}
 	//@Autowired

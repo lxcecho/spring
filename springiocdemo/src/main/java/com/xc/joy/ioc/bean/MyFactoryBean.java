@@ -3,9 +3,6 @@ package com.xc.joy.ioc.bean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -13,13 +10,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2021/2/16
  */
 @Component
-public class MyFactoryBean implements FactoryBean {
-
-	public Object getObject(){
+public class MyFactoryBean implements FactoryBean<Object> {
+	@Override
+	public Object getObject() throws Exception {
 		return new ReentrantLock();
 	}
 
-	public Class<?> getObjectType(){
+	@Override
+	public Class<?> getObjectType() {
 		return ReentrantLock.class;
 	}
 }

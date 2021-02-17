@@ -13,7 +13,8 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 	@Override
-	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
+										BeanDefinitionRegistry registry) {
 		BeanDefinition beanDefinition = new RootBeanDefinition(UserServiceImpl.class);
 		registry.registerBeanDefinition("userServiceImpl",beanDefinition);
 		((RootBeanDefinition) beanDefinition).setAutowireMode(2);

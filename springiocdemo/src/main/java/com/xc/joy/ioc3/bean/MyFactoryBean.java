@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2021/2/16
  */
 @Component
-public class MyFactoryBean implements FactoryBean {
+public class MyFactoryBean implements FactoryBean<Object> {
 	@Override
 	public Object getObject() throws Exception {
 		return new ReentrantLock();

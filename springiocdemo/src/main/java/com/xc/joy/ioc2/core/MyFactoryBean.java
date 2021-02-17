@@ -9,11 +9,11 @@ import java.lang.reflect.Proxy;
  * @author lxcecho 909231497@qq.com
  * @since 2021/2/16
  */
-public class MyFactoryBean implements FactoryBean {
+public class MyFactoryBean implements FactoryBean<Object> {
 
-	private Class mapperInterface;
+	private Class<?> mapperInterface;
 
-	public MyFactoryBean(Class mapperInterface) {
+	public MyFactoryBean(Class<?> mapperInterface) {
 		this.mapperInterface = mapperInterface;
 	}
 
@@ -22,7 +22,7 @@ public class MyFactoryBean implements FactoryBean {
 		// jdk 动态代理
 		return Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{mapperInterface},
+				new Class<?>[]{mapperInterface},
 				new MyMapperProxy());
 	}
 

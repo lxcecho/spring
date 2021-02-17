@@ -6,5 +6,5 @@ package com.xc.jiagou.service;
  */
 public interface UserService {
 
-	public void query();
+	void query();
 }

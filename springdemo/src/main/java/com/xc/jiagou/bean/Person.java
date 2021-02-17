@@ -20,7 +20,8 @@ public class Person {
 //	}
 //
 //	@PreDestroy
-//	public void destory(){
-//		System.out.println("----Person destory-------");
+//	public void destroy(){
+//		System.out.println("----Person destroy-------");
 //	}
+
 }

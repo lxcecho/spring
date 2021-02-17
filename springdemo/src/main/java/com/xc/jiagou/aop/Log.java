@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 public class Log {
 
 
-	@Pointcut("execution(* com.jiagouedu.service.*.*(..))")
+	@Pointcut("execution(* com.xc.jiagou.service.*.*(..))")
 	public void inWebLayer() {
 		System.out.println("=======inWebLayer=====");
 	}
 
-	@Before("execution(* com.jiagouedu.service.*.*(..))")
+	@Before("execution(* com.xc.jiagou.service.*.*(..))")
 	public void doAccessCheck() {
 		System.out.println("=======doAccessCheck=====");
 	}
