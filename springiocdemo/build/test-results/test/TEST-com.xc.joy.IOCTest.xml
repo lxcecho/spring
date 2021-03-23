@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.xc.joy.IOCTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-16T15:50:43" hostname="LAPTOP-IDIL4E3Q" time="0.663">
-  <properties/>
-  <testcase name="testIOC4()" classname="com.xc.joy.IOCTest" time="0.663"/>
-  <system-out><![CDATA[Fox{cat=null}
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
