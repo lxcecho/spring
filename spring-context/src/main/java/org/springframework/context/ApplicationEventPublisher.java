@@ -30,6 +30,7 @@ package org.springframework.context;
  * @see org.springframework.context.event.ApplicationEventMulticaster
  * @see org.springframework.context.event.EventPublicationInterceptor
  */
+// 广播事件（没有添加事件监听器的功能）
 @FunctionalInterface
 public interface ApplicationEventPublisher {
 

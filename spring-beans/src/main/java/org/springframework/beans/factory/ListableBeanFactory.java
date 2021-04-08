@@ -55,6 +55,8 @@ import org.springframework.lang.Nullable;
  * @see HierarchicalBeanFactory
  * @see BeanFactoryUtils
  */
+// 在BeanFactory 的基础上，增加了其他功能，可以获取所有 BeanDefinition 的 beanNames，
+// 可以根据某个类型获取对应的 beanNames，可以根据某个类型获取{类型：对应的 Bean}的映射关系
 public interface ListableBeanFactory extends BeanFactory {
 
 	/**

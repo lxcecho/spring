@@ -90,6 +90,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	// 最常用的构造函数，通过将涉及到的配置类传递给该构造函数，以实现将相应配置类中的Bean自动注册到容器中
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 		this();
+		// 关闭循环依赖
+//		setAllowCircularReferences(false);
 		register(componentClasses);
 		refresh();
 	}

@@ -62,6 +62,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.aop.framework.ProxyFactoryBean
  * @see org.springframework.jndi.JndiObjectFactoryBean
  */
+// 允许程序员自定义一个对象通过 FactoryBean 间接的放到 Spring 容器中成为一个 Bean
 public interface FactoryBean<T> {
 
 	/**

@@ -1,5 +1,6 @@
 package com.xc.joy.conf;
 
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Copyright: Copyright (c) 2021
  * @since 07.04.2021
  */
-//@ComponentScan("com.xc.joy")
-public class ApplicationConfig {
+@Configurable
+@ComponentScan("com.xc.joy")
+public class AppConfig {
 }

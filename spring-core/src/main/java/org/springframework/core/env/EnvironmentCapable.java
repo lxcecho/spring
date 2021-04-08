@@ -38,6 +38,7 @@ package org.springframework.core.env;
  * @see ConfigurableEnvironment
  * @see org.springframework.context.ConfigurableApplicationContext#getEnvironment()
  */
+// 可以获取运行时环境（没有设置运行时环境功能）
 public interface EnvironmentCapable {
 
 	/**

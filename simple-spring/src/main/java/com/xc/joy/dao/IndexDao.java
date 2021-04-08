@@ -1,4 +1,4 @@
-package com.xc.joy;
+package com.xc.joy.dao;
 
 /**
  * @author lxcecho 909231497@qq.com

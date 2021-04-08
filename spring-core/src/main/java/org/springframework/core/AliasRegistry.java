@@ -23,6 +23,7 @@ package org.springframework.core;
  * @author Juergen Hoeller
  * @since 2.5.2
  */
+// 支持别名功能，一个名字可以对应多个别名
 public interface AliasRegistry {
 
 	/**

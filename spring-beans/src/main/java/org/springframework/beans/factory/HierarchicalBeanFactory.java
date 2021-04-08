@@ -31,6 +31,7 @@ import org.springframework.lang.Nullable;
  * @since 07.07.2003
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory#setParentBeanFactory
  */
+// 在 BeanFactory 的基础上，添加了获取父 BeanFactory 的功能
 public interface HierarchicalBeanFactory extends BeanFactory {
 
 	/**

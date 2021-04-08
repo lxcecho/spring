@@ -117,7 +117,7 @@ import org.springframework.util.StringUtils;
  * @see #getBean
  * @see #resolveDependency
  */
-// Spring IoC的核心类， 即实现了BeanFactory  ，也实现了BeanDefinitionRegistry
+// Spring IoC 的核心类，即实现了 BeanFactory，也实现了 BeanDefinitionRegistry
 @SuppressWarnings("serial")
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {

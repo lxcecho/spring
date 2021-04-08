@@ -51,6 +51,7 @@ import org.springframework.core.io.ResourceLoader;
  * @see org.springframework.context.ApplicationContext
  * @see org.springframework.context.ResourceLoaderAware
  */
+// 资源加载器，可以一次性获取多个资源（文件资源等）
 public interface ResourcePatternResolver extends ResourceLoader {
 
 	/**
