@@ -188,14 +188,18 @@ public abstract class ClassUtils {
 	public static ClassLoader getDefaultClassLoader() {
 		ClassLoader cl = null;
 		try {
+			// 1 优先获取当前线程中的 ClassLoader
 			cl = Thread.currentThread().getContextClassLoader();
 		}
 		catch (Throwable ex) {
 			// Cannot access thread context ClassLoader - falling back...
 		}
+		// 2 如果为空，则获取加载ClassUtil类的类加载器（正常情况下，就是AppClassLoader，但是如果在 Tomcat 中运行，
+		// 那么则会是 Tomcat 中为每个应用所创建的 WebAppClassLoader）
 		if (cl == null) {
 			// No thread context class loader -> use class loader of this class.
 			cl = ClassUtils.class.getClassLoader();
+			// 3 如果为空，那么则是 Bootstrap 类加载器加载的 ClassUtils 类，那则获取系统类加载器进行加载
 			if (cl == null) {
 				// getClassLoader() returning null indicates the bootstrap ClassLoader
 				try {

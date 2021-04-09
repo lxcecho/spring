@@ -75,6 +75,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Create a new AnnotationConfigApplicationContext with the given DefaultListableBeanFactory.
 	 * @param beanFactory the DefaultListableBeanFactory instance to use for this context
 	 */
+	// 1 在调用 AnnotationConfigApplicationContext 的构造方法之前，会调用父类的 GenericApplicationContext的 无参构造函数，
+	// 会构造一个 BeanFactory ，为 DefaultListableBeanFactory。
 	public AnnotationConfigApplicationContext(DefaultListableBeanFactory beanFactory) {
 		super(beanFactory);
 		this.reader = new AnnotatedBeanDefinitionReader(this);
