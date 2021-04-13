@@ -20,7 +20,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @since 07.04.2021
  */
 public class MainApplication {
-	public static void main1(String[] args) {
+	public static void main(String[] args) {
 		System.out.println("Hello,lxcecho.");
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -107,7 +107,7 @@ public class MainApplication {
 		System.out.println(beanFactory.getBeanNamesForType(Users.class));
 	}
 
-	public static void main(String[] args) {
+	public static void main6(String[] args) {
 
 	}
 

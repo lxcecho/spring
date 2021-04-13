@@ -75,11 +75,16 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Create a new AnnotationConfigApplicationContext with the given DefaultListableBeanFactory.
 	 * @param beanFactory the DefaultListableBeanFactory instance to use for this context
 	 */
+	// fixme refresh的底层原理
 	// 1 在调用 AnnotationConfigApplicationContext 的构造方法之前，会调用父类的 GenericApplicationContext的 无参构造函数，
 	// 会构造一个 BeanFactory ，为 DefaultListableBeanFactory。
 	public AnnotationConfigApplicationContext(DefaultListableBeanFactory beanFactory) {
 		super(beanFactory);
+		// 2 构造 AnnotatedBeanDefinitionReader（主要作用添加一些基础的 PostProcessor，
+		// 同时可以通过 reader 进行 BeanDefinition 的注册），同时对 BeanFactory 进行设置和添加
+		// PostProcessor（后置处理器）
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		// 3 构造 ClassPathBeanDefinitionScanner（主要作用可以用来扫描得到并注册 BeanDefinition），同时进行设置
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 

@@ -53,6 +53,7 @@ import org.springframework.lang.Nullable;
  * @see #getResourceByPath
  * @see GenericApplicationContext
  */
+// 由系统中的 XML 配置文件读取上下文
 public class FileSystemXmlApplicationContext extends AbstractXmlApplicationContext {
 
 	/**
