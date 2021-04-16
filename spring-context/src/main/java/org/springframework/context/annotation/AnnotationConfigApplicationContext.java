@@ -101,6 +101,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		// 关闭循环依赖
 //		setAllowCircularReferences(false);
 		register(componentClasses);
+		// 容器完整刷新（创建出所有组件，组织好所有功能）
 		refresh();
 	}
 

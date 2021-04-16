@@ -388,10 +388,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Decorate event as an ApplicationEvent if necessary
 		ApplicationEvent applicationEvent;
-		if (event instanceof ApplicationEvent) {
+		if (event instanceof ApplicationEvent) { // ApplicationEvent 接口下的时间
 			applicationEvent = (ApplicationEvent) event;
 		}
-		else {
+		else {// 任意对象作为事件最终被封装到了 PayloadApplicationEvent
 			applicationEvent = new PayloadApplicationEvent<>(this, event);
 			if (eventType == null) {
 				eventType = ((PayloadApplicationEvent<?>) applicationEvent).getResolvableType();
@@ -402,7 +402,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		if (this.earlyApplicationEvents != null) {
 			this.earlyApplicationEvents.add(applicationEvent);
 		}
-		else {
+		else {// 拿到多播器发送事件即可
 			getApplicationEventMulticaster().multicastEvent(applicationEvent, eventType);
 		}
 
@@ -515,45 +515,56 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return this.applicationListeners;
 	}
 
-	// IOC 启动流程
+	// IOC 启动流程 十二步 模板模式
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
+			// 准备上下文环境
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// 工厂创建： BeanFactory 第一次开始创建的时候，有 XML 解析逻辑
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			// 给容器中注册了环境信息为单实例 Bean 方便后续自动装配，放了一些后置处理器（监听、xxAware功能）
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				// 留给子类的模板方法，允许子类继承对工厂执行一些处理
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				// 【大核心】工厂增强：执行所有的 BeanFactory 后置增强器，利用 BeanFactory 后置增强器对工厂进行修改或者增强，配置类会在这里进行解析。
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 【大核心】注册所有的 Bean 后置处理器
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				// 初始化国际化功能
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				// 初始化事件多播功能（时间派发）
 				initApplicationEventMulticaster();
 
-				// Initialize other special beans in specific context subclasses.
+				// Initialize ot her special beans in specific context subclasses.
 				onRefresh();
 
 				// Check for listener beans and register them.
+				// 注册监听器，从容器中获取所有的 ApplicationListener
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				// 【大核心】bean 创建，完成 BeanFactory 初始化。（工厂里面所有的组件都好了）
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
+				// 发布事件
 				finishRefresh();
 			}
 
@@ -601,13 +612,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment.
+		// 其他子容器自行实现（比如：WebApplicationContext）
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
+		// 准备环境变量信息
 		getEnvironment().validateRequiredProperties();
 
 		// Store pre-refresh ApplicationListeners...
+		// 存储子容器早期运行的一些监听器
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
 		}
@@ -619,6 +633,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Allow for the collection of early ApplicationEvents,
 		// to be published once the multicaster is available...
+		// 早起的一些时间存储到这里
 		this.earlyApplicationEvents = new LinkedHashSet<>();
 	}
 
@@ -629,6 +644,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void initPropertySources() {
 		// For subclasses: do nothing by default.
+		// 自行在此处加载一些自己感兴趣的信息。
+		// 【WebApplicationContextUtils.initServletPropertySources】web-ioc容器启动的时候一般在此加载当前应用的上下文信息（ApplicationContext）
 	}
 
 	/**
