@@ -57,6 +57,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	private final AnnotatedBeanDefinitionReader reader;
 
 	// 保存一个扫描指定类路径中注解Bean定义的扫描器，并将其设置到容器中
+	// 能够扫描 BeanDefinition，能够扫描一个类，并且转成 BeanDefinition
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
@@ -100,6 +101,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		// 关闭循环依赖
 //		setAllowCircularReferences(false);
 		register(componentClasses);
+		// 容器完整刷新（创建出所有组件，组织好所有功能）
 		refresh();
 	}
 

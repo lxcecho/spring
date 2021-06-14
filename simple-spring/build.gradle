@@ -5,7 +5,9 @@ plugins {
 group 'org.springframework'
 version '5.2.13.BUILD-SNAPSHOT'
 
-repositories {
+// 在项目 build.gradle文件中设置如下
+repositories {  //仓库管理
+    mavenLocal()   //优先使用本地maven的仓库设置
     mavenCentral()
 }
 
