@@ -1,4 +1,4 @@
-package com.xc.joy.entity;
+package com.xc.joy.beans;
 
 /**
  * @author lxcecho

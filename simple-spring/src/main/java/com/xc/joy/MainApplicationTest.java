@@ -1,26 +1,62 @@
 package com.xc.joy;
 
+import com.xc.joy.beans.Cat;
+import com.xc.joy.beans.Person;
 import com.xc.joy.conf.AppConfig;
 import com.xc.joy.dao.IndexDao;
-import com.xc.joy.entity.Users;
+import com.xc.joy.beans.Users;
 import com.xc.joy.service.Demo1;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author lxcecho 909231497@qq.com
  * @Copyright: Copyright (c) 2021
  * @since 07.04.2021
  */
-public class MainApplication {
+public class MainApplicationTest {
+
 	public static void main(String[] args) {
+		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		Person person = context.getBean(Person.class);
+		System.out.println(person);*/
+
+		// 注解版 Spring 的用法
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
+		/*Person person = applicationContext.getBean(Person.class);
+		System.out.println(person);*/
+
+		/*String[] names = applicationContext.getBeanDefinitionNames();
+		for (String name : names) {
+			System.out.println(name);
+		}*/
+
+		/*Cat bean = applicationContext.getBean(Cat.class);
+		Cat bean1 = applicationContext.getBean(Cat.class);
+		System.out.println(bean == bean1);// false*/
+
+		/*Person person = applicationContext.getBean(Person.class);
+		Cat cat = person.getCat();
+		Person person1 = applicationContext.getBean(Person.class);
+		Cat cat1 = person1.getCat();
+		System.out.println(cat == cat1);// true
+		System.out.println(cat1);*/
+
+		Person person = applicationContext.getBean(Person.class);
+		ApplicationContext context = person.getContext();
+		System.out.println(context == applicationContext);
+
+	}
+
+	public static void main1(String[] args) {
 		System.out.println("Hello,lxcecho.");
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -66,7 +102,7 @@ public class MainApplication {
 
 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
-		int i = xmlBeanDefinitionReader.loadBeanDefinitions("spring.xml");
+		int i = xmlBeanDefinitionReader.loadBeanDefinitions("beans.xml");
 		System.out.println(beanFactory.getBean("user"));
 
 		/**
@@ -82,9 +118,9 @@ public class MainApplication {
 
 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		// 注册 BeanDefinition
-		beanFactory.registerBeanDefinition("user",beanDefinition);
+		beanFactory.registerBeanDefinition("user", beanDefinition);
 		// 注册别名
-		beanFactory.registerAlias("user","user11");
+		beanFactory.registerAlias("user", "user11");
 		//注册 BeanPostProcessor
 		beanFactory.addBeanPostProcessor(new BeanPostProcessor() {
 			@Override
@@ -110,31 +146,6 @@ public class MainApplication {
 	public static void main6(String[] args) {
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
