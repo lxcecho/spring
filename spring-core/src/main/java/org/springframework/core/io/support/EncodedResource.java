@@ -42,6 +42,7 @@ import org.springframework.util.ObjectUtils;
  * @see java.io.Reader
  * @see java.nio.charset.Charset
  */
+// 适配器模式，适配 InputStreamSource 和 Resource
 public class EncodedResource implements InputStreamSource {
 
 	private final Resource resource;

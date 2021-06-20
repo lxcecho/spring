@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="user" class="com.xc.joy.beans.Users">
+
+	</bean>
+
+	<bean id="person" class="com.xc.joy.beans.Person">
+		<property name="name" value="lxcecho"/>
+	</bean>
+
+	<bean id="cat" class="com.xc.joy.beans.Cat">
+<!--		<constructor-arg/>-->
+		<property name="name" value="kitty"/>
+	</bean>
+	<!--xml 转为 BeanDefinition 这个Java 对象-->
+
+<!--	<import resource=""/>-->
+</beans>

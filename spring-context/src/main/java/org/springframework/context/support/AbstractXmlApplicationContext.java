@@ -83,7 +83,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	@Override
 	protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throws BeansException, IOException {
 		// Create a new XmlBeanDefinitionReader for the given BeanFactory.
-		// 创建 XmlBeanDefinitionReader，即创建 Bean 读取器，并通过回调设置到容器中去，容器使用该读取器取 Bean 配置资源
+		// 创建 XmlBeanDefinitionReader，即创建读取 XML 内容的读取器，并通过回调设置到容器中去，容器使用该读取器取 Bean 配置资源
 		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
 
 		// Configure the bean definition reader with this context's
@@ -91,6 +91,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		// 为 Bean 读取器设置 Spring 资源加载器，AbstractXmlApplicationContext 的祖先父类 AbstractApplicationContext
 		// 继承DefaultResourceLoader，因此，容器本身也是一个资源加载器。
 		beanDefinitionReader.setEnvironment(this.getEnvironment());
+		// 持有 IOC 容器的环境类
 		beanDefinitionReader.setResourceLoader(this);
 		// 为 Bean 读取器设置 SAX xml解析器
 		beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));
@@ -139,10 +140,10 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		}
 		// 如果子类中获取的 Bean 配置资源定位为空，则获取 ClassPathXmlApplicationContext
 		// 构造方法中 setConfigLocations 方法设置的资源
-		String[] configLocations = getConfigLocations();
+		String[] configLocations = getConfigLocations(); // 可以传入多个配置文件
 		if (configLocations != null) {
 			// Xml Bean 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
-			reader.loadBeanDefinitions(configLocations);
+			reader.loadBeanDefinitions(configLocations); // 读取文件
 		}
 	}
 

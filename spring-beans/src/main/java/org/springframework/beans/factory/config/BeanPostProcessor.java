@@ -55,6 +55,7 @@ import org.springframework.lang.Nullable;
  * @see ConfigurableBeanFactory#addBeanPostProcessor
  * @see BeanFactoryPostProcessor
  */
+// 后置增强组件，每一个子接口的增强器在何时运行：在于改变；
 // Bean 的后置处理器，可以在创建每个 Bean 的过程中进行干涉，是属于 BeanFactory 中一个属性
 public interface BeanPostProcessor {
 

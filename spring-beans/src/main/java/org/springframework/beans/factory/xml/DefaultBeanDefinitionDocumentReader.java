@@ -188,7 +188,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					// Bean 定义的 Document的元素节点使用的 Spring 默认的 XML 明明空间
-					if (delegate.isDefaultNamespace(ele)) {
+					if (delegate.isDefaultNamespace(ele)) { // 遍历文档中的所有节点
 						// 使用 Spring 的 Bean 规则解析元素节点
 						parseDefaultElement(ele, delegate);
 					}
@@ -350,6 +350,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 */
 	// 解析 Bean 配置资源 Document 对象的普通元素
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
+		// 吧当前标签都解析完了，BeanDefinition 和 BeanName 都封装在了 Holder中
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		// BeanDefinitionHolder 是对 BeanDefinition 的封装，即 Bean 定义的封装类
 		// 对 Document 对象中 <Bean> 元素的解析由 BeanDefinitionParserDelegate 实现

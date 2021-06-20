@@ -224,7 +224,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 			try {
 				// 将指定位置的 Bean 配置信息解析为 Spring IOC 容器封装的资源
 				// 加载多个指定位置的 Bean 配置信息
-				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
+				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location); // 得到实体文件对应的资源
 				// 委派调用其子类 XmlBeanDefinitionReader 的方法，实现加载功能
 				int count = loadBeanDefinitions(resources);
 				if (actualResources != null) {
@@ -262,7 +262,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	public int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException {
 		Assert.notNull(locations, "Location array must not be null");
 		int count = 0;
-		for (String location : locations) {
+		for (String location : locations) {// 加载每个配置文件的内容
 			count += loadBeanDefinitions(location);
 		}
 		return count;

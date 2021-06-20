@@ -68,7 +68,7 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.beans.factory.DisposableBean
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory
  */
-// 拥有直接注册、获取某个单例 Bean 的功能
+// 拥有直接注册、获取某个单例 Bean 的功能，Spring 默认使用的单例 Bean 的注册中心
 public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
 
 	/** Maximum number of suppressed exceptions to preserve. */
@@ -76,6 +76,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 
 	/** Cache of singleton objects: bean name to bean instance. */
+	// IOC容器--单例对象池，缓存所有单实例对象
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
 	/** Cache of singleton factories: bean name to ObjectFactory. */
@@ -232,6 +233,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 					this.suppressedExceptions = new LinkedHashSet<>();
 				}
 				try {
+					// ObjectFactory 提供的实例，会调用 Lambda 的内容
 					singletonObject = singletonFactory.getObject();
 					newSingleton = true;
 				}

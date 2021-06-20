@@ -24,11 +24,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainApplicationTest {
 
 	public static void main(String[] args) {
+		// xml 版 Spring 的用法，beanDefinitionMap 调试
 		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		Person person = context.getBean(Person.class);
 		System.out.println(person);*/
 
-		// 注解版 Spring 的用法
+		// 注解版 Spring 的用法，XXAware 调试
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		/*Person person = applicationContext.getBean(Person.class);

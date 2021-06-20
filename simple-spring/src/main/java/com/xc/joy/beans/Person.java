@@ -12,26 +12,30 @@ import org.springframework.stereotype.Component;
 /**
  * @author lxcecho 909231497@qq.com
  * @since 14.06.2021
- *
+ * <p>
  * XXAware接口：帮我们装配 Spring 底层的一些组件
  * 1.Bean的功能增强全部都是有 BeanPostProcessor + InitializingBean （合作来完成的）
  * 2.骚操作就是 BeanPostProcessor+InitializingBean
- *
+ * <p>
  * 思考：Autowired 是怎么完成的？？？
+ * Person 为什么能把 ApplicationContext、MessageSource 当为自己的参数传进来？
+ * - 通过实现接口的方式自动注入了 ApplicationContext、MessageSource。是由  BeanPostProcessor（Bean的后置处理器完成的）
+ * -
  */
 @Component
 public class Person implements ApplicationContextAware, MessageSourceAware {
 
-//	@Autowired
+	//	@Autowired
 	ApplicationContext context; // 可以拿到 ioc 容器 又或者 实现 ApplicationContextAware 接口
 	MessageSource messageSource;
 
 	private String name;
 
-//	@Autowired // 依赖的组件是多实例就不能 Autowired
+	//	@Autowired // 依赖的组件是多实例就不能 Autowired
 	private Cat cat;
 
-	public Person(){
+	// setApplicationContext 断点处，看 ApplicationContextAware 实现过程
+	public Person() {
 		System.out.println("person 创建...");
 	}
 
@@ -48,7 +52,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 		return cat;
 	}
 
-//	@Autowired  // debug 自动装配的过程...
+	@Autowired  // debug 自动装配的过程...
 	public void setCat(Cat cat) {
 		this.cat = cat;
 	}
@@ -70,7 +74,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// 利用回调机制，把IOC 容器传入
+		// 利用回调机制，把 IOC 容器传入
 		this.context = applicationContext;
 	}
 

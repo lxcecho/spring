@@ -125,7 +125,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
-			// 创建 IOC 容器
+			// 创建保存所有 Bean 定义信息的档案馆
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
 			// 对 IOC 容器进行定制化，如设置启动参数，开启注解的自动装配等
