@@ -301,6 +301,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	@Override
 	public boolean containsSingleton(String beanName) {
+		// 是否已经创建了单例对象
 		return this.singletonObjects.containsKey(beanName);
 	}
 

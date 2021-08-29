@@ -17,5 +17,7 @@
 	</bean>
 	<!--xml 转为 BeanDefinition 这个Java 对象-->
 
+	<bean class="com.xc.joy.beans.HelloFactory" id="hello" />
+
 <!--	<import resource=""/>-->
 </beans>

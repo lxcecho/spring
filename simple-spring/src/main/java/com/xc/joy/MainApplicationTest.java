@@ -24,6 +24,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainApplicationTest {
 
 	public static void main(String[] args) {
+		/**
+		 * AbstractApplicationContext 构造器 和 registerBean 断点
+		 */
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+		Person bean = context.getBean(Person.class);
+		System.out.println(bean);
+	}
+
+	public static void main0(String[] args) {
 		// xml 版 Spring 的用法，beanDefinitionMap 调试
 		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		Person person = context.getBean(Person.class);
@@ -35,10 +44,10 @@ public class MainApplicationTest {
 		/*Person person = applicationContext.getBean(Person.class);
 		System.out.println(person);*/
 
-		/*String[] names = applicationContext.getBeanDefinitionNames();
+		String[] names = applicationContext.getBeanDefinitionNames();
 		for (String name : names) {
 			System.out.println(name);
-		}*/
+		}
 
 		/*Cat bean = applicationContext.getBean(Cat.class);
 		Cat bean1 = applicationContext.getBean(Cat.class);
@@ -51,9 +60,9 @@ public class MainApplicationTest {
 		System.out.println(cat == cat1);// true
 		System.out.println(cat1);*/
 
-		Person person = applicationContext.getBean(Person.class);
+		/*Person person = applicationContext.getBean(Person.class);
 		ApplicationContext context = person.getContext();
-		System.out.println(context == applicationContext);
+		System.out.println(context == applicationContext);*/
 
 	}
 

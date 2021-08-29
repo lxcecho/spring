@@ -45,6 +45,11 @@ public class AppConfig {
 			rootBeanDefinition.setBeanClass(Cat.class);
 			// 可以声明自定义信息，包括我需要自动装配什么？
 
+//			rootBeanDefinition.setInstanceSupplier(()->new Cat());
+
+			// 可以设置 init 方法
+//			rootBeanDefinition.setInitMethodName("aaa");
+
 			// Spring 这个实例的类型，名字
 			registry.registerBeanDefinition("tomCat", rootBeanDefinition);
 		}
