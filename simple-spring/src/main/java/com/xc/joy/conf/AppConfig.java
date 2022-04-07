@@ -14,7 +14,7 @@ import org.springframework.core.type.AnnotationMetadata;
  * <p>
  * This is a configuration class.
  */
-@Import({Person.class, AppConfig.MyImportRegister.class})
+//@Import({Person.class, AppConfig.MyImportRegister.class})
 @Configuration
 @ComponentScan("com.xc.joy")
 public class AppConfig {

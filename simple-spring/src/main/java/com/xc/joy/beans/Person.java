@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  * - 通过实现接口的方式自动注入了 ApplicationContext、MessageSource。是由  BeanPostProcessor（Bean的后置处理器完成的）
  * -
  */
-//@Component
+@Component
 public class Person implements ApplicationContextAware, MessageSourceAware {
 
 	//	@Autowired
@@ -52,7 +52,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 		return cat;
 	}
 
-	@Autowired  // debug 自动装配的过程...
+//	@Autowired  // debug 自动装配的过程...
 	public void setCat(Cat cat) {
 		this.cat = cat;
 	}

@@ -1,6 +1,11 @@
 package com.xc.joy;
 
 import com.xc.joy.beans.Cat;
+import com.xc.joy.beans.Hello;
+import com.xc.joy.beans.Person;
+import com.xc.joy.beans.Student;
+import com.xc.joy.conf.AppConfig;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -9,8 +14,41 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class AnnotationTest {
 	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
-		Cat bean = context.getBean(Cat.class);
-		System.out.println(bean);
+		// xml 版 Spring 的用法，beanDefinitionMap 调试
+		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		Person person = context.getBean(Person.class);
+		System.out.println(person);*/
+
+		// 注解版 Spring 的用法，XXAware 调试
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
+		// factoryBean 获取
+//		Hello bean = applicationContext.getBean(Hello.class);
+
+		/*Person person = applicationContext.getBean(Person.class);
+		System.out.println(person);*/
+
+		// 打印所有注册到容器的 bean 实例
+		/*String[] names = applicationContext.getBeanDefinitionNames();
+		for (String name : names) {
+			System.out.println(name);
+		}*/
+
+		// 测试 单实例引用非单实例，即 @Lookup
+		/*Cat bean = applicationContext.getBean(Cat.class);
+		Cat bean1 = applicationContext.getBean(Cat.class);
+		System.out.println(bean == bean1);// false*/
+
+		Student stu1 = applicationContext.getBean(Student.class);
+		Cat cat = stu1.getCat();
+		Student stu2 = applicationContext.getBean(Student.class);
+		Cat cat1 = stu2.getCat();
+		System.out.println(cat == cat1);// true
+		System.out.println(cat + "," + cat1);
+		System.out.println(stu1 + "," + stu2);
+
+		/*Person person = applicationContext.getBean(Person.class);
+		ApplicationContext context = person.getContext();
+		System.out.println(context == applicationContext);*/
 	}
 }

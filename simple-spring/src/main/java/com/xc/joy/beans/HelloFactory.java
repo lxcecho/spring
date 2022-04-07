@@ -1,6 +1,7 @@
 package com.xc.joy.beans;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
 
 /**
  * @author lxcecho 909231497@qq.com
@@ -14,12 +15,12 @@ import org.springframework.beans.factory.FactoryBean;
  * 			而是HelloFactory这个工厂调用了getObject()返回的对象，类型是getObjectType指定的类型
  * 		MyBatis和Spring的整合	SqlSessionFactoryBean
  */
-
+@Component // 也可以实现 SmartFactoryBean 指定提前加载
 public class HelloFactory implements FactoryBean<Hello> {
 
 	@Override
 	public Hello getObject() throws Exception {
-		return new Hello();
+		return new Hello(); // 这是最终获取到的对象
 	}
 
 	@Override
