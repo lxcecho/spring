@@ -452,7 +452,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					if (metadata != null) {
 						metadata.clear(pvs);
 					}
-					// 下面是分析当前类方法或者属性有没有标注@Autowired 等自动赋值的注解
+					// 下面是分析当前类方法或者属性有没有标注 @Autowired 等自动赋值的注解
 					metadata = buildAutowiringMetadata(clazz);
 					this.injectionMetadataCache.put(cacheKey, metadata);
 				}

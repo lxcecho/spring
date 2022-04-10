@@ -350,7 +350,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 */
 	// 解析 Bean 配置资源 Document 对象的普通元素
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
-		// 吧当前标签都解析完了，BeanDefinition 和 BeanName 都封装在了 Holder中
+		// 把当前标签都解析完了，BeanDefinition 和 BeanName 都封装在了 Holder中
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		// BeanDefinitionHolder 是对 BeanDefinition 的封装，即 Bean 定义的封装类
 		// 对 Document 对象中 <Bean> 元素的解析由 BeanDefinitionParserDelegate 实现
@@ -367,7 +367,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 						bdHolder.getBeanName() + "'", ele, ex);
 			}
 			// Send registration event.
-			// 在完成向 Spring IOC 容器注册解析得到的 Bean 定义之后，发送注册事件
+			// 发送一个通知事件：在完成向 Spring IOC 容器注册解析得到的 Bean 定义之后，发送注册事件
 			getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
 		}
 	}

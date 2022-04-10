@@ -542,6 +542,8 @@ public class BeanDefinitionParserDelegate {
 			// 为<Bean>元素解析的Bean设置description信息
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
+			// 以下是解析 Bean 标签里面的元数据填充完 BeanDefinition
+
 			// 对<Bean>元素的meta(元信息)属性解析
 			parseMetaElements(ele, bd);
 			// 对<Bean>元素的lookup-Method属性解析

@@ -24,18 +24,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class MainApplicationTest {
 
-	public static void main0(String[] args) {
+	public static void main(String[] args) {
 		/**
+		 * xml 版 Spring 的用法，beanDefinitionMap 调试 —— beans.xml
 		 * AbstractApplicationContext 构造器 和 registerBean 断点
 		 */
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		Person bean = context.getBean(Person.class);
 		System.out.println(bean);
 	}
 
 
 	public static void main1(String[] args) {
-		System.out.println("Hello,lxcecho.");
+		System.out.println("Hello, lxcecho.");
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.register(IndexDao.class);

@@ -9,6 +9,7 @@
 
 	<bean id="person" class="com.xc.joy.beans.Person">
 		<property name="name" value="lxcecho"/>
+		<property name="cat" ref="cat"></property>
 	</bean>
 
 	<bean id="cat" class="com.xc.joy.beans.Cat">

@@ -56,7 +56,7 @@ import java.lang.annotation.Target;
 public @interface Import {
 
 	/**
-	 * 1 直接写 class：Person{name='null'}，里哟ing无参构造器创建出对象放在容器中，它里面都是 BeanDefinition。
+	 * 1 直接写 class：Person{name='null'}，利用无参构造器创建出对象放在容器中，它里面都是 BeanDefinition。
 	 * 2 ImportSelector
 	 * 3 ImportBeanDefinitionRegister
 	 * {@link Configuration @Configuration}, {@link ImportSelector},

@@ -144,7 +144,7 @@ public interface FactoryBean<T> {
 	 * @see SmartFactoryBean#isPrototype()
 	 */
 	default boolean isSingleton() {
-		return true;
+		return true; // 也可以多实例的
 	}
 
 }

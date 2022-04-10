@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author lxcecho 909231497@qq.com
  * @since 20.06.2021
  * <p>
- * Bean组件的 PostProcessor；
+ * Bean 组件的 PostProcessor；
  */
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {

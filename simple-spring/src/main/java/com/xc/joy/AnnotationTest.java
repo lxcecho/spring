@@ -5,6 +5,7 @@ import com.xc.joy.beans.Hello;
 import com.xc.joy.beans.Person;
 import com.xc.joy.beans.Student;
 import com.xc.joy.conf.AppConfig;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,12 +14,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @since 28.08.2021
  */
 public class AnnotationTest {
-	public static void main(String[] args) {
-		// xml 版 Spring 的用法，beanDefinitionMap 调试
-		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-		Person person = context.getBean(Person.class);
-		System.out.println(person);*/
 
+	public static void main1(String[] args) {
 		// 注解版 Spring 的用法，XXAware 调试
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
@@ -47,8 +44,15 @@ public class AnnotationTest {
 		System.out.println(cat + "," + cat1);
 		System.out.println(stu1 + "," + stu2);
 
-		/*Person person = applicationContext.getBean(Person.class);
-		ApplicationContext context = person.getContext();
-		System.out.println(context == applicationContext);*/
+
 	}
+
+	public static void main(String[] args) {
+		// debug 实现 xxxAware 接口的赋值过程
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+		Person person = applicationContext.getBean(Person.class);
+		ApplicationContext context = person.getContext();
+		System.out.println(context == applicationContext);
+	}
+
 }

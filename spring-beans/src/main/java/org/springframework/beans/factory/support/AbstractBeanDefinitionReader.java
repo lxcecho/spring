@@ -193,6 +193,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	// 重载方法，调用下面的 loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) 方法
 	@Override
 	public int loadBeanDefinitions(String location) throws BeanDefinitionStoreException {
+		// 加载指定配置文件的所有内容
 		return loadBeanDefinitions(location, null);
 	}
 
