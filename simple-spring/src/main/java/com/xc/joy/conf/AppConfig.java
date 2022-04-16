@@ -45,7 +45,10 @@ public class AppConfig {
 			rootBeanDefinition.setBeanClass(Cat.class);
 			// 可以声明自定义信息，包括我需要自动装配什么？
 
+			// 实例提供者
 //			rootBeanDefinition.setInstanceSupplier(()->new Cat());
+			// 设置初始化方法
+//			rootBeanDefinition.setInitMethodName("abc");
 
 			// 可以设置 init 方法
 //			rootBeanDefinition.setInitMethodName("aaa");

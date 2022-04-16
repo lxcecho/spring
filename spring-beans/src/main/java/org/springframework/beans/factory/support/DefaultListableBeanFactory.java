@@ -164,6 +164,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/** Map of bean definition objects, keyed by bean name. */
 	// 所有 BeanDefinition 信息按照名字对应 BeanDefinition 关系都保存好了
+	// 如果容器中由 Map<Class, Object[]/String[]>
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 
 	/** Map from bean name to merged BeanDefinitionHolder. */
@@ -913,7 +914,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					}
 				}
 				else { // 不是 FactoryBean 则执行这个，普通的单实例非懒加载 Bean 的创建
-					getBean(beanName); // 从容其中获取 Bean，有则获取，无则创建
+					getBean(beanName); // 从容器中获取 Bean，有则获取，无则创建
 				}
 			}
 		}

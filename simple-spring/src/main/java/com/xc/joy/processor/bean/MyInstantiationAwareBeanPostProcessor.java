@@ -1,5 +1,6 @@
 package com.xc.joy.processor.bean;
 
+import com.xc.joy.beans.Cat;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -27,14 +28,25 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
 		System.out.println("MyInstantiationAwareBeanPostProcessor...postProcessBeforeInstantiation=>" + beanClass + "--" + beanName);
 		// 如果我们自己创建了对象返回。Spring则不会帮我们创建对象，用我们自己创建的对象？ 我们创建的这个对象，Spring会保存单实例？还是每次getBean都调到我们这里创建一个新的？
+		/*if(beanClass.isAssignableFrom(Cat.class)) {
+			return new Dog();
+		}*/
 		return null;
 	}
 
+	/**
+	 * 初始化之后进行处理
+	 *
+	 * @param bean the bean instance created, with properties not having been set yet
+	 * @param beanName the name of the bean
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
-		//提前改变一些Spring不管的bean里面的属性
+		// 提前改变一些 Spring 不管的 bean 里面的属性
 		System.out.println("MyInstantiationAwareBeanPostProcessor...postProcessAfterInstantiation=>" + bean + "--" + beanName);
-		//返回false则bean的赋值全部结束
+		// 返回 false 则 bean 的赋值全部结束
 		return true;
 	}
 

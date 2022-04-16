@@ -596,7 +596,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Initialize the bean instance.
 		Object exposedObject = bean;
 		try {
-			// 给创建好的对象每个属性进行赋值 @Autowired 发生在此
+			// 给创建好的对象每个属性进行赋值， @Autowired 发生在此
 			populateBean(beanName, mbd, instanceWrapper);
 			// 初始化 Bean 实例
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
@@ -1176,7 +1176,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					"Bean class isn't public, and non-public access not allowed: " + beanClass.getName());
 		}
 
-		// 可以定义 Bean 的示例提供者
+		// 可以定义 Bean 的实例提供者
 		Supplier<?> instanceSupplier = mbd.getInstanceSupplier();
 		if (instanceSupplier != null) {
 			return obtainFromSupplier(instanceSupplier, beanName);
@@ -1326,6 +1326,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			else {
 				beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, this);
 			}
+			// Bean 创建完后，使用 BeanWrapper 进行包装
 			BeanWrapper bw = new BeanWrapperImpl(beanInstance);
 			initBeanWrapper(bw);
 			return bw;
@@ -1802,7 +1803,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}, getAccessControlContext());
 		}
 		else {
-			// 组件有 Aware 接口：BeanNameAware BeanClassLoaderAware BeanFactoryAware
+			// 组件有 Aware 接口：BeanNameAware、BeanClassLoaderAware、BeanFactoryAware
 			invokeAwareMethods(beanName, bean);
 		}
 
@@ -1859,7 +1860,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected void invokeInitMethods(String beanName, Object bean, @Nullable RootBeanDefinition mbd)
 			throws Throwable {
 
-		// 如果组件实现了 InitializingBean 接口，就调用组件自己的 afterPropertiesSet()
+		// 如果组件实现了 InitializingBean 接口，就调用组件自己的 afterPropertiesSet() 方法
 		boolean isInitializingBean = (bean instanceof InitializingBean);
 		if (isInitializingBean && (mbd == null || !mbd.isExternallyManagedInitMethod("afterPropertiesSet"))) {
 			if (logger.isTraceEnabled()) {

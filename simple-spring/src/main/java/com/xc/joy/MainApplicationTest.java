@@ -29,8 +29,10 @@ public class MainApplicationTest {
 		 * xml 版 Spring 的用法，beanDefinitionMap 调试 —— beans.xml
 		 * AbstractApplicationContext 构造器 和 registerBean 断点
 		 */
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-		Person bean = context.getBean(Person.class);
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+//		Person bean = context.getBean(Person.class);
+		// 生命周期 cat
+		Cat bean = context.getBean(Cat.class);
 		System.out.println(bean);
 	}
 

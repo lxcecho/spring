@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author lxcecho 909231497@qq.com
  * @since 07.04.2022
  */
-@Component
+//@Component
 public class Student {
 
 	private String username;

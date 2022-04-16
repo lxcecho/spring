@@ -27,6 +27,13 @@ public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinition
 		return null;
 	}
 
+	/**
+	 * 处理合并 bd 定义信息，再修改 bean 定义信息
+	 *
+	 * @param beanDefinition the merged bean definition for the bean
+	 * @param beanType       the actual type of the managed bean instance
+	 * @param beanName       the name of the bean
+	 */
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		System.out.println("MyMergedBeanDefinitionPostProcessor...postProcessMergedBeanDefinition..=>" + beanName + "--" + beanType + "---" + beanDefinition);

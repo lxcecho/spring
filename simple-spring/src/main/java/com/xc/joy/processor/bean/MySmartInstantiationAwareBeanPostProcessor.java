@@ -20,8 +20,8 @@ public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstanti
 	}
 
 	/**
-	 * 预测 Bean 的类型，最后一次改变组件类型
-	 *
+	 * 预测 Bean 的类型，最后一次改变组件类、
+  	 *
 	 * @param beanClass the raw class of the bean
 	 * @param beanName  the name of the bean
 	 * @return

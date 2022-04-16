@@ -151,7 +151,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	private final List<StringValueResolver> embeddedValueResolvers = new CopyOnWriteArrayList<>();
 
 	/** BeanPostProcessors to apply. */
-	// 保存所有的 Bean 后置增强器，方便在后面创建Bean 的时候直接使用
+	// 保存所有的 Bean 后置增强器，方便在后面创建 Bean 的时候直接使用
 	private final List<BeanPostProcessor> beanPostProcessors = new CopyOnWriteArrayList<>();
 
 	/** Indicates whether any InstantiationAwareBeanPostProcessors have been registered. */
@@ -610,6 +610,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// If we couldn't use the target type, try regular prediction.
+		// 通过后置处理器，可以返回自定义的类型
 		if (predictedType == null) {
 			predictedType = predictBeanType(beanName, mbd, typesToMatch);
 			if (predictedType == null) {

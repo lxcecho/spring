@@ -119,6 +119,7 @@ final class PostProcessorRegistrationDelegate {
 			currentRegistryProcessors.clear();
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
+			// 最后，我们自定义的一般没有任何优先级和排序接口
 			boolean reiterate = true;
 			while (reiterate) {
 				reiterate = false;
@@ -134,12 +135,14 @@ final class PostProcessorRegistrationDelegate {
 				// 根据类名大小写进行排序
 				sortPostProcessors(currentRegistryProcessors, beanFactory);
 				registryProcessors.addAll(currentRegistryProcessors);
+				// 先执行 postProcessBeanDefinitionRegistry 方法
 				invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 				// 防止重复执行
 				currentRegistryProcessors.clear();
 			}
 
 			// Now, invoke the postProcessBeanFactory callback of all processors handled so far.
+			// 接下来再执行 postProcessBeanFactory 的回调
 			invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 		}
@@ -149,7 +152,7 @@ final class PostProcessorRegistrationDelegate {
 			invokeBeanFactoryPostProcessors(beanFactoryPostProcessors, beanFactory);
 		}
 
-		// 以前执行 BeanDefinitionRegistryPostProcessor，以后来执行 BeanFactoryPostProcessor
+		/** 以前执行 BeanDefinitionRegistryPostProcessor，以后来执行 BeanFactoryPostProcessor */
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
@@ -222,7 +225,7 @@ final class PostProcessorRegistrationDelegate {
 		List<String> orderedPostProcessorNames = new ArrayList<>();
 		List<String> nonOrderedPostProcessorNames = new ArrayList<>();
 		for (String ppName : postProcessorNames) {
-			if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
+			if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) { // 获取所有实现了 PriorityOrdered 接口的类
 				// 获取所有实现了 PriorityOrdered 接口的 BeanPostProcessor
 				BeanPostProcessor pp = beanFactory.getBean(ppName, BeanPostProcessor.class);
 				priorityOrderedPostProcessors.add(pp);
