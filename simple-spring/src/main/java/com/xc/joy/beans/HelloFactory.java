@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * 			而是 HelloFactory 这个工厂调用了 getObject() 返回的对象，类型是 getObjectType 指定的类型
  * 		MyBatis 和 Spring 的整合	SqlSessionFactoryBean
  */
-//@Component // 也可以实现 SmartFactoryBean 指定提前加载
+@Component // 也可以实现 SmartFactoryBean 指定提前加载
 public class HelloFactory implements FactoryBean<Hello> {
 
 	@Override

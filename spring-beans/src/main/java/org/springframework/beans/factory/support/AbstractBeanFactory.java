@@ -294,7 +294,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			if (!typeCheckOnly) {
-				markBeanAsCreated(beanName); // 标记当前 beanName 的Bean 已经被创建
+				markBeanAsCreated(beanName); // 标记当前 beanName 的 Bean 已经被创建
 			}
 
 			try {
@@ -336,6 +336,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 							throw ex;
 						}
 					});
+					// 看当前 bean 是否是 FactoryBean
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
 				}
 

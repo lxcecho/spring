@@ -39,12 +39,12 @@ public class Cat implements InitializingBean, SmartInitializingSingleton {
 		System.out.println("这是初始化方法");
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
 		return "Cat{" +
 				"name='" + name + '\'' +
 				'}';
-	}*/
+	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {

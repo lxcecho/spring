@@ -21,6 +21,7 @@ public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstanti
 
 	/**
 	 * 预测 Bean 的类型，最后一次改变组件类、
+	 * 会被调用两次：第一次是获取所有监听器的时候 第二次是按照类型获取别的组件的时候 —— cat 都没被创建
   	 *
 	 * @param beanClass the raw class of the bean
 	 * @param beanName  the name of the bean
@@ -44,7 +45,6 @@ public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstanti
 	@Override
 	public Constructor<?>[] determineCandidateConstructors(Class<?> beanClass, String beanName)
 			throws BeansException {
-		// 会被调用两次：第一次是获取所有监听器的时候 第二次是按照类型获取别的组件的时候 —— cat 都没被创建
 		System.out.println("MySmartInstantiationAwareBeanPostProcessor...determineCandidateConstructors=>" + beanClass + "--" + beanName);
 		// 返回一个我们指定的构造器
 		return null;

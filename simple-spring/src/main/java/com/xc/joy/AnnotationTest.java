@@ -15,12 +15,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class AnnotationTest {
 
-	public static void main1(String[] args) {
+	public static void main(String[] args) {
 		// 注解版 Spring 的用法，XXAware 调试
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// factoryBean 获取
-//		Hello bean = applicationContext.getBean(Hello.class);
+		Hello bean = applicationContext.getBean(Hello.class);
 
 		/*Person person = applicationContext.getBean(Person.class);
 		System.out.println(person);*/
@@ -36,18 +36,18 @@ public class AnnotationTest {
 		Cat bean1 = applicationContext.getBean(Cat.class);
 		System.out.println(bean == bean1);// false*/
 
-		Student stu1 = applicationContext.getBean(Student.class);
+		/*Student stu1 = applicationContext.getBean(Student.class);
 		Cat cat = stu1.getCat();
 		Student stu2 = applicationContext.getBean(Student.class);
 		Cat cat1 = stu2.getCat();
 		System.out.println(cat == cat1);// true
 		System.out.println(cat + "," + cat1);
-		System.out.println(stu1 + "," + stu2);
+		System.out.println(stu1 + "," + stu2);*/
 
 
 	}
 
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 		// debug 实现 xxxAware 接口的赋值过程
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 		Person person = applicationContext.getBean(Person.class);

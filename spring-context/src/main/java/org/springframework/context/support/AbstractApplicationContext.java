@@ -836,7 +836,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #refresh()
 	 */
 	protected void onRefresh() throws BeansException {
-		// For subclasses: do nothing by default.
+		// For subclasses: do nothing by default. 模板模式的实现
 	}
 
 	/**

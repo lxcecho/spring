@@ -895,7 +895,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				if (isFactoryBean(beanName)) { // 如果是 FactoryBean 则执行下面的逻辑
-					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
+					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName); // 得到 helloFactory
 					if (bean instanceof FactoryBean) {
 						FactoryBean<?> factory = (FactoryBean<?>) bean;
 						boolean isEagerInit;

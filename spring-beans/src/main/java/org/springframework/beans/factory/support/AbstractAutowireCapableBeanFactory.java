@@ -611,6 +611,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 		}
 
+		// 早期单实例暴露
 		if (earlySingletonExposure) {
 			Object earlySingletonReference = getSingleton(beanName, false); // 检查早期缓存是否存在这个组件
 			if (earlySingletonReference != null) {
