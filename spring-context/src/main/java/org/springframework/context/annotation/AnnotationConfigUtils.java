@@ -242,7 +242,7 @@ public abstract class AnnotationConfigUtils {
 		processCommonDefinitionAnnotations(abd, abd.getMetadata());
 	}
 
-	// 处理Bean定义中通用注解 即 解读所有Bean定义信息需要感知的注解
+	// 处理 Bean 定义中通用注解 即 解读所有 Bean 定义信息需要感知的注解
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
 		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
 		// 如果Bean定义中有@Lazy注解，则将该Bean预实例化属性设置为@lazy注解的值

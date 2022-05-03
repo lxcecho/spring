@@ -64,7 +64,7 @@ public final class SpringProperties {
 				logger.debug("Found 'spring.properties' file in local classpath");
 				InputStream is = url.openStream();
 				try {
-					localProperties.load(is);
+					localProperties.load(is); // 读取 spring 底层的默认配置
 				}
 				finally {
 					is.close();

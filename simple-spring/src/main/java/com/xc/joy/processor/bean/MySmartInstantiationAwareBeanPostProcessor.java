@@ -51,7 +51,7 @@ public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstanti
 	}
 
 	/**
-	 * 返回早期的 Bean 引用
+	 * 返回早期的 Bean 引用， 定义三级缓存中的 bean 信息
 	 *
 	 * @param bean     the raw bean instance
 	 * @param beanName the name of the bean
