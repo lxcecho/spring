@@ -1,5 +1,6 @@
 package com.xc.joy;
 
+import com.xc.joy.aop.HelloService;
 import com.xc.joy.beans.Cat;
 import com.xc.joy.beans.Hello;
 import com.xc.joy.beans.Person;
@@ -20,7 +21,7 @@ public class AnnotationTest {
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// factoryBean 获取
-		Hello bean = applicationContext.getBean(Hello.class);
+		/*Hello bean = applicationContext.getBean(Hello.class);*/
 
 		/*Person person = applicationContext.getBean(Person.class);
 		System.out.println(person);*/
@@ -44,6 +45,10 @@ public class AnnotationTest {
 		System.out.println(cat + "," + cat1);
 		System.out.println(stu1 + "," + stu2);*/
 
+		// 循环引用，原理测试
+		// AOP，原理测试
+		HelloService helloService = applicationContext.getBean(HelloService.class);
+		helloService.sayHello("lxcecho");
 
 	}
 
