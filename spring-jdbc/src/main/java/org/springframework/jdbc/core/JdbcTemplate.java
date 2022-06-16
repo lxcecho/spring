@@ -84,6 +84,8 @@ import org.springframework.util.StringUtils;
  *
  * <p><b>NOTE: An instance of this class is thread-safe once configured.</b>
  *
+ * 模板方法模式应用
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Thomas Risberg

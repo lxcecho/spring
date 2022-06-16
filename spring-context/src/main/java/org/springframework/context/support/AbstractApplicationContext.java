@@ -157,8 +157,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	static {
 		// Eagerly load the ContextClosedEvent class to avoid weird classloader issues
 		// on application shutdown in WebLogic 8.1. (Reported by Dustin Woods.)
-		// 为了避免应用程序在 Weblogic8.1 关闭时出现类加载异常
-		ContextClosedEvent.class.getName();
+		// 为了避免应用程序在 Weblogic8.1 关闭时出现类加载异常，加载 IOC 容器关闭事件类 ContextClosedEvent		ContextClosedEvent.class.getName();
 	}
 
 
@@ -445,6 +444,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
+	 * 获取一个 Spring Source 的加载器用于读入 Spring Bean 配置信息
 	 * Return the ResourcePatternResolver to use for resolving location patterns
 	 * into Resource instances. Default is a
 	 * {@link org.springframework.core.io.support.PathMatchingResourcePatternResolver},
@@ -459,6 +459,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see org.springframework.core.io.support.PathMatchingResourcePatternResolver
 	 */
 	protected ResourcePatternResolver getResourcePatternResolver() {
+		// AbstractApplicationContext 继承 DefaultResourceLoader，因此也是一个资源加载器
+		// Spring 资源加载器，其 getResource(String location) 方法用于载入资源
 		return new PathMatchingResourcePatternResolver(this);
 	}
 
@@ -516,55 +518,70 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return this.applicationListeners;
 	}
 
-	// IOC 启动流程 十二步 模板模式
+	/**
+	 * IOC 启动流程 十二步 模板模式
+	 * 作用：在创建 IOC 容器前，如果已经有容器存在，则需要把已有的容器销毁和关闭，以保证在 refresh 之后使用的是新建立起来的 IOC 容器。
+	 * 它类似于对 IOC 容器的重启，在新建立好的容器中对容器进行初始化，对 Bean 配置资源进行载入。
+	 *
+	 * @throws BeansException
+	 * @throws IllegalStateException
+	 */
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
-			// 准备上下文环境
+			// 1 准备上下文环境，调用容器准备刷新的方法，获取容器的当前时间，同时给容器设置同步标识
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			// 2 告诉子类启动 refreshBeanFactory() 方法，Bean 定义资源文件的载入从子类的 refresh Bean Factory() 方法启动
 			// 工厂创建： BeanFactory 第一次开始创建的时候，有 XML 解析逻辑
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			// 3 为 BeanFactory 配置容器属性，例如：类加载器、事件处理等
 			// 给容器中注册了环境信息为单实例 Bean 方便后续自动装配，放了一些后置处理器（监听、xxAware功能）
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				// 4 为容器的某些子类指定特殊的 BeanPost 事件处理器
 				// 留给子类的模板方法，允许子类继承对工厂执行一些处理
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				// 5 调用所有注册的 BeanFactoryPostProcessor 即Bean工程后置处理器的 Bean
 				// 【大核心】工厂增强：执行所有的 BeanFactory 后置增强器，利用 BeanFactory 后置增强器对工厂进行修改或者增强，配置类会在这里进行解析。
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 6 为 BeanFacotry 注册 BeanPostProcessor 即Bean后置处理器，用于监听容器触发的事件
 				// 【大核心】注册所有的 Bean 后置处理器
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
-				// 初始化国际化功能
+				// 7 初始化信息源，和国际化相关
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
-				// 初始化事件多播功能（事件派发）
+				// 8 初始化容器事件多播功能（事件派发）
 				initApplicationEventMulticaster();
 
 				// Initialize ot her special beans in specific context subclasses.
+				// 9 调用子类的某些特殊 Bean 初始化方法
 				onRefresh();
 
 				// Check for listener beans and register them.
-				// 注册监听器，从容器中获取所有的 ApplicationListener
+				// 10 为事件传播器注册监听器，从容器中获取所有的 ApplicationListener
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				// 11 初始化所有剩余的单例 Bean
 				// 【大核心】bean 创建，完成 BeanFactory 初始化。（工厂里面所有的组件都好了）
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
+				// 12 初始化容器的生命周期事件处理器，并发布容器的生命周期事件
 				// 发布事件
 				finishRefresh();
 			}
@@ -576,9 +593,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				}
 
 				// Destroy already created singletons to avoid dangling resources.
+				// 13 销毁已创建的 Bean
 				destroyBeans();
 
 				// Reset 'active' flag.
+				// 14 取消 refresh 操作，重置容器的同步标识
 				cancelRefresh(ex);
 
 				// Propagate exception to caller.
@@ -588,6 +607,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			finally {
 				// Reset common introspection caches in Spring's core, since we
 				// might not ever need metadata for singleton beans anymore...
+				// 15 重设 公共缓存
 				resetCommonCaches();
 			}
 		}
