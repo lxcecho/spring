@@ -89,7 +89,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		// Configure the bean definition reader with this context's
 		// resource loading environment.
 		// 为 Bean 读取器设置 Spring 资源加载器，AbstractXmlApplicationContext 的祖先父类 AbstractApplicationContext
-		// 继承DefaultResourceLoader，因此，容器本身也是一个资源加载器。
+		// 继承 DefaultResourceLoader，因此，容器本身也是一个资源加载器。
 		beanDefinitionReader.setEnvironment(this.getEnvironment());
 		// 持有 IOC 容器的环境类
 		beanDefinitionReader.setResourceLoader(this);
@@ -98,7 +98,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 
 		// Allow a subclass to provide custom initialization of the reader,
 		// then proceed with actually loading the bean definitions.
-		// 当 Bean 读取器读取 Bean 定义的xml资源文件时，启用xml的校验机制。
+		// 当 Bean 读取器读取 Bean 定义的 xml 资源文件时，启用 xml 的校验机制。
 		initBeanDefinitionReader(beanDefinitionReader);
 		// Bean 读取器真正实现加载的方法
 		loadBeanDefinitions(beanDefinitionReader);
@@ -132,14 +132,13 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 */
 	// Xml Bean 读取器加载 Bean 配置资源
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
-		// 获取 Bean 配置资源的定位
+		// 获取 Bean 配置资源的定位，由于 ClassPathXmlApplicationContext，因此这里返回的是 null
 		Resource[] configResources = getConfigResources();
 		if (configResources != null) {
 			// Xml Bean 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
 			reader.loadBeanDefinitions(configResources);
 		}
-		// 如果子类中获取的 Bean 配置资源定位为空，则获取 ClassPathXmlApplicationContext
-		// 构造方法中 setConfigLocations 方法设置的资源
+		// 如果子类中获取的 Bean 配置资源定位为空，则获取 ClassPathXmlApplicationContext 构造方法中 setConfigLocations 方法设置的资源
 		String[] configLocations = getConfigLocations(); // 可以传入多个配置文件
 		if (configLocations != null) {
 			// Xml Bean 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
@@ -156,9 +155,8 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @return an array of Resource objects, or {@code null} if none
 	 * @see #getConfigLocations()
 	 */
-	// 这里又使用了一个委托模式，调用子类的获取 Bean 配置资源定位的方法
-	// 该方法在 ClassPathXmlApplicationContext 中进行实现，对于我们
-	// 举例分析源码的 ClassPathXmlApplicationContext 没有使用该方法
+	// 这里又使用了一个委托模式，调用子类的获取 Bean 配置资源定位的方法，该方法在 ClassPathXmlApplicationContext 中进行实现，
+	// 对于我们举例分析源码的 ClassPathXmlApplicationContext 没有使用该方法
 	@Nullable
 	protected Resource[] getConfigResources() {
 		return null;

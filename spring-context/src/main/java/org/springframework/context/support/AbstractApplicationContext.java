@@ -676,6 +676,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		// 这里使用了 委派模式，父类定义了抽象的 refreshBeanFactory() 方法，具体实现调用子类的 refreshBeanFactory() 方法，启动容器载入 Bean 配置信息的过程
+		// xml 文件解析调用的是 org.springframework.context.support.AbstractRefreshableApplicationContext#refreshBeanFactory
 		// 刷新整个 BeanFactory：注解模式下就是准备工厂，设置工厂id；xml 模式下解析 xml。
 		refreshBeanFactory();
 		return getBeanFactory();
