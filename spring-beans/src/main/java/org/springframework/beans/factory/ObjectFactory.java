@@ -19,6 +19,8 @@ package org.springframework.beans.factory;
 import org.springframework.beans.BeansException;
 
 /**
+ * ObjectFactory 接口使用委派模式，具体的 Bean 实例创建过程交由其实现类 AbstractAutowireCapableBeanFactory 完成
+ *
  * Defines a factory which can return an Object instance
  * (possibly shared or independent) when invoked.
  *
