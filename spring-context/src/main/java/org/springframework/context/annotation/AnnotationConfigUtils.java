@@ -239,13 +239,19 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	public static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd) {
+		// 在向容器注册 Bean 之前，先对注解 Bean 定义类中的通用 Spring 注解进行处理
 		processCommonDefinitionAnnotations(abd, abd.getMetadata());
 	}
 
-	// 处理 Bean 定义中通用注解 即 解读所有 Bean 定义信息需要感知的注解
+	/**
+	 * 处理 Bean 定义中通用注解 即 解读所有 Bean 定义信息需要感知的注解
+	 *
+	 * @param abd
+	 * @param metadata
+	 */
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
 		AnnotationAttributes lazy = attributesFor(metadata, Lazy.class);
-		// 如果Bean定义中有@Lazy注解，则将该Bean预实例化属性设置为@lazy注解的值
+		// 如果 Bean 定义中有 @Lazy 注解，则将该 Bean 预实例化属性设置为 @lazy 注解的值
 		if (lazy != null) {
 			abd.setLazyInit(lazy.getBoolean("value"));
 		} else if (abd.getMetadata() != metadata) {
@@ -255,12 +261,11 @@ public abstract class AnnotationConfigUtils {
 			}
 		}
 
-		// 如果Bean定义中有@Primary注解，则为该Bean设置为autowiring自动依赖注入装配的首选对象
+		// 如果 Bean 定义中有 @Primary 注解，则为该 Bean 设置为 autowiring 自动依赖注入装配的首选对象
 		if (metadata.isAnnotated(Primary.class.getName())) {
 			abd.setPrimary(true);
 		}
-		// 如果Bean定义中有@DependsOn注解，则为该Bean设置所依赖的Bean名称，
-		// 容器将确保在实例化该Bean之前首先实例化所依赖的Bean
+		// 如果 Bean 定义中有 @DependsOn 注解，则为该 Bean 设置所依赖的 Bean 名称，容器将确保在实例化该 Bean 之前首先实例化所依赖的 Bean
 		AnnotationAttributes dependsOn = attributesFor(metadata, DependsOn.class);
 		if (dependsOn != null) {
 			abd.setDependsOn(dependsOn.getStringArray("value"));
@@ -276,20 +281,26 @@ public abstract class AnnotationConfigUtils {
 		}
 	}
 
-	// 根据作用域为Bean应用引用的代码模式
+	/**
+	 * 根据注解 Bean 定义类中配置的作用域 @Scope 注解的值，为 Bean 定义应用相应的代理策略，主要在 AOP 中使用
+	 *
+	 * @param metadata
+	 * @param definition
+	 * @param registry
+	 * @return
+	 */
 	static BeanDefinitionHolder applyScopedProxyMode(
 			ScopeMetadata metadata, BeanDefinitionHolder definition, BeanDefinitionRegistry registry) {
 
-		// 获取注解Bean定义类中@Scope注解的proxyMode属性值
+		// 获取注解 Bean 定义类中 @Scope 注解的 proxyMode 属性值
 		ScopedProxyMode scopedProxyMode = metadata.getScopedProxyMode();
-		// 如果配置的@Scope注解的proxyMode属性值为NO，则不应用代理模式
+		// 如果配置的 @Scope 注解的 proxyMode 属性值为 NO，则不应用代理模式
 		if (scopedProxyMode.equals(ScopedProxyMode.NO)) {
 			return definition;
 		}
-		// 获取配置的@Scope注解的proxyMode属性值，如果为TARGET_CLASS
-		// 则返回true，如果为INTERFACES，则返回false
+		// 获取配置的 @Scope 注解的 proxyMode 属性值，如果为 TARGET_CLASS，则返回 true，如果为 INTERFACES，则返回 false
 		boolean proxyTargetClass = scopedProxyMode.equals(ScopedProxyMode.TARGET_CLASS);
-		// 为注册的Bean创建相应模式的代理对象
+		// 为注册的 Bean 创建相应模式的代理对象
 		return ScopedProxyCreator.createScopedProxy(definition, registry, proxyTargetClass);
 	}
 
