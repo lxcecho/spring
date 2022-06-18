@@ -86,6 +86,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * Spring IoC 的核心类，即实现了 BeanFactory，也实现了 BeanDefinitionRegistry
+ *
  * Spring's default implementation of the {@link ConfigurableListableBeanFactory}
  * and {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory
  * based on bean definition metadata, extensible through post-processors.
@@ -117,7 +119,6 @@ import org.springframework.util.StringUtils;
  * @see #getBean
  * @see #resolveDependency
  */
-// Spring IoC 的核心类，即实现了 BeanFactory，也实现了 BeanDefinitionRegistry
 @SuppressWarnings("serial")
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
@@ -162,9 +163,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/** Map from dependency type to corresponding autowired value. */
 	private final Map<Class<?>, Object> resolvableDependencies = new ConcurrentHashMap<>(16);
 
-	/** Map of bean definition objects, keyed by bean name. */
-	// 所有 BeanDefinition 信息按照名字对应 BeanDefinition 关系都保存好了
-	// 如果容器中由 Map<Class, Object[]/String[]>
+	/**
+	 * 所有 BeanDefinition 信息按照名字对应 BeanDefinition 关系都保存好了，如果容器中由 Map<Class, Object[]/String[]>
+	 *
+	 * Map of bean definition objects, keyed by bean name. 存储注册信息的 BeanDefinition
+	 */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 
 	/** Map from bean name to merged BeanDefinitionHolder. */
@@ -943,7 +946,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	// Implementation of BeanDefinitionRegistry interface
 	//---------------------------------------------------------------------
 
-	// 向IOC容器注册解析的 BeanDefinition
+	/**
+	 * 向 IOC 容器注册解析的 BeanDefinition
+	 *
+	 * @param beanName the name of the bean instance to register
+	 * @param beanDefinition definition of the bean instance to register
+	 * @throws BeanDefinitionStoreException
+	 */
 	@Override
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
 			throws BeanDefinitionStoreException {
@@ -951,7 +960,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		Assert.hasText(beanName, "Bean name must not be empty");
 		Assert.notNull(beanDefinition, "BeanDefinition must not be null");
 
-		// 校验解析的BeanDefiniton
+		// 校验解析的 BeanDefiniton
 		if (beanDefinition instanceof AbstractBeanDefinition) {
 			try {
 				((AbstractBeanDefinition) beanDefinition).validate();
@@ -1014,9 +1023,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			this.frozenBeanDefinitionNames = null;
 		}
 
-		// 检查是否有同名的BeanDefinition已经在IOC容器中注册
+		// 检查是否有同名的 BeanDefinition 已经在 IOC 容器中注册
 		if (existingDefinition != null || containsSingleton(beanName)) {
-			// 重置所有已经注册过的BeanDefinition的缓存
+			// 重置所有已经注册过的 BeanDefinition 的缓存
 			resetBeanDefinition(beanName);
 		}
 		else if (isConfigurationFrozen()) {

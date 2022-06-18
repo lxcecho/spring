@@ -175,6 +175,9 @@ public class DefaultResourceLoader implements ResourceLoader {
 	}
 
 	/**
+	 * 该方法是为了处理路径既不是 classpath 标识，又不是 URL 标识的 Resource 定位这种情况，在 ClassPathContextResource 中完成了对整个路径的解析。
+	 * 通过子类的覆盖，巧妙的完成了将类路径变为文件路径的转换。
+	 *
 	 * Return a Resource handle for the resource at the given path.
 	 * <p>The default implementation supports class path locations. This should
 	 * be appropriate for standalone implementations but can be overridden,

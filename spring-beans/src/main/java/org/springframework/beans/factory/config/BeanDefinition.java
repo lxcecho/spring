@@ -23,6 +23,12 @@ import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
 
 /**
+ * 容器中的每一个 bean 都会有一个对应的 BeanDefinition 实例，该实例负责保存 bean 对象的所有必要信息，
+ * 包括 bean 对象的 class 类型、是否是抽象类、构造方法和参数、其他属性等等
+ *
+ * BeanDefinitons 是 Bean 配置信息中配置的 POJO 对象在 Spring IOC 容器中的映射，可以通过 AbstractBeanDefinition 为入口，看到 IOC 容器进行索引、查询和操作。
+ * 其存储的只是一些静态信息，需要向 IOC 容器中注入 Bean 定义信息才能完成 IOC 容器的初始化过程。
+ *
  * A BeanDefinition describes a bean instance, which has property values,
  * constructor argument values, and further information supplied by
  * concrete implementations.
@@ -38,8 +44,6 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
-// 容器中的每一个 bean 都会有一个对应的 BeanDefinition 实例，该实例负责保存 bean 对象的所有必要信息，
-// 包括 bean 对象的 class 类型、是否是抽象类、构造方法和参数、其他属性等等
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**

@@ -62,10 +62,11 @@ public class DefaultDocumentLoader implements DocumentLoader {
 
 
 	/**
+	 * 使用标准的 JAXP 将载入的 Bean 配置资源转换成 document 对象
+	 *
 	 * Load the {@link Document} at the supplied {@link InputSource} using the standard JAXP-configured
 	 * XML parser.
 	 */
-	// 使用标准的 JAXP 将载入的 Bean 配置资源转换成 document 对象
 	@Override
 	public Document loadDocument(InputSource inputSource, EntityResolver entityResolver,
 			ErrorHandler errorHandler, int validationMode, boolean namespaceAware) throws Exception {

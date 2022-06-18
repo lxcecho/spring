@@ -64,6 +64,8 @@ public interface ResourcePatternResolver extends ResourceLoader {
 	String CLASSPATH_ALL_URL_PREFIX = "classpath*:";
 
 	/**
+	 * XML 解析逻辑中，实际上调用的是 DefaultResourceLoader 中的方法，而 ClassPathXmlApplicationContext 是 DefaultSourceLoader 的实现类，所以又回到了 ClassPathXmlApplicationContext 中来
+	 *
 	 * Resolve the given location pattern into Resource objects.
 	 * <p>Overlapping resource entries that point to the same physical
 	 * resource should be avoided, as far as possible. The result should

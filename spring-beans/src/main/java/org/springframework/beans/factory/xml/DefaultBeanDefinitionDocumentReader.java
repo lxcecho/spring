@@ -85,12 +85,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 
 	/**
+	 * 根据 Spring DTD 对 Bean 的定义规则解析 Bean 定义 Document 对象
+	 *
 	 * This implementation parses bean definitions according to the "spring-beans" XSD
 	 * (or DTD, historically).
 	 * <p>Opens a DOM Document; then initializes the default settings
 	 * specified at the {@code <beans/>} level; then parses the contained bean definitions.
 	 */
-	// 根据 Spring DTD 对 Bean 的定义规则解析 Bean 定义 Document 对象
 	@Override
 	public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {
 		// 获取的 XML 描述符
@@ -129,8 +130,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
 
-		// 具体的解析过程由 BeanDefinitionParserDelegate 实现
-		// BeanDefinitionParserDelegate 中定义了 Spring Bean 定义 XML 文件的各种元素
+		// 具体的解析过程由 BeanDefinitionParserDelegate 实现，BeanDefinitionParserDelegate 中定义了 Spring Bean 定义 XML 文件的各种元素
 		BeanDefinitionParserDelegate parent = this.delegate;
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
@@ -153,7 +153,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 		// 在解析 Bean 定义之前，进行自定义的解析，增强解析过程中的可扩展性
 		preProcessXml(root);
-		// 从Document 的根元素进行 Bean 定义的 Document对象
+		// 从 Document 的根元素进行 Bean 定义的 Document对象
 		parseBeanDefinitions(root, this.delegate);
 		// 在解析 Bean 定义之后，进行自定义的解析。增加解析过程的可扩展性
 		postProcessXml(root);
@@ -161,7 +161,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.delegate = parent;
 	}
 
-	// 创建 BeanDefinitionParserDelegate ，用于完成真正的解析过程
+	/**
+	 * 创建 BeanDefinitionParserDelegate ，用于完成真正的解析过程
+	 *
+	 * @param readerContext
+	 * @param root
+	 * @param parentDelegate
+	 * @return
+	 */
 	protected BeanDefinitionParserDelegate createDelegate(
 			XmlReaderContext readerContext, Element root, @Nullable BeanDefinitionParserDelegate parentDelegate) {
 
@@ -172,11 +179,12 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * 使用 Spring 的 Bean 规则从 Document 的根元素开始进行 Bean 定义的 Document 对象
+	 *
 	 * Parse the elements at the root level in the document:
 	 * "import", "alias", "bean".
 	 * @param root the DOM root element of the document
 	 */
-	// 使用 Spring 的 Bean 规则从 Document 的根元素开始进行 Bean 定义的 Document 对象
 	protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
 		// Bean 定义的 Document 对象使用了 Spring 默认的 XML 命名空间
 		if (delegate.isDefaultNamespace(root)) {
@@ -187,7 +195,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				// 获得 Document 节点是 XML 元素节点
 				if (node instanceof Element) {
 					Element ele = (Element) node;
-					// Bean 定义的 Document的元素节点使用的 Spring 默认的 XML 明明空间
+					// Bean 定义的 Document的元素节点使用的 Spring 默认的 XML 命名空间
 					if (delegate.isDefaultNamespace(ele)) { // 遍历文档中的所有节点
 						// 使用 Spring 的 Bean 规则解析元素节点
 						parseDefaultElement(ele, delegate);
@@ -205,17 +213,22 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 	}
 
-	// 使用 Spring 的 Bean 规则解析 Document 元素节点
+	/**
+	 * 使用 Spring 的 Bean 规则解析 Document 元素节点
+	 *
+	 * @param ele
+	 * @param delegate
+	 */
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
 		// 如果元素节点是 <import> 导入元素，进行导入解析
 		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
 			importBeanDefinitionResource(ele);
 		}
-		// 如果元素节点是<Alias>别名元素，进行别名解析
+		// 如果元素节点是 <Alias> 别名元素，进行别名解析
 		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
 			processAliasRegistration(ele);
 		}
-		//元素节点既不是导入元素，也不是别名元素，即普通的 <Bean> 元素，按照 Spring 的 Bean 规则解析元素
+		// 元素节点既不是导入元素，也不是别名元素，即普通的 <Bean> 元素，按照 Spring 的 Bean 规则解析元素
 		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
 			processBeanDefinition(ele, delegate);
 		}
@@ -226,14 +239,15 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * 解析 <Import> 导入元素，从给定的导入路径加载 Bean 配置资源到 SpringIOC 容器中
+	 *
 	 * Parse an "import" element and load the bean definitions
 	 * from the given resource into the bean factory.
 	 */
-	// 解析 <Import> 导入元素，从给定的导入路径加载Bean配置资源到SpringIOC容器中
 	protected void importBeanDefinitionResource(Element ele) {
-		// 获取给定的导入元素的location属性
+		// 获取给定的导入元素的 location 属性
 		String location = ele.getAttribute(RESOURCE_ATTRIBUTE);
-		// 如果导入元素的location属性值为空，则没有导入任何资源，直接返回
+		// 如果导入元素的 location 属性值为空，则没有导入任何资源，直接返回
 		if (!StringUtils.hasText(location)) {
 			getReaderContext().error("Resource location must not be empty", ele);
 			return;
@@ -258,10 +272,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 
 		// Absolute or relative?
-		// 给定的导入元素的location是绝对路径
+		// 给定的导入元素的 location 是绝对路径
 		if (absoluteLocation) {
 			try {
-				// 使用资源读入器加载给定路径的Bean配置资源
+				// 使用资源读入器加载给定路径的 Bean 配置资源
 				int importCount = getReaderContext().getReader().loadBeanDefinitions(location, actualResources);
 				if (logger.isTraceEnabled()) {
 					logger.trace("Imported " + importCount + " bean definitions from URL location [" + location + "]");
@@ -311,13 +325,14 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * 解析 <Alias> 别名元素，为 Bean 向 SpringIOC 容器注册别名
+	 *
 	 * Process the given alias element, registering the alias with the registry.
 	 */
-	//解析 <Alias> 别名元素，为 Bean 向 SpringIOC 容器注册别名
 	protected void processAliasRegistration(Element ele) {
-		//获取 <Alias> 别名元素中 name 的属性值
+		// 获取 <Alias> 别名元素中 name 的属性值
 		String name = ele.getAttribute(NAME_ATTRIBUTE);
-		//获取 <Alias> 别名元素中 alias 的属性值
+		// 获取 <Alias> 别名元素中 alias 的属性值
 		String alias = ele.getAttribute(ALIAS_ATTRIBUTE);
 		boolean valid = true;
 		// <alias> 别名元素的 name 属性值为空
@@ -345,12 +360,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	}
 
 	/**
+	 * 解析 Bean 配置资源 Document 对象的普通元素
+	 *
 	 * Process the given bean element, parsing the bean definition
 	 * and registering it with the registry.
 	 */
-	// 解析 Bean 配置资源 Document 对象的普通元素
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
-		// 把当前标签都解析完了，BeanDefinition 和 BeanName 都封装在了 Holder中
+		// 把当前标签都解析完了，BeanDefinition 和 BeanName 都封装在了 Holder 中
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		// BeanDefinitionHolder 是对 BeanDefinition 的封装，即 Bean 定义的封装类
 		// 对 Document 对象中 <Bean> 元素的解析由 BeanDefinitionParserDelegate 实现
