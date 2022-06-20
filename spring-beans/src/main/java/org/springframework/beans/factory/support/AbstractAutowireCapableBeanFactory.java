@@ -1806,6 +1806,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Set our (possibly massaged) deep copy.
 		try {
 			// 深拷贝所有 PropertyValue 应该对应的属性，进行属性依赖注入
+			// 这里使用了委派模式，在 BeanWrapper 接口中定义了方法声明，具体实现由 BeanWrapperImpl 完成
 			bw.setPropertyValues(new MutablePropertyValues(deepCopy));
 		}
 		catch (BeansException ex) {
