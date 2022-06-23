@@ -411,14 +411,19 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	}
 
 	/**
+	 * 为指定的 Bean 注入依赖的 Bean
+	 *
 	 * Register a dependent bean for the given bean,
 	 * to be destroyed before the given bean is destroyed.
 	 * @param beanName the name of the bean
 	 * @param dependentBeanName the name of the dependent bean
 	 */
 	public void registerDependentBean(String beanName, String dependentBeanName) {
+		// 处理 Bean 名称，将别名转换为规范的 Bean 名称
 		String canonicalName = canonicalName(beanName);
 
+		// 多线程同步：保证容器内数据的一致性
+		// 先从容器种：Bean 名称---> 全部依赖 Bean 名称集合找查找给定名称 Bean 的依赖 Bean
 		synchronized (this.dependentBeanMap) {
 			Set<String> dependentBeans =
 					this.dependentBeanMap.computeIfAbsent(canonicalName, k -> new LinkedHashSet<>(8));

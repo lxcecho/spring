@@ -1867,6 +1867,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			Object beanInstance, String name, String beanName, @Nullable RootBeanDefinition mbd) {
 
 		// Don't let calling code try to dereference the factory if the bean isn't a factory.
+		// Dereference：解引用，在 C++ 中，* 是解引用符号，而 & 是引用符号。解引用是指变量指向的是所引用对象的本身数据，而不是引用对象的内存地址。
 		if (BeanFactoryUtils.isFactoryDereference(name)) {
 			if (beanInstance instanceof NullBean) {
 				return beanInstance;
@@ -1914,7 +1915,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 			// 如果从容器得到 Bean 定义信息，并且 Bean 定义信息不是虚构的，则让工厂 Bean 生产 Bean 实例对象
 			boolean synthetic = (mbd != null && mbd.isSynthetic());
-			// 调用 FactoryBeanRegistrySupoort 类的 getObjectFromFactoryBean 方法，实现工厂 Bean 生产 Bean 对象实例的过程
+			// 调用 FactoryBeanRegistrySupport 类的 getObjectFromFactoryBean 方法，实现工厂 Bean 生产 Bean 对象实例的过程
 			object = getObjectFromFactoryBean(factory, beanName, !synthetic);
 		}
 		return object;

@@ -34,7 +34,7 @@ public class AnnotationTestBeanFactory implements FactoryBean<FactoryCreatedAnno
 	public FactoryCreatedAnnotationTestBean getObject() throws Exception {
 		return this.instance;
 	}
-
+	// AnnotationTestBeanFactory 产生 Bean 实例对象的实现
 	@Override
 	public Class<? extends IJmxTestBean> getObjectType() {
 		return FactoryCreatedAnnotationTestBean.class;
