@@ -534,7 +534,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// 2 告诉子类启动 refreshBeanFactory() 方法，Bean 定义资源文件的载入从子类的 refresh Bean Factory() 方法启动
+			// 2 告诉子类启动 refreshBeanFactory() 方法，Bean 定义资源文件的载入从子类的 refresh Bean Factory() 方法启动 【启动了Bean 定义资源的载入、注册过程】
 			// 工厂创建： BeanFactory 第一次开始创建的时候，有 XML 解析逻辑
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
@@ -575,7 +575,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 10 为事件传播器注册监听器，从容器中获取所有的 ApplicationListener
 				registerListeners();
 
-				// Instantiate all remaining (non-lazy-init) singletons.
+				// Instantiate all remaining (non-lazy-init) singletons.【对注册后的 Bean 定义中的预实例化(lazy-init=false;Spring 默认就是预实例化，即为 true) 的 Bean 进行处理的地方】
 				// 11 初始化所有剩余的单例 Bean
 				// 【大核心】bean 创建，完成 BeanFactory 初始化。（工厂里面所有的组件都好了）
 				finishBeanFactoryInitialization(beanFactory);
@@ -892,12 +892,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
+	 * 对配置了 lazy-init 属性的 Bean 进行预实例化处理
+	 *
 	 * Finish the initialization of this context's bean factory,
 	 * initializing all remaining singleton beans.
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
 		// Initialize conversion service for this context.
-		// 给工厂设置好 ConversionService【负责类型转换的组件服务】
+		// 给工厂设置好 ConversionService【负责类型转换的组件服务】，在对某些 Bean 属性进行转换时使用
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
 			beanFactory.setConversionService(
@@ -920,13 +922,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Stop using the temporary ClassLoader for type matching.
+		// 为了类型匹配，停止使用临时的类加载器
 		beanFactory.setTempClassLoader(null);
 
 		// Allow for caching all bean definition metadata, not expecting further changes.
+		// 缓存容器中所有注册的 BeanDefinition 元素据，以防被修改
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
-		// 初始化所有非懒加载的单实例 Bean
+		// 对配置了 lazy-init 属性的单态模式 Bean 进行预实例化处理，即初始化所有 非懒加载 的单实例 Bean
+		// 方法实现由 DefaultListableBeanFactory 提供
 		beanFactory.preInstantiateSingletons();
 	}
 

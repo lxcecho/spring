@@ -19,6 +19,9 @@ package org.springframework.beans.factory;
 import org.springframework.lang.Nullable;
 
 /**
+ * 工厂 Bean，用于产生其他对象：即允许程序员自定义一个对象通过 FactoryBean 间接的放到 Spring 容器中成为一个 Bean。
+ * 当用户使用容器本身时，使用转义字符 & 来得到 FactoryBean 本身，以区别 FactoryBean 产生的实例对象。
+ *
  * Interface to be implemented by objects used within a {@link BeanFactory} which
  * are themselves factories for individual objects. If a bean implements this
  * interface, it is used as a factory for an object to expose, not directly as a
@@ -62,7 +65,6 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.aop.framework.ProxyFactoryBean
  * @see org.springframework.jndi.JndiObjectFactoryBean
  */
-// 允许程序员自定义一个对象通过 FactoryBean 间接的放到 Spring 容器中成为一个 Bean
 public interface FactoryBean<T> {
 
 	/**
@@ -77,6 +79,8 @@ public interface FactoryBean<T> {
 
 
 	/**
+	 * 获取容器管理的对象实例
+	 *
 	 * Return an instance (possibly shared or independent) of the object
 	 * managed by this factory.
 	 * <p>As with a {@link BeanFactory}, this allows support for both the
@@ -97,6 +101,8 @@ public interface FactoryBean<T> {
 	T getObject() throws Exception;
 
 	/**
+	 * 获取 Bean 工厂创建的对象的类型
+	 *
 	 * Return the type of object that this FactoryBean creates,
 	 * or {@code null} if not known in advance.
 	 * <p>This allows one to check for specific types of beans without
@@ -119,6 +125,8 @@ public interface FactoryBean<T> {
 	Class<?> getObjectType();
 
 	/**
+	 * Bean 工厂创建的对象是否是单例模式，如果是单例模式，则整个容器中只有一个实例对象，每次请求都返回同一个实例对象。
+	 *
 	 * Is the object managed by this factory a singleton? That is,
 	 * will {@link #getObject()} always return the same object
 	 * (a reference that can be cached)?

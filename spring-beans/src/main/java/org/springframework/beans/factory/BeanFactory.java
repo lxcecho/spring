@@ -22,7 +22,8 @@ import org.springframework.lang.Nullable;
 
 /**
  * The root interface for accessing a Spring bean container.
- * 根接口，整个容器的访问入口
+ * 根接口，整个容器的访问入口， 作用时管理 Bean，即实例化、定位、配置应用程序中的对象及建立这些对象间的依赖。
+ *
  * <p>This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and
  * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
@@ -123,9 +124,9 @@ public interface BeanFactory {
 	 * beans <i>created</i> by the FactoryBean. For example, if the bean named
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
+	 *
+	 * 对 FactoryBean 的转义定义，提供获取 FactoryBean 的方式，如果使用 bean 的名字检索 FactoryBean 得到的对象是工厂生成的对象，如果需要得到工厂本身，需要转义
 	 */
-	// 对 FactoryBean 的转义定义，提供获取 FactoryBean 的方式，如果使用 bean 的名字检索 FactoryBean 得到的对象是工厂生成的对象
-	// 如果需要得到工厂本身，需要转义
 	String FACTORY_BEAN_PREFIX = "&";
 
 
