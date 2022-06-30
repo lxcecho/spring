@@ -672,6 +672,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 		if (configLocation != null) {
 			wac.setConfigLocation(configLocation);
 		}
+		// 启动 IOC 容器的入口
 		configureAndRefreshWebApplicationContext(wac);
 
 		return wac;
