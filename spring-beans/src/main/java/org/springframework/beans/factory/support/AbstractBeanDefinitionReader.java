@@ -256,7 +256,14 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		}
 	}
 
-	// 重载方法，调用 loadBeanDefinitions(String); 定义载入过程
+	/**
+	 * 重载方法，调用 loadBeanDefinitions(String); 定义载入过程
+	 *
+	 * @param locations the resource locations, to be loaded with the ResourceLoader
+	 * (or ResourcePatternResolver) of this bean definition reader
+	 * @return
+	 * @throws BeanDefinitionStoreException
+	 */
 	@Override
 	public int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException {
 		Assert.notNull(locations, "Location array must not be null");

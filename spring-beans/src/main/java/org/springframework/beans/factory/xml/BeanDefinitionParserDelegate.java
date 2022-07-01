@@ -536,7 +536,7 @@ public class BeanDefinitionParserDelegate {
 
 		try {
 			/**
-			 * 注意：在解析 <Bean> 元素过程中没有创建和实例化 Bean 对象，只是创建了 Bean 对象的定义类 BeanDefinition，将 <Bean> 元素中的配置信息
+			 * 注意：在解析 <Bean/> 元素过程中没有创建和实例化 Bean 对象，只是创建了 Bean 对象的定义类 BeanDefinition，将 <Bean> 元素中的配置信息
 			 * 设置到 BeanDefinition 中作为记录，当依赖注入时才使用这些记录信息创建和实例化具体的 Bean 对象。
 			 */
 			// 根据 <Bean> 元素配置的 class 名称和 parent 属性值创建 BeanDefinition，为载入 Bean 定义信息做准备
@@ -565,6 +565,7 @@ public class BeanDefinitionParserDelegate {
 
 			// 为当前解析的 Bean 设置所需的资源和依赖对象
 			bd.setResource(this.readerContext.getResource());
+			// 将属性值/引用与所引用的属性关联起来
 			bd.setSource(extractSource(ele));
 
 			return bd;

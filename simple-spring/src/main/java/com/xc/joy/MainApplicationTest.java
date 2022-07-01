@@ -30,6 +30,10 @@ public class MainApplicationTest {
 		 * AbstractApplicationContext 构造器 和 registerBean 断点
 		 */
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+		// 多个资源文件路径可以用 ,;\t\n 等分隔
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml, beans2.xml");
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"beans.xml, beans2.xml"});
+
 //		Person bean = context.getBean(Person.class);
 		// 生命周期 cat
 		Cat bean = context.getBean(Cat.class);

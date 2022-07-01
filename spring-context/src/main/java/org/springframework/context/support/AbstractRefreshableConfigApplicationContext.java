@@ -61,11 +61,12 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 
 
 	/**
+	 * 处理单个资源文件路径为一个字符串的情况
+	 *
 	 * Set the config locations for this application context in init-param style,
 	 * i.e. with distinct locations separated by commas, semicolons or whitespace.
 	 * <p>If not set, the implementation may use a default as appropriate.
 	 */
-	// 处理单个资源文件路径为一个字符串的情况
 	public void setConfigLocation(String location) {
 		// String CONFIG_LOCATION_DELIMITERS = ",; \t\n";
 		// 即多个资源文件之间用 ",; \t\n" 分隔，解析成数组形式
@@ -73,10 +74,11 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 	}
 
 	/**
+	 * 解析 Bean 定义资源文件的路径，处理多个资源文件字符串数组
+	 *
 	 * Set the config locations for this application context.
 	 * <p>If not set, the implementation may use a default as appropriate.
 	 */
-	// 解析 Bean 定义资源文件的路径，处理多个资源文件字符串数组
 	public void setConfigLocations(@Nullable String... locations) {
 		if (locations != null) {
 			Assert.noNullElements(locations, "Config locations must not be null");

@@ -118,6 +118,8 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	}
 
 	/**
+	 * Xml Bean 读取器加载 Bean 配置资源
+	 *
 	 * Load the bean definitions with the given XmlBeanDefinitionReader.
 	 * <p>The lifecycle of the bean factory is handled by the {@link #refreshBeanFactory}
 	 * method; hence this method is just supposed to load and/or register bean definitions.
@@ -130,7 +132,6 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResources
 	 * @see #getResourcePatternResolver
 	 */
-	// Xml Bean 读取器加载 Bean 配置资源
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
 		// 获取 Bean 配置资源的定位，由于 ClassPathXmlApplicationContext，因此这里返回的是 null
 		Resource[] configResources = getConfigResources();

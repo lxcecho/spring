@@ -157,7 +157,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	static {
 		// Eagerly load the ContextClosedEvent class to avoid weird classloader issues
 		// on application shutdown in WebLogic 8.1. (Reported by Dustin Woods.)
-		// 为了避免应用程序在 Weblogic8.1 关闭时出现类加载异常，加载 IOC 容器关闭事件类 ContextClosedEvent		ContextClosedEvent.class.getName();
+		// 为了避免应用程序在 Weblogic8.1 关闭时出现类加载异常，加载 IOC 容器关闭事件类 ContextClosedEvent
+		ContextClosedEvent.class.getName();
 	}
 
 
@@ -445,6 +446,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	/**
 	 * 获取一个 Spring Source 的加载器用于读入 Spring Bean 配置信息
+	 *
 	 * Return the ResourcePatternResolver to use for resolving location patterns
 	 * into Resource instances. Default is a
 	 * {@link org.springframework.core.io.support.PathMatchingResourcePatternResolver},
@@ -534,7 +536,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// 2 告诉子类启动 refreshBeanFactory() 方法，Bean 定义资源文件的载入从子类的 refresh Bean Factory() 方法启动 【启动了Bean 定义资源的载入、注册过程】
+			// 2 告诉子类启动 refreshBeanFactory() 方法，Bean 定义资源文件的载入从子类的 refreshBeanFactory() 方法启动 【启动了Bean 定义资源的载入、注册过程】
 			// 工厂创建： BeanFactory 第一次开始创建的时候，有 XML 解析逻辑
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
@@ -550,12 +552,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// 5 调用所有注册的 BeanFactoryPostProcessor 即Bean工程后置处理器的 Bean
+				// 5 调用所有注册的 BeanFactoryPostProcessor 即 Bean 工厂后置处理器的 Bean
 				// 【大核心】工厂增强：执行所有的 BeanFactory 后置增强器，利用 BeanFactory 后置增强器对工厂进行修改或者增强，配置类会在这里进行解析。
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
-				// 6 为 BeanFacotry 注册 BeanPostProcessor 即Bean后置处理器，用于监听容器触发的事件
+				// 6 为 BeanFactory 注册 BeanPostProcessor 即 Bean 后置处理器，用于监听容器触发的事件
 				// 【大核心】注册所有的 Bean 后置处理器
 				registerBeanPostProcessors(beanFactory);
 
