@@ -23,8 +23,8 @@ public class AnnotationTest {
 		// factoryBean 获取
 		/*Hello bean = applicationContext.getBean(Hello.class);*/
 
-		/*Person person = applicationContext.getBean(Person.class);
-		System.out.println(person);*/
+		Person person = applicationContext.getBean(Person.class);
+		System.out.println(person);
 
 		// 打印所有注册到容器的 bean 实例
 		/*String[] names = applicationContext.getBeanDefinitionNames();
@@ -47,8 +47,8 @@ public class AnnotationTest {
 
 		// 循环引用，原理测试
 		// AOP，原理测试
-		HelloService helloService = applicationContext.getBean(HelloService.class);
-		helloService.sayHello("lxcecho");
+		/*HelloService helloService = applicationContext.getBean(HelloService.class);
+		helloService.sayHello("lxcecho");*/
 
 	}
 
