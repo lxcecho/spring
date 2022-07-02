@@ -41,4 +41,4 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
-/springdemo/build/
+/simple-spring/build/
