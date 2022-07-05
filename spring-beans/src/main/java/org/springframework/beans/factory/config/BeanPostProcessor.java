@@ -20,6 +20,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.lang.Nullable;
 
 /**
+ * Bean 的后置处理器，可以在创建每个 Bean 的过程中进行干涉，是属于 BeanFactory 中一个属性
+ * 后置增强组件，每一个子接口的增强器在何时运行：在于改变；
+ *
  * Factory hook that allows for custom modification of new bean instances &mdash;
  * for example, checking for marker interfaces or wrapping beans with proxies.
  *
@@ -55,11 +58,12 @@ import org.springframework.lang.Nullable;
  * @see ConfigurableBeanFactory#addBeanPostProcessor
  * @see BeanFactoryPostProcessor
  */
-// 后置增强组件，每一个子接口的增强器在何时运行：在于改变；
-// Bean 的后置处理器，可以在创建每个 Bean 的过程中进行干涉，是属于 BeanFactory 中一个属性
 public interface BeanPostProcessor {
 
 	/**
+	 * 该方法在 bean 实例化完毕（且已经注入完毕），在 afterProperties 或自定义 init方 法执行之前
+	 * 为在 Bean 的初始化前提供回调入口
+	 *
 	 * Apply this {@code BeanPostProcessor} to the given new bean instance <i>before</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
@@ -72,13 +76,15 @@ public interface BeanPostProcessor {
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 */
-	// 该方法在bean实例化完毕（且已经注入完毕），在afterProperties或自定义init方法执行之前
 	@Nullable
 	default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
 	}
 
 	/**
+	 * 在 afterPropertiesSet 或者自定义 init 方法执行之后
+	 * 为在 Bean 的初始化之后提供回调的入口
+	 *
 	 * Apply this {@code BeanPostProcessor} to the given new bean instance <i>after</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
@@ -99,7 +105,6 @@ public interface BeanPostProcessor {
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 * @see org.springframework.beans.factory.FactoryBean
 	 */
-	// 在afterPropertiesSet或者自定义init方法执行之后
 	@Nullable
 	default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		return bean;

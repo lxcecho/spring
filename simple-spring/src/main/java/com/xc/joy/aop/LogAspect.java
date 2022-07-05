@@ -33,6 +33,14 @@ import java.util.Arrays;
 @Aspect // 说明这是切面
 public class LogAspect {
 
+	/**
+	 * 配置切入点：该方法无方法体，主要为方便同类中其他方法使用此处配置的切入点
+	 */
+	@Pointcut("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+	public void aspect() {
+
+	}
+
 	public LogAspect() {
 		System.out.println("LogAspect...");
 	}
@@ -42,7 +50,8 @@ public class LogAspect {
 	 *
 	 * @param joinPoint
 	 */
-	@Before("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+//	@Before("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+	@Before("aspect()")
 	public void logStart(JoinPoint joinPoint) {
 		String name = joinPoint.getSignature().getName();
 		System.out.println("logStart(): {" + name + "}, args: [{" + Arrays.asList(joinPoint.getArgs()) + "}]");
@@ -54,7 +63,8 @@ public class LogAspect {
 	 * @param joinPoint
 	 * @param result
 	 */
-	@AfterReturning(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", returning = "result")
+//	@AfterReturning(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", returning = "result")
+	@AfterReturning(value = "aspect()", returning = "result")
 	public void logReturn(JoinPoint joinPoint, Object result) {
 		String name = joinPoint.getSignature().getName();
 		System.out.println("logReturn(): {" + name + "}, args: [{" + Arrays.asList(joinPoint.getArgs()) + "}], result: {" + result + "}");
@@ -65,7 +75,8 @@ public class LogAspect {
 	 *
 	 * @param joinPoint
 	 */
-	@After("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+//	@After("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+	@After("aspect()")
 	public void logEnd(JoinPoint joinPoint) {
 		String name = joinPoint.getSignature().getName();
 		System.out.println("logEnd(): {" + name + "}, args: [{" + Arrays.asList(joinPoint.getArgs()) + "}]");
@@ -74,7 +85,8 @@ public class LogAspect {
 	/**
 	 * 异常通知
 	 */
-	@AfterThrowing(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", throwing = "e")
+//	@AfterThrowing(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", throwing = "e")
+	@AfterThrowing(value = "aspect()", throwing = "e")
 	public void logError(JoinPoint joinPoint, Exception e) {
 		String name = joinPoint.getSignature().getName();
 		System.out.println("logError(): {" + name + "}, args: [{" + Arrays.asList(joinPoint.getArgs()) + "}], exception: {" + e + "}");
