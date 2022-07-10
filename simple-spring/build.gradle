@@ -1,15 +1,4 @@
-plugins {
-    id 'java'
-}
-
-group 'org.springframework'
-version '5.2.13.BUILD-SNAPSHOT'
-
-// 在项目 build.gradle文件中设置如下
-repositories {  //仓库管理
-    mavenLocal()   //优先使用本地maven的仓库设置
-    mavenCentral()
-}
+description = "simple-spring"
 
 // 使用 gradle 在控制台输出中文乱码解决
 compileJava.options.encoding = 'UTF-8'
@@ -22,8 +11,4 @@ dependencies {
     compile(project(":spring-aspects"))
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
-test {
-    useJUnitPlatform()
 }

@@ -529,6 +529,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 		try {
 			// 初始化 IOC 容器
 			this.webApplicationContext = initWebApplicationContext();
+			// 模板方法模式，给子类实现
 			initFrameworkServlet();
 		}
 		catch (ServletException | RuntimeException ex) {
@@ -579,6 +580,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 						// the root application context (if any; may be null) as the parent
 						cwac.setParent(rootContext);
 					}
+					// 配置并且刷新容器
 					configureAndRefreshWebApplicationContext(cwac);
 				}
 			}
