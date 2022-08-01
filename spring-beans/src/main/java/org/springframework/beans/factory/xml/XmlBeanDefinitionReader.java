@@ -405,6 +405,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
 			}
+			// count 表示实际读取的 bean 的个数
 			return count;
 		}
 		catch (BeanDefinitionStoreException ex) {

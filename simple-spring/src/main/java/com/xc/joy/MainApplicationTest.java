@@ -11,11 +11,14 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  * @author lxcecho 909231497@qq.com
@@ -24,7 +27,37 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class MainApplicationTest {
 
+	/**
+	 * 关于 spring 容器管理 Bean 的过程及加载模式
+	 * 1. 需要将 bean 的定义信息声明在 spring 的配置文件当中
+	 * 2. 需要通过 spring 抽象出的各种 resource 来制定对应的配置文件
+	 * 3. 需要显式声明一个 spring 工厂，用来掌控在配置文件中所声明的的各种 bean 以及 bean 之间的依赖关系和注入关系
+	 * 4. 需要定义一个配置信息读取器，用来读取之前定义的 bean 配置文件信息
+	 * 5. 读取器租用：读取声明的配置信息，并且将读取信息装配到声明的工厂中
+	 * 6. 将读取器与工厂以及资源对象进行关联处理
+	 * 7. 工厂所管理的全部对象封装完毕，可以供客户端直接调用。
+	 *
+	 * Spring 对于 Bean 管理的核心组件
+	 * 1. 资源抽象
+	 * 2. 工厂
+	 * 3. 配置信息读取器
+	 *
+	 * BeanFactory 是 spring 最顶层的抽象
+	 *
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
+		Resource resource = new ClassPathResource("beans.xml");
+		DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+		BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+		beanDefinitionReader.loadBeanDefinitions(resource);
+
+		Person person = (Person)defaultListableBeanFactory.getBean("person");
+		System.out.println(person);
+	}
+
+	public static void main0(String[] args) {
 		/**
 		 * xml 版 Spring 的用法，beanDefinitionMap 调试 —— beans.xml
 		 * AbstractApplicationContext 构造器 和 registerBean 断点

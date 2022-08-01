@@ -44,6 +44,8 @@ import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * 门面模式的应用
+ *
  * Generic utility methods for working with JDBC. Mainly for internal use
  * within the framework, but also useful for custom JDBC access code.
  *

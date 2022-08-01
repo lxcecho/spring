@@ -153,7 +153,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 		// 在解析 Bean 定义之前，进行自定义的解析，增强解析过程中的可扩展性
 		preProcessXml(root);
-		// 从 Document 的根元素进行 Bean 定义的 Document对象
+		// 从 Document 的根元素进行 Bean 定义的 Document 对象
 		parseBeanDefinitions(root, this.delegate);
 		// 在解析 Bean 定义之后，进行自定义的解析。增加解析过程的可扩展性
 		postProcessXml(root);
@@ -220,15 +220,15 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * @param delegate
 	 */
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
-		// 如果元素节点是 <import> 导入元素，进行导入解析
+		// 如果元素节点是 <import/> 导入元素，进行导入解析
 		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
 			importBeanDefinitionResource(ele);
 		}
-		// 如果元素节点是 <Alias> 别名元素，进行别名解析
+		// 如果元素节点是 <Alias/> 别名元素，进行别名解析
 		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
 			processAliasRegistration(ele);
 		}
-		// 元素节点既不是导入元素，也不是别名元素，即普通的 <Bean> 元素，按照 Spring 的 Bean 规则解析元素
+		// 元素节点既不是导入元素，也不是别名元素，即普通的 <Bean/> 元素，按照 Spring 的 Bean 规则解析元素
 		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
 			processBeanDefinition(ele, delegate);
 		}

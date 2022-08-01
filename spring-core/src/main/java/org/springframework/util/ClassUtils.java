@@ -194,8 +194,7 @@ public abstract class ClassUtils {
 		catch (Throwable ex) {
 			// Cannot access thread context ClassLoader - falling back...
 		}
-		// 2 如果为空，则获取加载ClassUtil类的类加载器（正常情况下，就是AppClassLoader，但是如果在 Tomcat 中运行，
-		// 那么则会是 Tomcat 中为每个应用所创建的 WebAppClassLoader）
+		// 2 如果为空，则获取加载 ClassUtil 类的类加载器（正常情况下，就是 AppClassLoader，但是如果在 Tomcat 中运行，那么则会是 Tomcat 中为每个应用所创建的 WebAppClassLoader）
 		if (cl == null) {
 			// No thread context class loader -> use class loader of this class.
 			cl = ClassUtils.class.getClassLoader();
