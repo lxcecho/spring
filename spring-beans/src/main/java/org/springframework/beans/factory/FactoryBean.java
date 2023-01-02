@@ -19,6 +19,15 @@ package org.springframework.beans.factory;
 import org.springframework.lang.Nullable;
 
 /**
+ * FactoryBean 和 BeanFactory 的区别：
+ *  1. BeanFactory 是 Spring IOC 的工厂，它里面管理着 Spring 所创建出来的各种 Bean 对象，当我们在配置文件（注解）中声明了某个 Bean 的 id 后，
+ *  通过这个 id 就可以获取到与该 id 所对应的 class 对象的实例（可能新建，也可能从缓冲区中获取）；
+ *  2. FactoryBean 本质上也是一个 Bean，它同其他 Bean 一样，也是由 BeanFactory 所管理和维护的，当然它的实例也会缓存到 Spring 的工厂中（如果是单例），
+ *  它与普通的 Bean 的唯一区别在于：当 Spring 创建另一个 FactoryBean 的实例后，它接下来会判断当前所创建的 Bean 是否是一个 FactoryBean 实例，如果不是，
+ *  那么就直接将创建出来的 Bean 返回给客户端；如果是，那么它会对其进一步的处理，根据配置文件所配置的 target，advisor 与 interfaces 等信息，在运行期动态
+ *  构建出一个类，并生成该类的一个实例，最后将该实例返回给客户端。因此，我们在声明一个 FactoryBean 时，通过 id 获取到的并非这个 FactoryBean 实例，而是它
+ *  动态生成出来的一个代理队形（通过三种方式来进行生成）。
+ *
  * 工厂 Bean，用于产生其他对象：即允许程序员自定义一个对象通过 FactoryBean 间接的放到 Spring 容器中成为一个 Bean。
  * 当用户使用容器本身时，使用转义字符 & 来得到 FactoryBean 本身，以区别 FactoryBean 产生的实例对象。
  *

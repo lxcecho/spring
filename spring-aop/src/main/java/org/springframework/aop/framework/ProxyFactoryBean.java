@@ -82,8 +82,8 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @see #setInterceptorNames
- * @see #setProxyInterfaces
+ * @see #setInterceptorNames  通知器（Advisor）列表，通知器中包含了通知（Advice）与切点（Pointcut）
+ * @see #setProxyInterfaces 代理对象所实现的接口
  * @see org.aopalliance.intercept.MethodInterceptor
  * @see org.springframework.aop.Advisor
  * @see Advised
@@ -103,6 +103,9 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	@Nullable
 	private String[] interceptorNames;
 
+	/**
+	 * 目标对象，需要对其进行切面增强
+	 */
 	@Nullable
 	private String targetName;
 
