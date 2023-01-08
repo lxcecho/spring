@@ -3,12 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="indexDao" class="com.xc.joy.proxy.dao.impl.MemberDao"/>
+    <bean id="indexDao" class="com.xc.joy.dao.impl.MemberDao"/>
     <bean id="myAdvisor" class="com.xc.joy.proxy.advisor.MyAdvisor"/>
 
     <bean id="myAop" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="indexDao"/>
-        <property name="proxyInterfaces" value="com.xc.joy.proxy.dao.IndexDao"/>
+        <property name="proxyInterfaces" value="com.xc.joy.dao.IndexDao"/>
         <property name="interceptorNames">
             <list>
                 <value>myAdvisor</value>

@@ -1,6 +1,6 @@
 package com.xc.joy;
 
-import com.xc.joy.proxy.dao.IndexDao;
+import com.xc.joy.dao.IndexDao;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -37,7 +37,6 @@ public class AopTest {
         for (int i = 0; i < indexDao.getClass().getInterfaces().length; i++) {
             System.out.println(indexDao.getClass().getInterfaces()[i]);
         }
-
 
     }
 

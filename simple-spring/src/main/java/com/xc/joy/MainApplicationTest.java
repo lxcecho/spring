@@ -1,10 +1,9 @@
 package com.xc.joy;
 
 import com.xc.joy.beans.Cat;
-import com.xc.joy.beans.Hello;
 import com.xc.joy.beans.Person;
 import com.xc.joy.conf.AppConfig;
-import com.xc.joy.dao.IndexDao;
+import com.xc.joy.dao.TestDao;
 import com.xc.joy.beans.Users;
 import com.xc.joy.service.Demo1;
 import org.springframework.beans.BeansException;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -31,7 +29,8 @@ public class MainApplicationTest {
 	 * 关于 spring 容器管理 Bean 的过程及加载模式
 	 * 1. 需要将 bean 的定义信息声明在 spring 的配置文件当中
 	 * 2. 需要通过 spring 抽象出的各种 resource 来制定对应的配置文件
-	 * 3. 需要显式声明一个 spring 工厂，用来掌控在配置文件中所声明的的各种 bean 以及 bean 之间的依赖关系和注入关系
+	 * 3. 需要显式声明一个 spring 工厂，用来掌控在配置文件
+	 * 中所声明的的各种 bean 以及 bean 之间的依赖关系和注入关系
 	 * 4. 需要定义一个配置信息读取器，用来读取之前定义的 bean 配置文件信息
 	 * 5. 读取器租用：读取声明的配置信息，并且将读取信息装配到声明的工厂中
 	 * 6. 将读取器与工厂以及资源对象进行关联处理
@@ -55,6 +54,13 @@ public class MainApplicationTest {
 
 		Person person = (Person)defaultListableBeanFactory.getBean("person");
 		System.out.println(person);
+
+		// bring in some property values from a Properties file
+//		PropertySourcesPlaceholderConfigurer cfg = new PropertySourcesPlaceholderConfigurer();
+//		cfg.setLocation(new FileSystemResource("jdbc.properties"));
+
+		// now actually do the replacement
+//		cfg.postProcessBeanFactory(defaultListableBeanFactory);
 	}
 
 	public static void main0(String[] args) {
@@ -78,9 +84,9 @@ public class MainApplicationTest {
 		System.out.println("Hello, lxcecho.");
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.register(IndexDao.class);
+		context.register(TestDao.class);
 		context.refresh();
-		IndexDao dao = context.getBean(IndexDao.class);
+		TestDao dao = context.getBean(TestDao.class);
 		dao.query();
 	}
 
@@ -139,7 +145,8 @@ public class MainApplicationTest {
 		beanFactory.registerBeanDefinition("user", beanDefinition);
 		// 注册别名
 		beanFactory.registerAlias("user", "user11");
-		//注册 BeanPostProcessor
+		// now register any needed BeanPostProcessor instances
+		// 注册 BeanPostProcessor
 		beanFactory.addBeanPostProcessor(new BeanPostProcessor() {
 			@Override
 			public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -151,6 +158,7 @@ public class MainApplicationTest {
 				return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
 			}
 		});
+		// now start using the factory
 		// 获取 Bean 对象
 		System.out.println(beanFactory.getBean("user11"));
 		// 根据类型获取 beanNames

@@ -1,6 +1,6 @@
-package com.xc.joy.proxy.dao.impl;
+package com.xc.joy.dao.impl;
 
-import com.xc.joy.proxy.dao.IndexDao;
+import com.xc.joy.dao.IndexDao;
 
 /**
  * @author lxcecho 909231497@qq.com
