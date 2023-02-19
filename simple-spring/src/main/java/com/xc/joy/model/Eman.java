@@ -1,7 +1,5 @@
 package com.xc.joy.model;
 
-import org.springframework.stereotype.Component;
-
 /**
  * @author lxcecho 909231497@qq.com
  * @since 21:54 15-01-2023

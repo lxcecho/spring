@@ -26,6 +26,8 @@ import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.lang.Nullable;
 
 /**
+ * 在 BeanFactory 的基础上，支持在创建 Bean 的过程中能对Bean进行自动装配
+ *
  * Extension of the {@link org.springframework.beans.factory.BeanFactory}
  * interface to be implemented by bean factories that are capable of
  * autowiring, provided that they want to expose this functionality for
@@ -59,7 +61,6 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.config.ConfigurableListableBeanFactory
  * @see org.springframework.context.ApplicationContext#getAutowireCapableBeanFactory()
  */
-// 在 BeanFactory 的基础上，支持在创建 Bean 的过程中能对Bean进行自动装配
 public interface AutowireCapableBeanFactory extends BeanFactory {
 
 	/**
