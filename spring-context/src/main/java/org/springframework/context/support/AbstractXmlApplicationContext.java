@@ -73,13 +73,14 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 
 
 	/**
+	 * 实现父类抽象的载入 Bean 定义方法
+	 *
 	 * Loads the bean definitions via an XmlBeanDefinitionReader.
 	 *
 	 * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader
 	 * @see #initBeanDefinitionReader
 	 * @see #loadBeanDefinitions
 	 */
-	// 实现父类抽象的载入 Bean 定义方法
 	@Override
 	protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throws BeansException, IOException {
 		// Create a new XmlBeanDefinitionReader for the given BeanFactory.
@@ -133,7 +134,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResourcePatternResolver
 	 */
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
-		// 获取 Bean 配置资源的定位，由于 ClassPathXmlApplicationContext，因此这里返回的是 null
+		// 获取 Bean 配置资源的定位，由于是 ClassPathXmlApplicationContext，因此这里返回的是 null
 		Resource[] configResources = getConfigResources();
 		if (configResources != null) {
 			// Xml Bean 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
@@ -142,7 +143,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		// 如果子类中获取的 Bean 配置资源定位为空，则获取 ClassPathXmlApplicationContext 构造方法中 setConfigLocations 方法设置的资源
 		String[] configLocations = getConfigLocations(); // 可以传入多个配置文件
 		if (configLocations != null) {
-			// Xml Bean 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
+			// XmlBeanDefinitionReader 读取器调用其父类 AbstractBeanDefinitionReader 读取定位的 Bean 配置资源
 			reader.loadBeanDefinitions(configLocations); // 读取文件
 		}
 	}

@@ -130,7 +130,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
 
-		// 具体的解析过程由 BeanDefinitionParserDelegate 实现，BeanDefinitionParserDelegate 中定义了 Spring Bean 定义 XML 文件的各种元素
+		/**
+		 * 具体的解析过程由 BeanDefinitionParserDelegate 实现，BeanDefinitionParserDelegate 中定义了 Spring Bean 定义 XML 文件的各种元素
+		 *
+		 * @see BeanDefinitionParserDelegate
+		 */
 		BeanDefinitionParserDelegate parent = this.delegate;
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 

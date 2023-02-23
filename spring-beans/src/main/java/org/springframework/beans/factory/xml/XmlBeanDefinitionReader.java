@@ -300,7 +300,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 
 	/**
-	 * XmlBeanDefinitionReader 加载资源的入口方法
+	 * TODO XmlBeanDefinitionReader 加载资源的入口方法
 	 *
 	 * Load bean definitions from the specified XML file.
 	 * @param resource the resource descriptor for the XML file

@@ -190,7 +190,14 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		return count;
 	}
 
-	// 重载方法，调用下面的 loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) 方法
+	/**
+	 * 重载方法，调用下面的 loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) 方法
+	 *
+	 * @param location the resource location, to be loaded with the ResourceLoader
+	 * (or ResourcePatternResolver) of this bean definition reader
+	 * @return
+	 * @throws BeanDefinitionStoreException
+	 */
 	@Override
 	public int loadBeanDefinitions(String location) throws BeanDefinitionStoreException {
 		// 加载指定配置文件的所有内容
@@ -268,7 +275,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	public int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException {
 		Assert.notNull(locations, "Location array must not be null");
 		int count = 0;
-		for (String location : locations) {// 加载每个配置文件的内容
+		for (String location : locations) { // 加载每个配置文件的内容
 			count += loadBeanDefinitions(location);
 		}
 		return count;

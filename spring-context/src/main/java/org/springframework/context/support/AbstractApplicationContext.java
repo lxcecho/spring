@@ -656,7 +656,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Allow for the collection of early ApplicationEvents,
 		// to be published once the multicaster is available...
-		// 早期的一些时间存储到这里
+		// 早期的一些事件存储到这里
 		this.earlyApplicationEvents = new LinkedHashSet<>();
 	}
 
