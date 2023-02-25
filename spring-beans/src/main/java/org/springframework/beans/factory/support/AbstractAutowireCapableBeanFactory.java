@@ -595,7 +595,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Eagerly cache singletons to be able to resolve circular references
 		// even when triggered by lifecycle interfaces like BeanFactoryAware.
-		// 向容器中缓存单例模式的 Bean 对象，以防循环引用，即提前暴露单实例，专门解决 循环引用问题
+		// TODO 向容器中缓存单例模式的 Bean 对象，以防循环引用，即提前暴露单实例，专门解决 循环引用问题
 		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
 				isSingletonCurrentlyInCreation(beanName));
 		if (earlySingletonExposure) {
@@ -608,7 +608,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Initialize the bean instance.
-		// Bean 对象的初始化，依赖注入在此触发，这个 exposedObject 在初始化完成之后返回作为依赖注入完成后的 Bean
+		// TODO Bean 对象的初始化，依赖注入在此触发，这个 exposedObject 在初始化完成之后返回作为依赖注入完成后的 Bean
 		Object exposedObject = bean;
 		try {
 			// 将 Bean 实例对象封装，并且 Bean 定义中配置的属性值给创建好的对象每个属性进行赋值， @Autowired 发生在此
@@ -1504,7 +1504,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		if (pvs != null) {
 			// 把以前处理好的 PropertyValues 给 Bean 里面设置一下，主要是上面步骤没有给 Bean里面设置的属性
-			// XML 版的所有配置会来到这里给属性赋值
+			// TODO XML 版的所有配置会来到这里给属性赋值
 			applyPropertyValues(beanName, mbd, bw, pvs);
 		}
 	}
@@ -1887,7 +1887,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}, getAccessControlContext());
 		}
 		else {
-			// 为 Bean 实力独享包装相关属性，组件有 Aware 接口：BeanNameAware、BeanClassLoaderAware、BeanFactoryAware
+			// 为 Bean 实例独享包装相关属性，组件有 Aware 接口：BeanNameAware、BeanClassLoaderAware、BeanFactoryAware
 			invokeAwareMethods(beanName, bean);
 		}
 
