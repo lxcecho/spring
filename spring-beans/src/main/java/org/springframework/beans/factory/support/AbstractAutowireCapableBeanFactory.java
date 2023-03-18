@@ -513,7 +513,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		try {
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
-			// 如果 Bean 配置了初始化前和初始化后的处理器，则驶入返回一一个需要创建 Bean 的代理对象，即提前给我们一个机会，去返回组建的代理对象
+			// 如果 Bean 配置了初始化前和初始化后的处理器，则需要返回一个需要创建 Bean 的代理对象，即提前给我们一个机会，去返回组建的代理对象
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -564,11 +564,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Instantiate the bean. 封装被创建的 Bean 对象
 		BeanWrapper instanceWrapper = null;
-		if (mbd.isSingleton()) { // 是否单例的
+		if (mbd.isSingleton()) { // 是否单例的，如果是，先把缓存中的同名 Bean 清除
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
-			// 创建 Bean 的实例，默认使用无参构造器创建的对象，组件的原始对象就创建好了
+			// 创建 Bean 的实例，默认使用【无参构造器】创建的对象，组件的原始对象就创建好了
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
 		Object bean = instanceWrapper.getWrappedInstance();
@@ -1433,7 +1433,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Give any InstantiationAwareBeanPostProcessors the opportunity to modify the
 		// state of the bean before properties are set. This can be used, for example,
 		// to support styles of field injection.
-		// 在属性赋值之前，后置处理器可以提前准备些东西，@Autowired 赋值也在这里[但是没做事]，可以中断初始化行为
+		// 在属性赋值之前，后置处理器可以提前准备些东西，@Autowired 赋值也在这里【但是没做事】，可以中断初始化行为
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
@@ -1830,7 +1830,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Set our (possibly massaged) deep copy.
 		try {
-			// 深拷贝所有 PropertyValue 应该对应的属性，进行属性依赖注入
+			// 深拷贝所有 PropertyValue 对应的属性，进行属性依赖注入
 			// 这里使用了委派模式，在 BeanWrapper 接口中定义了方法声明，具体实现由 BeanWrapperImpl 完成
 			bw.setPropertyValues(new MutablePropertyValues(deepCopy));
 		}

@@ -348,7 +348,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				checkMergedBeanDefinition(mbd, beanName, args);
 
 				// Guarantee initialization of beans that the current bean depends on.
-				// 获取其当前 Bean 所依赖的 Bean 的名称
+				// 获取其当前 Bean 所依赖的 Bean 的名称，这样会触发 getBean 的递归调用，直到取到一个没有任何依赖的 Bean 为止
 				String[] dependsOn = mbd.getDependsOn();
 				// 如果当前有依赖 Bean
 				if (dependsOn != null) {
@@ -454,7 +454,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// Check if required type matches the type of the actual bean instance.
-		// 对创建的 Bean 实例对象进行类型检查
+		// 对创建的 Bean 实例对象进行类型检查，如果没有问题，就返回这个新创建的 Bean，这个 Bean 已经是包含了依赖关系的 Bean
 		if (requiredType != null && !requiredType.isInstance(bean)) {
 			try {
 				T convertedBean = getTypeConverter().convertIfNecessary(bean, requiredType);

@@ -896,11 +896,12 @@ public class BeanDefinitionParserDelegate {
 			}
 			// 解析获取 property 的值
 			Object val = parsePropertyValue(ele, bd, propertyName);
-			// 根据 property 的名字和值创建 property 实例
+			// 根据 property 的名字和值创建 PropertyValue 实例
 			PropertyValue pv = new PropertyValue(propertyName, val);
 			// 解析 <property> 元素中的属性
 			parseMetaElements(ele, pv);
 			pv.setSource(extractSource(ele));
+			// 解析结果会设置到 BD 里边
 			bd.getPropertyValues().addPropertyValue(pv);
 		}
 		finally {

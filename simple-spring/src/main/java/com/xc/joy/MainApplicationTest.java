@@ -73,7 +73,7 @@ public class MainApplicationTest {
 //		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"beans.xml, beans2.xml"});
 
 //		Person bean = context.getBean(Person.class);
-		// 生命周期 cat
+		// 生命周期 cat，需要将配置文件中的 <context> 注释掉
 		Cat bean = context.getBean(Cat.class);
 		System.out.println(bean);
 	}

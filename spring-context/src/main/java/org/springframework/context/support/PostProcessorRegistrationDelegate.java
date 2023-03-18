@@ -308,7 +308,7 @@ final class PostProcessorRegistrationDelegate {
 			Collection<? extends BeanDefinitionRegistryPostProcessor> postProcessors, BeanDefinitionRegistry registry) {
 
 		for (BeanDefinitionRegistryPostProcessor postProcessor : postProcessors) {
-			postProcessor.postProcessBeanDefinitionRegistry(registry); // 核心：配置类的后置处理器会在此解析配置类
+			postProcessor.postProcessBeanDefinitionRegistry(registry); // TODO 核心：配置类的后置处理器会在此解析配置类
 		}
 	}
 

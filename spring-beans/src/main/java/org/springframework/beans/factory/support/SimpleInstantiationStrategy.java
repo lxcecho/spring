@@ -74,7 +74,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 		if (!bd.hasMethodOverrides()) {
 			Constructor<?> constructorToUse;
 			synchronized (bd.constructorArgumentLock) {
-				// 获取对象的狗在方法或工厂方法
+				// 获取对象的构造方法或工厂方法对 Bean 进行实力化
 				constructorToUse = (Constructor<?>) bd.resolvedConstructorOrFactoryMethod;
 				// 如果没有构造方法且没有工厂方法
 				if (constructorToUse == null) {

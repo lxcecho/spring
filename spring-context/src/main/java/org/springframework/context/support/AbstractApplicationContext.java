@@ -577,7 +577,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 10 为事件传播器注册监听器，从容器中获取所有的 ApplicationListener
 				registerListeners();
 
-				// Instantiate all remaining (non-lazy-init) singletons.【对注册后的 Bean 定义中的预实例化(lazy-init=false;Spring 默认就是预实例化，即为 true) 的 Bean 进行处理的地方】
+				// Instantiate all remaining (non-lazy-init) singletons.【对注册后的 Bean 定义中的预实例化(lazy-init=false;Spring 默认就是预实例化，即为 false) 的 Bean 进行处理的地方】
 				// 11 初始化所有剩余的单例 Bean
 				// 【大核心】bean 创建，完成 BeanFactory 初始化。（工厂里面所有的组件都好了）
 				finishBeanFactoryInitialization(beanFactory);
@@ -917,7 +917,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.
-		// LoadTimeWeaverAware；aspectj：加载时织入【aop】功能
+		// LoadTimeWeaverAware；aspectj：加载时织入【AOP】功能
 		String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
 		for (String weaverAwareName : weaverAwareNames) {
 			getBean(weaverAwareName); // 从容其中获取组件，有则直接获取，无则进行创建。
