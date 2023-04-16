@@ -1,9 +1,15 @@
 package com.xc.joy;
 
+import com.xc.joy.aop.HelloService;
+import com.xc.joy.conf.AopOpenConfig;
+import com.xc.joy.conf.AppConfig;
 import com.xc.joy.dao.IndexDao;
+import org.junit.Test;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -21,23 +27,27 @@ import org.springframework.core.io.Resource;
  * 10，客户在使用代理对象时，可以正常调用目标对象的方法，同时在执行过程中，会根据我们在配置文件中所配置的信息来在调用前后执行额外的附加逻辑。
  *
  * @author lxcecho 909231497@qq.com
- * @since 22:19 02-01-2023
+ * @since 21:44 16-04-2023
  */
 public class AopTest {
 
-    public static void main(String[] args) {
-        Resource resource = new ClassPathResource("aop-test.xml");
-        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
-        beanDefinitionReader.loadBeanDefinitions(resource);
+    @Test
+    public void testAopByXml() {
+        String file = "aop-test.xml";
+        ClassPathXmlApplicationContext  ac = new ClassPathXmlApplicationContext(file);
+        // Get Proxy Object
+        IndexDao myAop = ac.getBean("myAop", IndexDao.class);
+        ac.close();
+        String lxcecho = myAop.query("lxcecho", 18);
+    }
 
-        IndexDao indexDao = (IndexDao) defaultListableBeanFactory.getBean("myAop");
-        indexDao.query("lxcecho", 111);
-
-        for (int i = 0; i < indexDao.getClass().getInterfaces().length; i++) {
-            System.out.println(indexDao.getClass().getInterfaces()[i]);
-        }
-
+    @Test
+    public void testAopByAnnotation() {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AopOpenConfig.class);
+        // 循环引用，原理测试
+        // AOP，原理测试
+        HelloService helloService = applicationContext.getBean(HelloService.class);
+        helloService.sayHello("lxcecho");
     }
 
 }

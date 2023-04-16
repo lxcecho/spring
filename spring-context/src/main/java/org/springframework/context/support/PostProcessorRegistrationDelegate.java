@@ -103,7 +103,7 @@ final class PostProcessorRegistrationDelegate {
 			// 优先级排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			registryProcessors.addAll(currentRegistryProcessors);
-			// 执行这些 BeanDefinitionRegistryPostProcessor 的
+			// 执行这些 BeanDefinitionRegistryPostProcessor
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			currentRegistryProcessors.clear();
 

@@ -92,7 +92,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 					aspectNames = new ArrayList<>();
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false); // 获取容器中所有的 Object 类型的组件
-					for (String beanName : beanNames) {
+					for (String beanName : beanNames) { // 找到所有的切面找增强器
 						if (!isEligibleBean(beanName)) {
 							continue;
 						}
@@ -108,7 +108,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
-								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
+								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory); // 获取增强器
 								if (this.beanFactory.isSingleton(beanName)) {
 									this.advisorsCache.put(beanName, classAdvisors);
 								}

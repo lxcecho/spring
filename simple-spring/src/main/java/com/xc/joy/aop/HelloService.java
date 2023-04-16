@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * <p>
  * 切面存在的话就会返回代理对象
  */
-@Component // 如果切面存在的话就返回代理对象
+@Component // 如果切面存在的话就返回代理对象，将业务逻辑类加到容器中
 public class HelloService {
 
 	public HelloService() {

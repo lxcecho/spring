@@ -3,14 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--定义目标对象-->
     <bean id="indexDao" class="com.xc.joy.dao.impl.MemberDao"/>
     <!--通知器：实现定义了需要对目标对象进行增强的切面行为，也就是 Advice 通知-->
     <bean id="myAdvisor" class="com.xc.joy.proxy.advisor.MyAdvisor"/>
 
     <!--ProxyFactoryBean: 封装 AOP 功能的主要类-->
     <bean id="myAop" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--设置目标对象-->
         <property name="target" ref="indexDao"/>
+        <!--设置实现的接口，value 中写接口的全限定名-->
         <property name="proxyInterfaces" value="com.xc.joy.dao.IndexDao"/>
+        <!--配置通知-->
         <property name="interceptorNames">
             <list>
                 <value>myAdvisor</value>

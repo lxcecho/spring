@@ -67,7 +67,7 @@ import org.springframework.util.ClassUtils;
 
 /**
  * {@link BeanFactoryPostProcessor} used for bootstrapping processing of
- * {@link Configuration @Configuration} classes.
+ * {@link Configuration @Configuration} classes. 由配置文件解析器对所有配置类进行解析
  *
  * <p>Registered by default when using {@code <context:annotation-config/>} or
  * {@code <context:component-scan/>}. Otherwise, may be declared manually as
@@ -218,9 +218,10 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 
 	/**
+	 * 把配置类中所有 Bean 的定义信息导进来
+	 *
 	 * Derive further bean definitions from the configuration classes in the registry.
 	 */
-	// 把配置类中所有 Bean 的定义信息导进来
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
 		int registryId = System.identityHashCode(registry);
@@ -265,7 +266,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 */
 	public void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<>();
-		String[] candidateNames = registry.getBeanDefinitionNames(); //  拿到工厂所有的 bean 定义信息
+		String[] candidateNames = registry.getBeanDefinitionNames(); // 拿到工厂所有的 bean 定义信息
 
 		for (String beanName : candidateNames) {
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);

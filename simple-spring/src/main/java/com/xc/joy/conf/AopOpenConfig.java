@@ -1,5 +1,6 @@
 package com.xc.joy.conf;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -9,5 +10,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @EnableAspectJAutoProxy // 开启自动代理
 @Configuration
+@ComponentScan("com.xc.joy.aop")
 public class AopOpenConfig {
 }

@@ -28,6 +28,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * 第一次运行的时候，就把切面信息和增强器（Advisor 缓存起来）信息都解析好了，提前保存起来
+ *
  * {@link AspectJAwareAdvisorAutoProxyCreator} subclass that processes all AspectJ
  * annotation aspects in the current application context, as well as Spring Advisors.
  *
@@ -76,7 +78,7 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 	}
 
 	/**
-	 * BeanFacoryAware 来的，当前后置处理器初始化创建对象的时候回调的
+	 * BeanFactoryAware 来的，当前后置处理器初始化创建对象的时候回调的
 	 *
 	 * @param beanFactory
 	 */
@@ -84,7 +86,7 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 	protected void initBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		super.initBeanFactory(beanFactory);
 		if (this.aspectJAdvisorFactory == null) {
-			this.aspectJAdvisorFactory = new ReflectiveAspectJAdvisorFactory(beanFactory); // 准备一个 ReflectiveAspectJAdvisorFactory
+			this.aspectJAdvisorFactory = new ReflectiveAspectJAdvisorFactory(beanFactory); // 准备一个 ReflectiveAspectJAdvisorFactory 创建增强期的工厂
 		}
 		this.aspectJAdvisorsBuilder =
 				new BeanFactoryAspectJAdvisorsBuilderAdapter(beanFactory, this.aspectJAdvisorFactory);
