@@ -23,6 +23,8 @@ import org.springframework.beans.PropertyValues;
 import org.springframework.lang.Nullable;
 
 /**
+ * 在 BeanPostProcessor 的基础上增加了实例化前、实例化后、填充属性后
+ *
  * Subinterface of {@link BeanPostProcessor} that adds a before-instantiation callback,
  * and a callback after instantiation but before explicit properties are set or
  * autowiring occurs.
@@ -44,7 +46,6 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator#setCustomTargetSourceCreators
  * @see org.springframework.aop.framework.autoproxy.target.LazyInitTargetSourceCreator
  */
-// 在BeanPostProcessor的基础上增加了实例化前、实例化后、填充属性后
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
 	/**
@@ -97,6 +98,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	}
 
 	/**
+	 * AOP 介入了但是没有做任何事情
+	 *
 	 * Post-process the given property values before the factory applies them
 	 * to the given bean, without any need for property descriptors.
 	 * <p>Implementations should return {@code null} (the default) if they provide a custom

@@ -614,6 +614,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 将 Bean 实例对象封装，并且 Bean 定义中配置的属性值给创建好的对象每个属性进行赋值， @Autowired 发生在此
 			populateBean(beanName, mbd, instanceWrapper);
 			// 初始化 Bean 实例，即在对 Bean 实例对象生成和依赖注入完成以后，开始对 Bean 实例对象进行初始化，为 Bean 实例对象应用 BeanPostProcessor 后置处理器
+			// AOP：在初始化期间 initializeBean 准备好了要用的基本对象：AnnotationAwareAspectJAutoProxyCreator
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
@@ -1887,7 +1888,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}, getAccessControlContext());
 		}
 		else {
-			// 为 Bean 实例独享包装相关属性，组件有 Aware 接口：BeanNameAware、BeanClassLoaderAware、BeanFactoryAware
+			// 为 Bean 实例对象包装相关属性，组件有 Aware 接口：BeanNameAware、BeanClassLoaderAware、BeanFactoryAware【处理 Aware 接口的回调】
 			invokeAwareMethods(beanName, bean);
 		}
 

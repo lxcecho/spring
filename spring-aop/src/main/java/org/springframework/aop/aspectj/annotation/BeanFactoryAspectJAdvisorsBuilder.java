@@ -47,6 +47,9 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	@Nullable
 	private volatile List<String> aspectBeanNames;
 
+	/**
+	 * 保存了增强器（即通知方法）
+	 */
 	private final Map<String, List<Advisor>> advisorsCache = new ConcurrentHashMap<>();
 
 	private final Map<String, MetadataAwareAspectInstanceFactory> aspectFactoryCache = new ConcurrentHashMap<>();
@@ -74,6 +77,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 
 
 	/**
+	 * 构建增强器，哪些切面有哪些方法合适运行
 	 * Look for AspectJ-annotated aspect beans in the current bean factory,
 	 * and return to a list of Spring AOP Advisors representing them.
 	 * <p>Creates a Spring Advisor for each AspectJ advice method.
@@ -92,6 +96,13 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 					aspectNames = new ArrayList<>();
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false); // 获取容器中所有的 Object 类型的组件
+					/**
+					 * 1. 遍历所有切面类；
+					 * 2. 反射找到切面类的所有方法；
+					 * 3. 每个方法判断是否通知方法（Pointcut.class,Around.class,Before.class,AfterReturn.class,AfterThrowing.class)；
+					 * 4. 通知方法被封装为 Advisor（增强器）；
+					 * 5. 每个增强器都是 InstantiationModeAdwarePointcutAdvisorImpl。
+					 */
 					for (String beanName : beanNames) { // 找到所有的切面找增强器
 						if (!isEligibleBean(beanName)) {
 							continue;

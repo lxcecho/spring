@@ -26,6 +26,10 @@ import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.util.Assert;
 
 /**
+ * 运行流程：链式执行【拦截器封装了增强器】
+ * 	1. 把所有的增强器再转为真正的方法拦截器；
+ * 	2. 把增强器（只保存了信息）变成拦截器（能真正执行目标方法）
+ *
  * Interceptor to wrap a {@link MethodBeforeAdvice}.
  * <p>Used internally by the AOP framework; application developers should not
  * need to use this class directly.
@@ -49,7 +53,13 @@ public class MethodBeforeAdviceInterceptor implements MethodInterceptor, BeforeA
 		this.advice = advice;
 	}
 
-
+	/**
+	 * 拦截器的核心：拦截器封装了增强器
+	 *
+	 * @param mi the method invocation joinpoint
+	 * @return
+	 * @throws Throwable
+	 */
 	@Override
 	public Object invoke(MethodInvocation mi) throws Throwable {
 		this.advice.before(mi.getMethod(), mi.getArguments(), mi.getThis());

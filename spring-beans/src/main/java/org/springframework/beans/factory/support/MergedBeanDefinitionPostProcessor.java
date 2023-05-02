@@ -19,6 +19,8 @@ package org.springframework.beans.factory.support;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
+ * 在 BeanPostProcessor 的基础上增加了在实例化和实例化后之间的扩展点
+ *
  * Post-processor callback interface for <i>merged</i> bean definitions at runtime.
  * {@link BeanPostProcessor} implementations may implement this sub-interface in order
  * to post-process the merged bean definition (a processed copy of the original bean
@@ -35,11 +37,10 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * @since 2.5
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory#getMergedBeanDefinition
  */
-// 在 BeanPostProcessor 的基础上增加了在实例化和实例化后之间的扩展点
 public interface MergedBeanDefinitionPostProcessor extends BeanPostProcessor {
 
 	/**
-	 * Post-process the given merged bean definition for the specified bean.
+	 * Post-process the given merged bean definition for the specified bean. AOP 和这个没有关系
 	 * @param beanDefinition the merged bean definition for the bean
 	 * @param beanType the actual type of the managed bean instance
 	 * @param beanName the name of the bean

@@ -275,7 +275,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					logger.debug("Bean definition has already been processed as a configuration class: " + beanDef);
 				}
 			}
-			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
+			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) { // 如果是配置类，则加入集合
 				// 将配置类加到候选集合里面，等待处理
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}

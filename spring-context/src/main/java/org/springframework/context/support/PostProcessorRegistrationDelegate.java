@@ -214,7 +214,7 @@ final class PostProcessorRegistrationDelegate {
 
 	public static void registerBeanPostProcessors(
 			ConfigurableListableBeanFactory beanFactory, AbstractApplicationContext applicationContext) {
-		// 获取到容器中所有的 BeanPostProcessor：Bean 的后置处理器
+		// 获取 IOC 容器已定义了的需要创建对象的所有 BeanPostProcessor；
 		String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
 
 		// Register BeanPostProcessorChecker that logs an info message when
@@ -255,6 +255,7 @@ final class PostProcessorRegistrationDelegate {
 		// 接下来，注册所有实现了 Ordered 接口的 BeanPostProcessor
 		List<BeanPostProcessor> orderedPostProcessors = new ArrayList<>(orderedPostProcessorNames.size());
 		for (String ppName : orderedPostProcessorNames) {
+			// TODO getBean() 这里创建了 AnnotationAwareAspectJAutoCreator 对象
 			BeanPostProcessor pp = beanFactory.getBean(ppName, BeanPostProcessor.class); // 获取后置处理器
 			orderedPostProcessors.add(pp);
 			if (pp instanceof MergedBeanDefinitionPostProcessor) {

@@ -61,8 +61,8 @@ import org.springframework.lang.Nullable;
 public interface BeanPostProcessor {
 
 	/**
-	 * 该方法在 bean 实例化完毕（且已经注入完毕），在 afterProperties 或自定义 init方 法执行之前
-	 * 为在 Bean 的初始化前提供回调入口
+	 * 该方法在 bean 实例化完毕（且已经注入完毕），在 afterProperties 或自定义 init方 法执行之前，为在 Bean 的初始化前提供回调入口
+	 * AOP 也在此工作，直接返回 Bean 原生对象
 	 *
 	 * Apply this {@code BeanPostProcessor} to the given new bean instance <i>before</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
@@ -82,8 +82,8 @@ public interface BeanPostProcessor {
 	}
 
 	/**
-	 * 在 afterPropertiesSet 或者自定义 init 方法执行之后
-	 * 为在 Bean 的初始化之后提供回调的入口
+	 * 在 afterPropertiesSet 或者自定义 init 方法执行之后，为在 Bean 的初始化之后提供回调的入口
+	 * AOP 判断此对象如果有增强方法（有切面切入它）：挨个判断所有的增强器的正则是否能切入这个对象【有增强器就为这个对象创建代理】
 	 *
 	 * Apply this {@code BeanPostProcessor} to the given new bean instance <i>after</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
