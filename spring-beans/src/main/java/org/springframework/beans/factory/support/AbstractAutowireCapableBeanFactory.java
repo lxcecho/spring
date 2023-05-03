@@ -567,7 +567,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (mbd.isSingleton()) { // 是否单例的，如果是，先把缓存中的同名 Bean 清除
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
-		if (instanceWrapper == null) {
+ 		if (instanceWrapper == null) {
 			// 创建 Bean 的实例，默认使用【无参构造器】创建的对象，组件的原始对象就创建好了
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
@@ -1339,7 +1339,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
-	 *  默认使用无参构造器为当前组件创建 Bean 对象
+	 * 默认使用无参构造器为当前组件创建 Bean 对象
 	 *
 	 * Instantiate the given bean using its default constructor.
 	 * @param beanName the name of the bean

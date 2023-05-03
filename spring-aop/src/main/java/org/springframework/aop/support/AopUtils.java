@@ -245,7 +245,7 @@ public abstract class AopUtils {
 		classes.addAll(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
 
 		for (Class<?> clazz : classes) {
-			Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
+			Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz); // 反射获取所有方法
 			for (Method method : methods) {
 				if (introductionAwareMethodMatcher != null ?
 						introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions) :

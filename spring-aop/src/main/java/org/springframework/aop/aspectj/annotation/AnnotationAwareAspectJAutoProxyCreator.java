@@ -96,7 +96,7 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 
 
 	/**
-	 * 找到候选的增强器
+	 * 找到候选的增强器，找哪些通知方法是需要切入当前 bean 方法的）
 	 *
 	 * @return
 	 */

@@ -255,7 +255,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			if (this.advisedBeans.containsKey(cacheKey)) { // 判断是否切面
 				return null;
 			}
-			// 所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强的bean，我们就放在缓存中
+			// 所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强 的bean，我们就放在缓存中
 			if (isInfrastructureClass(beanClass) || shouldSkip(beanClass, beanName)) {
 				this.advisedBeans.put(cacheKey, Boolean.FALSE);
 				return null;
@@ -354,13 +354,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			return bean;
 		}
 
-		// Create proxy if we have advice. 如果由切面的通知方法切入这个对象，就给对象创建代理
+		// Create proxy if we have advice. 如果有切面的通知方法切入这个对象，就给对象创建代理
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
 			// 创建代理
-			Object proxy = createProxy(
-					bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
+			Object proxy = createProxy(bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
 			this.proxyTypes.put(cacheKey, proxy.getClass());
 			return proxy;
 		}

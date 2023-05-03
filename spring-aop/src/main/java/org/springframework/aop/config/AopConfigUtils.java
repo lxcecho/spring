@@ -115,8 +115,7 @@ public abstract class AopConfigUtils {
 	}
 
 	@Nullable
-	private static BeanDefinition registerOrEscalateApcAsRequired(
-			Class<?> cls, BeanDefinitionRegistry registry, @Nullable Object source) {
+	private static BeanDefinition registerOrEscalateApcAsRequired(Class<?> cls, BeanDefinitionRegistry registry, @Nullable Object source) {
 
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
 
@@ -136,6 +135,7 @@ public abstract class AopConfigUtils {
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);
 		beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+		// org.springframework.aop.config.internalAutoProxyCreator
 		registry.registerBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME, beanDefinition);
 		return beanDefinition;
 	}
