@@ -252,10 +252,10 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		Object cacheKey = getCacheKey(beanClass, beanName);
 
 		if (!StringUtils.hasLength(beanName) || !this.targetSourcedBeans.contains(beanName)) {
-			if (this.advisedBeans.containsKey(cacheKey)) { // 判断是否切面
+			if (this.advisedBeans.containsKey(cacheKey)) {
 				return null;
 			}
-			// 所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强 的bean，我们就放在缓存中
+			// // 判断是否切面，所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强的 bean，我们就放在缓存中
 			if (isInfrastructureClass(beanClass) || shouldSkip(beanClass, beanName)) {
 				this.advisedBeans.put(cacheKey, Boolean.FALSE);
 				return null;
@@ -295,6 +295,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
+	 * AOP 判断此对象如果有增强方法（有切面切入它）：挨个判断所有的增强器的正则是否能切入这个对象【有增强器就为这个对象创建代理】
 	 * Create a proxy with the configured interceptors if the bean is
 	 * identified as one to proxy by the subclass.
 	 * @see #getAdvicesAndAdvisorsForBean
