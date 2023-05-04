@@ -355,11 +355,14 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		}
 
 		// Create proxy if we have advice. 如果有切面的通知方法切入这个对象，就给对象创建代理
+		// 1. 获取当前 bean 的所有增强器（通知方法）
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
+			// 2. 保存当前 bean 在 advisedBeans 中
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
-			// 创建代理
+			// 3. 如果当前 bean 需要增强，创建当前 bean 的代理对象；
 			Object proxy = createProxy(bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
+			// 5.以后容器中获取到的就是这个组件的代理对象，执行目标方法的时候，代理对象就会执行通知方法的流程。
 			this.proxyTypes.put(cacheKey, proxy.getClass());
 			return proxy;
 		}
@@ -468,8 +471,9 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}
-
+		// ①获取所有增强（通知方法）
 		Advisor[] advisors = buildAdvisors(beanName, specificInterceptors);
+		// ②保存到 ProxyFactory；
 		proxyFactory.addAdvisors(advisors);
 		proxyFactory.setTargetSource(targetSource);
 		customizeProxyFactory(proxyFactory);
@@ -478,7 +482,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		if (advisorsPreFiltered()) {
 			proxyFactory.setPreFiltered(true);
 		}
-
+		// ③创建代理对象，Spring 自动决定：JdkDynamicAopProxy(config); jdk 动态代理 / ObjenesisCglibAopProxy(config); cglib 的动态代理
 		return proxyFactory.getProxy(getProxyClassLoader());
 	}
 

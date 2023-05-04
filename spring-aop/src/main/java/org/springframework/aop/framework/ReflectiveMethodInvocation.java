@@ -155,6 +155,14 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	}
 
 
+	/**
+	 * 拦截器链的触发过程：拦截器链的机制，保证通知方法与目标方法的执行。
+	 *  ①如果没有拦截器执行执行目标方法，或者拦截器的索引和拦截器数组-1 大小一样（指定到了最后一个拦截器）执行目标方法；
+	 *  ②链式获取每一个拦截器，拦截器执行 invoke 方法，每一个拦截器等待下一个拦截器执行完成返回以后再来执行；
+	 *
+	 * @return
+	 * @throws Throwable
+	 */
 	@Override
 	@Nullable
 	public Object proceed() throws Throwable {

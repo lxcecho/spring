@@ -77,12 +77,13 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 
 	@Override
 	public MethodInterceptor[] getInterceptors(Advisor advisor) throws UnknownAdviceTypeException {
-		List<MethodInterceptor> interceptors = new ArrayList<>(3);
+		List<MethodInterceptor> interceptors = new ArrayList<>(3); // 将增强器转为 List<MethodInterceptor>
 		Advice advice = advisor.getAdvice();
 		if (advice instanceof MethodInterceptor) {
+			// 如果是 MethodInterceptor，直接加入到集合中；
 			interceptors.add((MethodInterceptor) advice);
 		}
-		for (AdvisorAdapter adapter : this.adapters) {
+		for (AdvisorAdapter adapter : this.adapters) { // 如果不是，使用 AdvisorAdapter 将增强器转为 MethodInterceptor；
 			if (adapter.supportsAdvice(advice)) {
 				interceptors.add(adapter.getInterceptor(advisor)); // 增强器（保存了哪些方法是通知方法的详细信息）适配器，将增强器转为拦截器（反射方法执行通知方法的逻辑）
 			}
@@ -90,6 +91,7 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 		if (interceptors.isEmpty()) {
 			throw new UnknownAdviceTypeException(advisor.getAdvice());
 		}
+		// 转换完成返回 MethodInterceptor 数组；
 		return interceptors.toArray(new MethodInterceptor[0]);
 	}
 

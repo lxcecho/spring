@@ -47,7 +47,8 @@ import org.springframework.aop.SpringProxy;
 public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 	@Override
-	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
+	public AopProxy
+	createAopProxy(AdvisedSupport config) throws AopConfigException {
 		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
 			Class<?> targetClass = config.getTargetClass();
 			if (targetClass == null) {
@@ -59,9 +60,11 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 				return new JdkDynamicAopProxy(config);
 			}
 			// 如果不是接口类要生成 Proxy，则使用 CGLIB
+			// 4.给容器中返回当前组件使用 cglib 增强了的代理对象；
 			return new ObjenesisCglibAopProxy(config);
 		}
 		else {
+			// 默认使用 JDK 动态代理生成 Proxy
 			return new JdkDynamicAopProxy(config);
 		}
 	}

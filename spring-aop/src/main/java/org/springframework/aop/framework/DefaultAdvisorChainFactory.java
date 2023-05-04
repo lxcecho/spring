@@ -65,10 +65,11 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 		// but we need to preserve order in the ultimate list.
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
 		Advisor[] advisors = config.getAdvisors(); // advisor 链已经在 config 中持有了，这里可以直接使用
-		List<Object> interceptorList = new ArrayList<>(advisors.length);
+		List<Object> interceptorList = new ArrayList<>(advisors.length); // 保存所有拦截器；（5个）
 		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass());
 		Boolean hasIntroductions = null;
-
+		// 拦截器：5个：一个默认的 ExposeInvocationInterceptor 和 4 个增强器
+		// 遍历所有的增强器，将其转为 Interceptor
 		for (Advisor advisor : advisors) {
 			if (advisor instanceof PointcutAdvisor) {
 				// Add it conditionally.
@@ -109,7 +110,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 				}
 			}
 			else {
-				Interceptor[] interceptors = registry.getInterceptors(advisor);
+				Interceptor[] interceptors = registry.getInterceptors(advisor); // 将其转为 Interceptor
 				interceptorList.addAll(Arrays.asList(interceptors));
 			}
 		}
