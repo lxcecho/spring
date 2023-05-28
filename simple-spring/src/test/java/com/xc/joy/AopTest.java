@@ -213,4 +213,9 @@ public class AopTest {
         applicationContext.close();
     }
 
+	@Test
+	public void testParam() {
+		System.out.println((32 & 0x80) == 0x80);
+	}
+
 }

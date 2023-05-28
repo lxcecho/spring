@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.aopalliance.intercept;
+package org.aopalliance.intercept; // Spring 定义的 AOP 规范接口
 
 import java.lang.reflect.Method;
 

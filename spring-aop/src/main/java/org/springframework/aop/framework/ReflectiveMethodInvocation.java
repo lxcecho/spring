@@ -87,7 +87,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 
 	/**
 	 * Index from 0 of the current interceptor we're invoking.
-	 * -1 until we invoke: then the current interceptor.
+	 * -1 until we invoke: then the current interceptor. 当前拦截器的索引
 	 */
 	private int currentInterceptorIndex = -1;
 
@@ -166,7 +166,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	@Override
 	@Nullable
 	public Object proceed() throws Throwable {
-		// We start with an index of -1 and increment early.
+		// We start with an index of -1 and increment early. 当前拦截器的索引有没有超过 拦截器总数量-1
 		// 从索引为 -1 的拦截器开始调用，并按序递增，如果拦截器链中的拦截器迭代调用完毕，这里开始调用 target 的函数，
 		// 这个函数是通过反射机制完成的，具体实现在 AopUtils.invokeJoinPointUsingReflection 方法中
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
