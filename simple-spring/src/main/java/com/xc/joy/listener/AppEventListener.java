@@ -1,5 +1,6 @@
 package com.xc.joy.listener;
 
+import com.xc.joy.beans.circle.A;
 import org.springframework.context.PayloadApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class AppEventListener {
 	}
 
 	@EventListener(PayloadApplicationEvent.class)
-	public void listenPayload(PayloadApplicationEvent event) {
+	public void listenPayload(PayloadApplicationEvent<A> event) {
 		System.out.println("Payload 事件到达..." + event.getPayload() + "; 已进行处理");
 	}
 

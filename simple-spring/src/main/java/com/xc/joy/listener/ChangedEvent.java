@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class ChangedEvent extends ApplicationEvent implements Serializable {
 
-	private static final Long serialVersionUID = 0L;
+	private static final long serialVersionUID = 0L;
 
 	private String state;
 

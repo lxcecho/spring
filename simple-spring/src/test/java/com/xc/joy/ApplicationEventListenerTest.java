@@ -1,10 +1,11 @@
 package com.xc.joy;
 
+import com.xc.joy.beans.circle.A;
 import com.xc.joy.conf.AppConfig;
-import com.xc.joy.listener.App;
 import com.xc.joy.listener.AppEventPublisher;
 import com.xc.joy.listener.ChangedEvent;
 import com.xc.joy.listener.MessageEvent;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -14,11 +15,12 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class ApplicationEventListenerTest {
 
+	@Test
 	public void testEventListener() {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 		// 测试事件
 		AppEventPublisher eventPublisher = applicationContext.getBean(AppEventPublisher.class);
-		eventPublisher.publish(new App());
+		eventPublisher.publish(new A());
 		eventPublisher.publish(new MessageEvent("hello，你好"));
 		eventPublisher.publish(new ChangedEvent(eventPublisher, "sending..."));
 	}
