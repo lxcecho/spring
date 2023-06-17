@@ -2,8 +2,11 @@ package com.xc.joy;
 
 import com.xc.joy.config.SpringConfig;
 import com.xc.joy.config.SpringMvcConfig;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletRegistration;
 
 /**
@@ -49,4 +52,19 @@ public class QuickAppStarter extends AbstractAnnotationConfigDispatcherServletIn
 
 //		registration.addMapping("");
 	}
+
+	/**
+	 * 添加过滤器
+	 *
+	 * @return
+	 */
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+		encodingFilter.setEncoding("UTF-8");
+		encodingFilter.setForceRequestEncoding(true);
+		HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
+		return new Filter[]{encodingFilter, hiddenHttpMethodFilter};
+	}
+
 }

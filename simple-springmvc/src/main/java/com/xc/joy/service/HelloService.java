@@ -13,6 +13,6 @@ public class HelloService {
 	}
 
 	public String say(String name) {
-		return "Hello," + name;
+		return "Hello, " + name;
 	}
 }

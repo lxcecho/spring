@@ -14,7 +14,7 @@ import java.util.Locale;
 public class MeiNvViewResolver implements ViewResolver {
 	@Override
 	public View resolveViewName(String viewName, Locale locale) throws Exception {
-		//我们只解析 meinv
+		// 我们只解析 meinv
 		if (viewName.startsWith("meinv:")) {
 			return new MeiNvView();
 		}
