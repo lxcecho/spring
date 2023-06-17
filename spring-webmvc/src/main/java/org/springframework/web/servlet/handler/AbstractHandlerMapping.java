@@ -277,7 +277,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 
 
 	/**
-	 * Initializes the interceptors.
+	 * Initializes the interceptors. 拦截器数据的初始化
 	 * @see #extendInterceptors(java.util.List)
 	 * @see #initInterceptors()
 	 */
@@ -310,6 +310,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * @param mappedInterceptors an empty list to add to
 	 */
 	protected void detectMappedInterceptors(List<HandlerInterceptor> mappedInterceptors) {
+		// 从容器中拿到所有的 MappedInterceptors
 		mappedInterceptors.addAll(BeanFactoryUtils.beansOfTypeIncludingAncestors(
 				obtainApplicationContext(), MappedInterceptor.class, true, false).values());
 	}
@@ -394,18 +395,20 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	@Nullable
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		Object handler = getHandlerInternal(request);
+		// 使用默认的 Handler，也就是 / 对应的 handler
 		if (handler == null) {
 			handler = getDefaultHandler();
 		}
 		if (handler == null) {
 			return null;
 		}
-		// Bean name or resolved handler?
+		// Bean name or resolved handler? 通过名称取出对应的 Handler Bean
 		if (handler instanceof String) {
 			String handlerName = (String) handler;
 			handler = obtainApplicationContext().getBean(handlerName);
 		}
 
+		// 找到前面的目标方法之后，还要构造一个处理器连
 		HandlerExecutionChain executionChain = getHandlerExecutionChain(handler, request);
 
 		if (logger.isTraceEnabled()) {
@@ -469,6 +472,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler));
 
 		String lookupPath = this.urlPathHelper.getLookupPathForRequest(request, LOOKUP_PATH);
+		// 把系统中所有的拦截器拿过来
 		for (HandlerInterceptor interceptor : this.adaptedInterceptors) {
 			if (interceptor instanceof MappedInterceptor) {
 				MappedInterceptor mappedInterceptor = (MappedInterceptor) interceptor;
@@ -477,6 +481,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 				}
 			}
 			else {
+				// 所有拦截器加进去
 				chain.addInterceptor(interceptor);
 			}
 		}

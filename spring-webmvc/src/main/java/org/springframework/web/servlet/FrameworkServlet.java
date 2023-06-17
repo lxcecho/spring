@@ -515,6 +515,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
 
 	/**
+	 * TODO 追踪 web 应用做了什么
 	 * Overridden method of {@link HttpServletBean}, invoked after any bean properties
 	 * have been set. Creates this servlet's WebApplicationContext.
 	 */
@@ -563,13 +564,13 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 		// 先从 ServletContext 中获取父容器 WebApplicationContext
 		WebApplicationContext rootContext =
 				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		// 声明子容器
+		// 声明子容器，即先会获取之前的 WebApplicationContext（构建父子容器）
 		WebApplicationContext wac = null;
 
 		// 建立父、子容器之间的关联关系
 		if (this.webApplicationContext != null) {
 			// A context instance was injected at construction time -> use it
-			wac = this.webApplicationContext;
+			wac = this.webApplicationContext; // 当前 web-ioc 容器
 			if (wac instanceof ConfigurableWebApplicationContext) {
 				ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
 				if (!cwac.isActive()) {
@@ -578,7 +579,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 					if (cwac.getParent() == null) {
 						// The context instance was injected without an explicit parent -> set
 						// the root application context (if any; may be null) as the parent
-						cwac.setParent(rootContext);
+ 						cwac.setParent(rootContext); // 父子容器的体现
 					}
 					// 配置并且刷新容器
 					configureAndRefreshWebApplicationContext(cwac);
@@ -863,7 +864,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	 * @see #refresh()
 	 */
 	protected void onRefresh(ApplicationContext context) {
-		// For subclasses: do nothing by default.
+		// For subclasses: do nothing by default. 留给子类的模板方法
 	}
 
 	/**
@@ -993,6 +994,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	}
 
 	/**
+	 * Spring MVC 底层同意处理请求的入口
 	 * Process this request, publishing an event regardless of the outcome.
 	 * <p>The actual event handling is performed by the abstract
 	 * {@link #doService} template method.

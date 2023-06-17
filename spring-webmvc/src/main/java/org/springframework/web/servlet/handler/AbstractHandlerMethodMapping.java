@@ -168,6 +168,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	}
 
 	/**
+	 * 哪个请求由哪个方法处理会通过这个进行注册；分析所有 Controller 里面的每一个 @RequestMapping 注解才能知道这个事情
 	 * Register the given mapping.
 	 * <p>This method may be invoked at runtime after initialization has completed.
 	 * @param mapping the mapping for the handler method
@@ -202,6 +203,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	@Override
 	public void afterPropertiesSet() {
+		// 初始化 HandlerMethods
 		initHandlerMethods();
 	}
 
@@ -255,6 +257,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			}
 		}
 		if (beanType != null && isHandler(beanType)) {
+			// 分析当前 Bean 的 HandlerMethods
 			detectHandlerMethods(beanName);
 		}
 	}
@@ -273,6 +276,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			Map<Method, T> methods = MethodIntrospector.selectMethods(userType,
 					(MethodIntrospector.MetadataLookup<T>) method -> {
 						try {
+							// 探索当前类里面所有满足的方法
 							return getMappingForMethod(method, userType);
 						}
 						catch (Throwable ex) {
@@ -356,7 +360,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	// Handler method lookup
 
 	/**
-	 * Look up a handler method for the given request. 根据 URL 获取处理请求的方法
+	 * Look up a handler method for the given request. 根据 URL 获取处理请求的方法，即从 HandlerMapping 的 registry 中找映射，返回 HandlerMethod 真正执行当前请求的方法
 	 */
 	@Override
 	protected HandlerMethod getHandlerInternal(HttpServletRequest request) throws Exception {
@@ -365,7 +369,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		request.setAttribute(LOOKUP_PATH, lookupPath);
 		this.mappingRegistry.acquireReadLock();
 		try {
-			// 遍历 Controller 上所有方法，获取 URL 匹配的方法
+			// 遍历 Controller 上所有方法，获取 URL 匹配的方法，即寻找当前请求谁能处理
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
 			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
 		}

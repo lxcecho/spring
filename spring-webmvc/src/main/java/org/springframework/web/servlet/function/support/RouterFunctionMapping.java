@@ -46,6 +46,8 @@ import org.springframework.web.servlet.handler.AbstractHandlerMapping;
  * will detect all router functions in the application context, and consult them in
  * {@linkplain org.springframework.core.annotation.Order order}.
  *
+ * 支持函数式处理以及 webflux 相关功能
+ *
  * @author Arjen Poutsma
  * @since 5.2
  */

@@ -48,7 +48,7 @@ public interface WebApplicationContext extends ApplicationContext {
 	 * Context attribute to bind root WebApplicationContext to on successful startup.
 	 * <p>Note: If the startup of the root context fails, this attribute can contain
 	 * an exception or error as value. Use WebApplicationContextUtils for convenient
-	 * lookup of the root WebApplicationContext.
+	 * lookup of the root WebApplicationContext. 用于在 ServletContext 中存取上下文
 	 * @see org.springframework.web.context.support.WebApplicationContextUtils#getWebApplicationContext
 	 * @see org.springframework.web.context.support.WebApplicationContextUtils#getRequiredWebApplicationContext
 	 */

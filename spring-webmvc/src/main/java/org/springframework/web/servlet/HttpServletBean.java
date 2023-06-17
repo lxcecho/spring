@@ -190,7 +190,7 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 	 * <p>This default implementation is empty.
 	 * @throws ServletException if subclass initialization fails
 	 */
-	protected void initServletBean() throws ServletException {
+	protected  void  initServletBean() throws ServletException {
 	}
 
 	/**

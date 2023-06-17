@@ -259,6 +259,7 @@ public class ContextLoader {
 	 * @see #CONFIG_LOCATION_PARAM
 	 */
 	public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
+		// 判断在 ServletContext 中上是否已经有根上下文存在
 		if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
 			throw new IllegalStateException(
 					"Cannot initialize context because there is already a root application context present - " +
@@ -398,7 +399,7 @@ public class ContextLoader {
 		}
 
 		customizeContext(sc, wac);
-		wac.refresh();
+		wac.refresh(); // 容器初始化
 	}
 
 	/**

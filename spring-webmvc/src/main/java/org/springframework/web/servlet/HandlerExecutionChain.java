@@ -41,8 +41,14 @@ public class HandlerExecutionChain {
 
 	private static final Log logger = LogFactory.getLog(HandlerExecutionChain.class);
 
+	/**
+	 * 实际上就是 HTTP 请求对应的 Controller
+	 */
 	private final Object handler;
 
+	/**
+	 * 拦截器链
+	 */
 	@Nullable
 	private HandlerInterceptor[] interceptors;
 

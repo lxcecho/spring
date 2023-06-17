@@ -29,6 +29,12 @@ public class HelloController {
 	@Autowired
 	HelloService helloService;
 
+	@GetMapping("/sayHi") // 所有的 xxxMapping 都是 RequestMapping
+	public String sayHi() {
+		String mvc = helloService.say("MVC");
+		return mvc;
+	}
+
 
 	/**
 	 * RequestMappingHandlerAdapter:怎么反射执行到这个方法，

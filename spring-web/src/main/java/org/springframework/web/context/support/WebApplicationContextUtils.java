@@ -110,7 +110,7 @@ public abstract class WebApplicationContextUtils {
 	@Nullable
 	public static WebApplicationContext getWebApplicationContext(ServletContext sc, String attrName) {
 		Assert.notNull(sc, "ServletContext must not be null");
-		Object attr = sc.getAttribute(attrName);
+		Object attr = sc.getAttribute(attrName); // 根容器被保存在 application 作用域中：page session request servletContext
 		if (attr == null) {
 			return null;
 		}

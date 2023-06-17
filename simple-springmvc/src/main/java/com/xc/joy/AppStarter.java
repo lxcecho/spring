@@ -15,7 +15,7 @@ import javax.servlet.ServletRegistration;
  * 	1.1 创建了容器，制定了配置类(所有 IOC、AOP 等 spring 的功能就 OK)
  * 	1.2 注册一个 Servlet：DispatcherServlet
  * 	1.3 以后所有的请求都交给了 DispatcherServlet
- * 效果，访问 Tomcat 部署的则会个 Web 应用下所有请求都会被 DispatcherServlet 处理，DispatcherServlet 就会进入强大的基于注解的 mvc 处理流程(@GetMapping)
+ * 效果，访问 Tomcat 部署的这个 Web 应用下所有请求都会被 DispatcherServlet 处理，DispatcherServlet 就会进入强大的基于注解的 mvc 处理流程 (@GetMapping)
  * <p>
  * 必须 Servlet3.0 以上才可以；Tomcat6.0以上才支持 Servlet3.0 规范；
  * Servlet3.0 是 JavaEE 的 Web 规范标准，Tomcat 是 Servlet3.0 规范的一个实现；
@@ -28,12 +28,13 @@ public class AppStarter /*implements WebApplicationInitializer*/ {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// Load Spring web application configuration
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		// 传入配置类
+		// 传入配置类【注解版的 Spring MVC 配置，替换以前的 Spring MVC 的 XML 配置文件】
 		context.register(SpringConfig.class);
 		// 以上截止，IOC容器都没有启动
 
 		// 配置了 DispatcherServlet，利用 Servlet 的初始化机制，Create and register the DispatcherServlet 以上截止，IOC 容器都没有启动
 		DispatcherServlet servlet = new DispatcherServlet(context);
+		// 利用 Servlet 规范添加我们的 Servlet 文件
 		ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);
 		registration.setLoadOnStartup(1);
 		// 映射路径

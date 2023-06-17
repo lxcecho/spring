@@ -47,6 +47,8 @@ public abstract class AbstractContextLoaderInitializer implements WebApplication
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		// 注册ServletContext ==> ContextLoaderListener，contextInitialized
+		// 初始化 Web 的 IOC 容器利用 Servlet 监听器机制
 		registerContextLoaderListener(servletContext);
 	}
 
@@ -57,6 +59,7 @@ public abstract class AbstractContextLoaderInitializer implements WebApplication
 	 * @param servletContext the servlet context to register the listener against
 	 */
 	protected void registerContextLoaderListener(ServletContext servletContext) {
+		// 创建一个根容器
 		WebApplicationContext rootAppContext = createRootApplicationContext();
 		if (rootAppContext != null) {
 			ContextLoaderListener listener = new ContextLoaderListener(rootAppContext);

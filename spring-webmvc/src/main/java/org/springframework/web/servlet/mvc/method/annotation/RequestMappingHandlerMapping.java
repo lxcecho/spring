@@ -67,6 +67,8 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * ContentNegotiationManagerFactoryBean}). For further context, please read issue
  * <a href="https://github.com/spring-projects/spring-framework/issues/24179">#24719</a>.
  *
+ * {@code @ReequestHandlerMapping} 注解作为 URL 路径，进行映射；HandlerMapping 中会有一个 Map，/hello==>xxxController.xxx()
+ *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev
  * @author Sam Brannen
@@ -252,6 +254,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 	@Override
 	@Nullable
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
+		// 为每一个方法尝试创建 RequestMappingInfo
 		RequestMappingInfo info = createRequestMappingInfo(method);
 		if (info != null) {
 			RequestMappingInfo typeInfo = createRequestMappingInfo(handlerType);
@@ -289,6 +292,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 	 */
 	@Nullable
 	private RequestMappingInfo createRequestMappingInfo(AnnotatedElement element) {
+		// 所有标注了 @RequestMapping 注解的方法拿来封装
 		RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(element, RequestMapping.class);
 		RequestCondition<?> condition = (element instanceof Class ?
 				getCustomTypeCondition((Class<?>) element) : getCustomMethodCondition((Method) element));
