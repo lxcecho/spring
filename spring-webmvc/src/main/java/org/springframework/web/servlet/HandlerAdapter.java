@@ -49,6 +49,8 @@ import org.springframework.lang.Nullable;
  */
 public interface HandlerAdapter {
 
+	// 适配器 + 策略
+
 	/**
 	 * Given a handler instance, return whether or not this {@code HandlerAdapter}
 	 * can support it. Typical HandlerAdapters will base the decision on the handler

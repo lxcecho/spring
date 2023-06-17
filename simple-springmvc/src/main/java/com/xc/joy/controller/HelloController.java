@@ -37,8 +37,7 @@ public class HelloController {
 
 
 	/**
-	 * RequestMappingHandlerAdapter:怎么反射执行到这个方法，
-	 * 确定每一个参数的值，以及处理返回值等等
+	 * RequestMappingHandlerAdapter:怎么反射执行到这个方法，确定每一个参数的值，以及处理返回值等等
 	 *
 	 * @param name
 	 * @return ModelAndView、Model、void\String xxxx  请求数据到自定义Object属性的映射需要用到
