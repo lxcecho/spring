@@ -117,6 +117,7 @@ public class ResponseBodyEmitterReturnValueHandler implements HandlerMethodRetur
 				ResolvableType.forMethodParameter(returnType).getGeneric().resolve() :
 				returnType.getParameterType();
 
+		// Webflux 会用到
 		return (bodyType != null && (ResponseBodyEmitter.class.isAssignableFrom(bodyType) ||
 				this.reactiveHandler.isReactiveType(bodyType)));
 	}

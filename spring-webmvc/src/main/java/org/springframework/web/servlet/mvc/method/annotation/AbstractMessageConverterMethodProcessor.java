@@ -212,6 +212,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 			selectedMediaType = contentType;
 		}
 		else {
+			// 内容协商
 			HttpServletRequest request = inputMessage.getServletRequest();
 			List<MediaType> acceptableTypes = getAcceptableMediaTypes(request);
 			List<MediaType> producibleTypes = getProducibleMediaTypes(request, valueType, targetType);
@@ -257,6 +258,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 			}
 		}
 
+		// 利用 messageConverters 直接读取输入输出流
 		if (selectedMediaType != null) {
 			selectedMediaType = selectedMediaType.removeQualityValue();
 			for (HttpMessageConverter<?> converter : this.messageConverters) {

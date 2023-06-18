@@ -168,6 +168,19 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		return (requestBody != null && requestBody.required() && !parameter.isOptional());
 	}
 
+	/**
+	 * 如果返回值标注了 @ResponseBody 注解，并且返回了 String，会被这个处理器拦截
+	 *
+	 * @param returnValue the value returned from the handler method
+	 * @param returnType the type of the return value. This type must have
+	 * previously been passed to {@link #supportsReturnType} which must
+	 * have returned {@code true}.
+	 * @param mavContainer the ModelAndViewContainer for the current request
+	 * @param webRequest the current request
+	 * @throws IOException
+	 * @throws HttpMediaTypeNotAcceptableException
+	 * @throws HttpMessageNotWritableException
+	 */
 	@Override
 	public void handleReturnValue(@Nullable Object returnValue, MethodParameter returnType,
 			ModelAndViewContainer mavContainer, NativeWebRequest webRequest)

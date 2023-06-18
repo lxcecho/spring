@@ -551,14 +551,18 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		return this.beanFactory;
 	}
 
-
+	/**
+	 * 初始化以后
+	 */
 	@Override
 	public void afterPropertiesSet() {
 		// Do this first, it may add ResponseBody advice beans
+		// 初始化 ControllerAdvice【异常处理相关的功能】
 		initControllerAdviceCache();
 
-		if (this.argumentResolvers == null) {
+		if (this.argumentResolvers == null) { // 拿到底层所有的 argumentResolvers
 			List<HandlerMethodArgumentResolver> resolvers = getDefaultArgumentResolvers();
+			// 把这些 Resolver 统一组合到一个对象里面，方便获取
 			this.argumentResolvers = new HandlerMethodArgumentResolverComposite().addResolvers(resolvers);
 		}
 		if (this.initBinderArgumentResolvers == null) {
@@ -773,12 +777,12 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		ModelAndView mav;
 		checkRequest(request);
 
-		// Execute invokeHandlerMethod in synchronized block if required.
+		// Execute invokeHandlerMethod in synchronized block if required. 会话锁，每一个用户和服务器交互无论发生了多少次请求都只有一个会话，限制用户的线程数
 		if (this.synchronizeOnSession) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
 				Object mutex = WebUtils.getSessionMutex(session);
-				synchronized (mutex) {
+				synchronized (mutex) { // 高并发可以限制一个用户一次进来一个请求
 					mav = invokeHandlerMethod(request, response, handlerMethod);
 				}
 			}
@@ -836,22 +840,25 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	@Nullable
 	protected ModelAndView invokeHandlerMethod(HttpServletRequest request,
 			HttpServletResponse response, HandlerMethod handlerMethod) throws Exception {
-
+		// 把原生的 request、response 封装到一个对象仲方便后续只用这一个参数就行【装饰器模式】
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
 		try {
-			WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
+			WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod); // 数据绑定器
 			ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
-
+			// 获取到模型工厂 Model【交给页面的数据】View【我们要去的 视图】
 			ServletInvocableHandlerMethod invocableMethod = createInvocableHandlerMethod(handlerMethod);
-			if (this.argumentResolvers != null) {
+			if (this.argumentResolvers != null) { // 参数解析器：未来用来反射解析目标方法中每一个参数的值
 				invocableMethod.setHandlerMethodArgumentResolvers(this.argumentResolvers);
 			}
-			if (this.returnValueHandlers != null) {
+			if (this.returnValueHandlers != null) { // 返回值解析器：未来用来处理目标方法执行后的返回值，无论目标方法返回什么都要想办法变成适配器能用的 ModelAndView
 				invocableMethod.setHandlerMethodReturnValueHandlers(this.returnValueHandlers);
 			}
 			invocableMethod.setDataBinderFactory(binderFactory);
 			invocableMethod.setParameterNameDiscoverer(this.parameterNameDiscoverer);
 
+			// 以上的几个核心组件都挺重要的
+
+			// ModelAndViewContainer 模型和视图的容器，把处理过程中产生和模型域视图有关的当数据先放这里【在整个请求处理线程期间共享数据 ModelAndView】
 			ModelAndViewContainer mavContainer = new ModelAndViewContainer();
 			mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
 			modelFactory.initModel(webRequest, mavContainer, invocableMethod);
@@ -860,6 +867,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 			AsyncWebRequest asyncWebRequest = WebAsyncUtils.createAsyncWebRequest(request, response);
 			asyncWebRequest.setTimeout(this.asyncRequestTimeout);
 
+			// 异步请求有关的
 			WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
 			asyncManager.setTaskExecutor(this.taskExecutor);
 			asyncManager.setAsyncWebRequest(asyncWebRequest);
@@ -891,6 +899,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	}
 
 	/**
+	 * 封装 HandlerMethod 变为 ServletInvocableHandlerMethod，提供 HandlerMethod 里面信息的快速获取
 	 * Create a {@link ServletInvocableHandlerMethod} from the given {@link HandlerMethod} definition.
 	 * @param handlerMethod the {@link HandlerMethod} definition
 	 * @return the corresponding {@link ServletInvocableHandlerMethod} (or custom subclass thereof)
@@ -987,6 +996,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	private ModelAndView getModelAndView(ModelAndViewContainer mavContainer,
 			ModelFactory modelFactory, NativeWebRequest webRequest) throws Exception {
 
+		// modelFactory 准备模型数据【请求与数据共享】，session 里面的 数据搬家到 reqeust 域
 		modelFactory.updateModel(webRequest, mavContainer);
 		if (mavContainer.isRequestHandled()) {
 			return null;
@@ -999,6 +1009,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		if (model instanceof RedirectAttributes) {
 			Map<String, ?> flashAttributes = ((RedirectAttributes) model).getFlashAttributes();
 			HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+			// 重定向数据共享，RedirectAttributes：先把数据移到 request，再把 request 移到 session
 			if (request != null) {
 				RequestContextUtils.getOutputFlashMap(request).putAll(flashAttributes);
 			}

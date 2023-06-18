@@ -168,6 +168,7 @@ public class DefaultRequestToViewNameTranslator implements RequestToViewNameTran
 	 */
 	@Override
 	public String getViewName(HttpServletRequest request) {
+		// urlPathHelper 解析
 		String lookupPath = this.urlPathHelper.getLookupPathForRequest(request, HandlerMapping.LOOKUP_PATH);
 		return (this.prefix + transformPath(lookupPath) + this.suffix);
 	}

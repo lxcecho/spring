@@ -38,6 +38,9 @@ import org.springframework.web.context.request.NativeWebRequest;
  */
 public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgumentResolver {
 
+	/**
+	 * 保存了所有的解析器
+	 */
 	private final List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
 
 	private final Map<MethodParameter, HandlerMethodArgumentResolver> argumentResolverCache =
@@ -127,6 +130,7 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 	 */
 	@Nullable
 	private HandlerMethodArgumentResolver getArgumentResolver(MethodParameter parameter) {
+		// 先看缓存中有没有
 		HandlerMethodArgumentResolver result = this.argumentResolverCache.get(parameter);
 		if (result == null) {
 			for (HandlerMethodArgumentResolver resolver : this.argumentResolvers) {

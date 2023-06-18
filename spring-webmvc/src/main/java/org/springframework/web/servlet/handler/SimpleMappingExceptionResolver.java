@@ -188,6 +188,7 @@ public class SimpleMappingExceptionResolver extends AbstractHandlerExceptionReso
 		// Expose ModelAndView for chosen error view.
 		String viewName = determineViewName(ex, request);
 		if (viewName != null) {
+			// 出现异常后，处理异常的响应状态码
 			// Apply HTTP status code for error views, if specified.
 			// Only apply it if we're processing a top-level request.
 			Integer statusCode = determineStatusCode(request, viewName);

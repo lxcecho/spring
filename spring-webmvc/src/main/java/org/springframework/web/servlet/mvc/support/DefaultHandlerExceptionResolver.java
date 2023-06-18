@@ -142,6 +142,8 @@ import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
  */
 public class DefaultHandlerExceptionResolver extends AbstractHandlerExceptionResolver {
 
+	// 默认的异常解析器器，直接 response.sendError，tomcat 响应默认错误页面
+
 	/**
 	 * Log category to use when no mapped handler is found for a request.
 	 * @see #pageNotFoundLogger
@@ -170,6 +172,7 @@ public class DefaultHandlerExceptionResolver extends AbstractHandlerExceptionRes
 			HttpServletRequest request, HttpServletResponse response, @Nullable Object handler, Exception ex) {
 
 		try {
+			// 处理 SpringMVC 底层的异常
 			if (ex instanceof HttpRequestMethodNotSupportedException) {
 				return handleHttpRequestMethodNotSupported(
 						(HttpRequestMethodNotSupportedException) ex, request, response, handler);

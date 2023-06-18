@@ -1063,8 +1063,9 @@ public class DispatcherServlet extends FrameworkServlet {
 					}
 				}
 
+				// 所有拦截器的 preHandle 执行
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
-					return;
+					return; // 使用 mappedHandler 整个链
 				}
 
 				// Actually invoke the handler.
@@ -1117,7 +1118,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * Do we need view name translation?
 	 */
 	private void applyDefaultViewName(HttpServletRequest request, @Nullable ModelAndView mv) throws Exception {
+		// 如果没有指定的跳转页面
 		if (mv != null && !mv.hasView()) {
+			// 给一个默认的页面
 			String defaultViewName = getDefaultViewName(request);
 			if (defaultViewName != null) {
 				mv.setViewName(defaultViewName);
@@ -1135,12 +1138,14 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		boolean errorView = false;
 
+		// 有异常处理异常
 		if (exception != null) {
 			if (exception instanceof ModelAndViewDefiningException) {
 				logger.debug("ModelAndViewDefiningException encountered", exception);
 				mv = ((ModelAndViewDefiningException) exception).getModelAndView();
 			}
 			else {
+				// 定义无数种异常解析器就会得到不同的一场解析效果
 				Object handler = (mappedHandler != null ? mappedHandler.getHandler() : null);
 				mv = processHandlerException(request, response, handler, exception);
 				errorView = (mv != null);
@@ -1148,7 +1153,9 @@ public class DispatcherServlet extends FrameworkServlet {
 		}
 
 		// Did the handler return a view to render?
+		// 动态策略 为啥又问号存在？ @ResponseBody 提前在解析返回值的时候 就已经把数据写出去了
 		if (mv != null && !mv.wasCleared()) {
+			// 渲染，来解析模型视图，最终决定响应效果
 			render(mv, request, response);
 			if (errorView) {
 				WebUtils.clearErrorRequestAttributes(request);
@@ -1331,6 +1338,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Check registered HandlerExceptionResolvers...
 		ModelAndView exMv = null;
+		// 所有异常解析器继续解析
 		if (this.handlerExceptionResolvers != null) {
 			for (HandlerExceptionResolver resolver : this.handlerExceptionResolvers) {
 				exMv = resolver.resolveException(request, response, handler, ex);
@@ -1376,8 +1384,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Determine locale for request and apply it to the response.
 		// 从 request 中读取 locale 信息，并设置 response 的 locale 值
-		Locale locale =
-				(this.localeResolver != null ? this.localeResolver.resolveLocale(request) : request.getLocale());
+		Locale locale = (this.localeResolver != null ? this.localeResolver.resolveLocale(request) : request.getLocale());
 		response.setLocale(locale);
 
 		View view;
@@ -1391,7 +1398,8 @@ public class DispatcherServlet extends FrameworkServlet {
 						"' in servlet with name '" + getServletName() + "'");
 			}
 		}
-		else { // ModelAndView 中有可能已经直接包含了 View 对想想，那就直接使用
+		else {
+			// ModelAndView 中有可能已经直接包含了 View 对象，那就直接使用
 			// No need to lookup: the ModelAndView object contains the actual View object.
 			view = mv.getView();
 			if (view == null) {

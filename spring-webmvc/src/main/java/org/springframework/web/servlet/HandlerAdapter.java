@@ -65,6 +65,7 @@ public interface HandlerAdapter {
 	boolean supports(Object handler);
 
 	/**
+	 * 适配的过程，把 request、response 和 handler 连接起来进行处理，处理完成得到 ModelAndView【页面解析过程就靠它】
 	 * Use the given handler to handle this request.
 	 * The workflow that is required may vary widely.
 	 * @param request current HTTP request

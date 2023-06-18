@@ -46,11 +46,11 @@ import org.springframework.util.CollectionUtils;
  */
 public class ModelAndView {
 
-	/** View instance or view name String. */
+	/** View instance or view name String. 要去的页面*/
 	@Nullable
 	private Object view;
 
-	/** Model Map. */
+	/** Model Map. 给页面的数据*/
 	@Nullable
 	private ModelMap model;
 
