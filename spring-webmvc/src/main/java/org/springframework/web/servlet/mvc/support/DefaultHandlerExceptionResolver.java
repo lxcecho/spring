@@ -343,7 +343,7 @@ public class DefaultHandlerExceptionResolver extends AbstractHandlerExceptionRes
 	 */
 	protected ModelAndView handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
 			HttpServletRequest request, HttpServletResponse response, @Nullable Object handler) throws IOException {
-
+		// 直接 sendError tomcat 展示错误页面
 		response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
 		return new ModelAndView();
 	}

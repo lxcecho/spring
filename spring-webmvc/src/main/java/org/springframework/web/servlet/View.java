@@ -46,6 +46,8 @@ import org.springframework.lang.Nullable;
  */
 public interface View {
 
+	// 所有的视觉效果都是由视图决定
+
 	/**
 	 * Name of the {@link HttpServletRequest} attribute that contains the response status code.
 	 * <p>Note: This attribute is not required to be supported by all View implementations.

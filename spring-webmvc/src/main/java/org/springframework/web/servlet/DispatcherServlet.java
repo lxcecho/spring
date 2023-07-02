@@ -1069,7 +1069,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// Actually invoke the handler.
-				// 4 实际的处理器处理请求，返回结果视图对象【真正来执行目标方法】
+				// 4 实际的处理器处理请求，返回结果视图对象【真正来执行目标方法、确定参数值，处理返回值(封装成 ModelAndView)】
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1078,6 +1078,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 				// 结果视图对象处理
 				applyDefaultViewName(processedRequest, mv);
+				// 所有拦截器的 postHandler
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			}
 			catch (Exception ex) {
@@ -1088,6 +1089,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				// making them available for @ExceptionHandler methods and other scenarios.
 				dispatchException = new NestedServletException("Handler dispatch failed", err);
 			}
+			// 处理结果
 			processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);
 		}
 		catch (Exception ex) {
@@ -1147,13 +1149,14 @@ public class DispatcherServlet extends FrameworkServlet {
 			else {
 				// 定义无数种异常解析器就会得到不同的一场解析效果
 				Object handler = (mappedHandler != null ? mappedHandler.getHandler() : null);
+				// 如果所有异常解析器不能处理异常，就直接抛出去了，下面的逻辑直接炸了
 				mv = processHandlerException(request, response, handler, exception);
 				errorView = (mv != null);
 			}
 		}
 
 		// Did the handler return a view to render?
-		// 动态策略 为啥又问号存在？ @ResponseBody 提前在解析返回值的时候 就已经把数据写出去了
+		// 动态策略 为啥又问号存在？ @ResponseBody 提前在解析返回值的时候 就已经把数据写出去了，所以这一步就没有了
 		if (mv != null && !mv.wasCleared()) {
 			// 渲染，来解析模型视图，最终决定响应效果
 			render(mv, request, response);
@@ -1369,6 +1372,7 @@ public class DispatcherServlet extends FrameworkServlet {
 			return exMv;
 		}
 
+		// 如果所有的异常解析器都不能解析就直接抛出这个异常
 		throw ex;
 	}
 
@@ -1384,14 +1388,17 @@ public class DispatcherServlet extends FrameworkServlet {
 	protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Determine locale for request and apply it to the response.
 		// 从 request 中读取 locale 信息，并设置 response 的 locale 值
+		// 默认 AcceptHeaderLocaleResolver，会根据请求头 "Accept-Language" 字段决定浏览器能接受中文/英文页面
 		Locale locale = (this.localeResolver != null ? this.localeResolver.resolveLocale(request) : request.getLocale());
 		response.setLocale(locale);
 
+		// 视图
 		View view;
+		// 适配器执行完目标方法以后返回的 ModelAndView 对象里有 index.jsp
 		String viewName = mv.getViewName();
 		// 根据 ModelAndView 中设置的视图名称进行解析，得到对应的视图对象
 		if (viewName != null) {
-			// We need to resolve the view name. 需要对视图名进行解析
+			// We need to resolve the view name. 需要对视图名进行解析，把目标方法返回的字符串 index.jsp 真正转义为能用的 View 对象
 			view = resolveViewName(viewName, mv.getModelInternal(), locale, request);
 			if (view == null) {
 				throw new ServletException("Could not resolve view with name '" + mv.getViewName() +
@@ -1455,10 +1462,12 @@ public class DispatcherServlet extends FrameworkServlet {
 	protected View resolveViewName(String viewName, @Nullable Map<String, Object> model,
 			Locale locale, HttpServletRequest request) throws Exception {
 
+		// 所有视图解析器 ViewResolvers 尝试根据当前 viewName 得到 View 对象
 		if (this.viewResolvers != null) {
 			// 调用 ViewResolver 进行解析
 			for (ViewResolver viewResolver : this.viewResolvers) {
 				View view = viewResolver.resolveViewName(viewName, locale);
+				// 即使一个返回值满足多种视图解析规则，排在前面的解析器解析成功直接返回
 				if (view != null) {
 					return view;
 				}

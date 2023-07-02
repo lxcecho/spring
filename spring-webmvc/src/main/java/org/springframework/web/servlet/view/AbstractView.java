@@ -296,6 +296,7 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 
 
 	/**
+	 * 父类的模板方法规定的 render 算法步骤
 	 * Prepares the view given the specified model, merging it with static
 	 * attributes and a RequestContext attribute, if necessary.
 	 * Delegates to renderMergedOutputModel for the actual rendering.
@@ -310,9 +311,10 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 					", model " + (model != null ? model : Collections.emptyMap()) +
 					(this.staticAttributes.isEmpty() ? "" : ", static attributes " + this.staticAttributes));
 		}
-
+		// 准备 Model 数据
 		Map<String, Object> mergedModel = createMergedOutputModel(model, request, response);
 		prepareResponse(request, response);
+		// 渲染模型
 		renderMergedOutputModel(mergedModel, getRequestToExpose(request), response);
 	}
 
@@ -418,7 +420,7 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 	 * <p>The first step will be preparing the request: In the JSP case,
 	 * this would mean setting model objects as request attributes.
 	 * The second step will be the actual rendering of the view,
-	 * for example including the JSP via a RequestDispatcher.
+	 * for example including the JSP via a RequestDispatcher. 给子类的模板方法
 	 * @param model combined output Map (never {@code null}),
 	 * with dynamic values taking precedence over static attributes
 	 * @param request current HTTP request
@@ -431,7 +433,7 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 
 	/**
 	 * Expose the model objects in the given map as request attributes.
-	 * Names will be taken from the model Map.
+	 * Names will be taken from the model Map. 把 ModelAndView 中的 Model 俩面的所有数据全部放在请求域中
 	 * This method is suitable for all resources reachable by {@link javax.servlet.RequestDispatcher}.
 	 * @param model a Map of model objects to expose
 	 * @param request current HTTP request
@@ -441,9 +443,11 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 
 		model.forEach((name, value) -> {
 			if (value != null) {
+				// 如果有值就添加到请求域
 				request.setAttribute(name, value);
 			}
 			else {
+				// 否则就从请求域中移除此属性
 				request.removeAttribute(name);
 			}
 		});

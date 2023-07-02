@@ -307,10 +307,10 @@ public class RedirectView extends AbstractUrlBasedView implements SmartView {
 		String targetUrl = createTargetUrl(model, request);
 		targetUrl = updateTargetUrl(targetUrl, model, request, response);
 
-		// Save flash attributes
+		// Save flash attributes 保存闪存数据
 		RequestContextUtils.saveOutputFlashMap(targetUrl, request, response);
 
-		// Redirect
+		// Redirect 重定向
 		sendRedirect(request, response, targetUrl, this.http10Compatible);
 	}
 

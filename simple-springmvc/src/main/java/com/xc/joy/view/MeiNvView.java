@@ -12,7 +12,17 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2023/5/28
  */
 public class MeiNvView implements View {
-	@Override  //自定义的渲染逻辑
+
+	/**
+	 * 自定义的渲染逻辑
+	 *
+	 * @param model a Map with name Strings as keys and corresponding model
+	 * objects as values (Map can also be {@code null} in case of empty model)
+	 * @param request current HTTP request
+	 * @param response he HTTP response we are building
+	 * @throws Exception
+	 */
+	@Override
 	public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		response.setContentType("text/html;charset=utf-8");
