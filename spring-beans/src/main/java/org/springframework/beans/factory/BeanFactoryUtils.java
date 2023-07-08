@@ -212,6 +212,10 @@ public abstract class BeanFactoryUtils {
 	}
 
 	/**
+	 * 父子容器，组件是先搜自己还是先搜父容器？
+	 * - Spring 底层找所有组件都有可能会调用 BeanFactoryUtils#beanNamesForTypeIncludingAncestors(beanFactory, Object.class)
+	 * - beanFactory 传入的 IOC 容器，beanFactory 中会有 parent 属性代表父容器
+	 * ==> 先找自己，再找父容器【依次递归】。
 	 * Get all bean names for the given type, including those defined in ancestor
 	 * factories. Will return unique names in case of overridden bean definitions.
 	 * <p>Does consider objects created by FactoryBeans, which means that FactoryBeans
@@ -226,10 +230,12 @@ public abstract class BeanFactoryUtils {
 	 */
 	public static String[] beanNamesForTypeIncludingAncestors(ListableBeanFactory lbf, Class<?> type) {
 		Assert.notNull(lbf, "ListableBeanFactory must not be null");
+		// 当前容器先找
 		String[] result = lbf.getBeanNamesForType(type);
 		if (lbf instanceof HierarchicalBeanFactory) {
 			HierarchicalBeanFactory hbf = (HierarchicalBeanFactory) lbf;
 			if (hbf.getParentBeanFactory() instanceof ListableBeanFactory) {
+				// 拿到父容器再找
 				String[] parentResult = beanNamesForTypeIncludingAncestors(
 						(ListableBeanFactory) hbf.getParentBeanFactory(), type);
 				result = mergeNamesWithParent(result, parentResult, hbf);

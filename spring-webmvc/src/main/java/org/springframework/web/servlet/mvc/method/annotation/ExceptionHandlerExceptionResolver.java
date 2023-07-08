@@ -252,9 +252,12 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 	}
 
 
+	/**
+	 * 实现了 InitializingBean 组件，在容器创建完对象以后，会初始化调用 InitializingBean
+	 */
 	@Override
 	public void afterPropertiesSet() {
-		// Do this first, it may add ResponseBodyAdvice beans
+		// Do this first, it may add ResponseBodyAdvice beans 初始化 @ExceptionHandler 增强的缓存【标注了 @ControllerAdvice 注解的类】
 		initExceptionHandlerAdviceCache();
 
 		if (this.argumentResolvers == null) {
@@ -272,6 +275,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 			return;
 		}
 
+		// 找到所有 ControllerAdviceBean
 		List<ControllerAdviceBean> adviceBeans = ControllerAdviceBean.findAnnotatedBeans(getApplicationContext());
 		for (ControllerAdviceBean adviceBean : adviceBeans) {
 			Class<?> beanType = adviceBean.getBeanType();
@@ -378,11 +382,13 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 	protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request,
 			HttpServletResponse response, @Nullable HandlerMethod handlerMethod, Exception exception) {
 
+		// 为当前异常找一个处理方法：@ExceptionHandler 注解标注的方法
 		ServletInvocableHandlerMethod exceptionHandlerMethod = getExceptionHandlerMethod(handlerMethod, exception);
 		if (exceptionHandlerMethod == null) {
 			return null;
 		}
 
+		// 异常解析器里面，还是利用了以前的 argumentResolvers 和 returnValueHandlers 扩展了异常解析功能
 		if (this.argumentResolvers != null) {
 			exceptionHandlerMethod.setHandlerMethodArgumentResolvers(this.argumentResolvers);
 		}
@@ -472,6 +478,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 			}
 		}
 
+		// 遍历所有的 @ControllerAdvice，看哪个类的方法能处理这个异常
 		for (Map.Entry<ControllerAdviceBean, ExceptionHandlerMethodResolver> entry : this.exceptionHandlerAdviceCache.entrySet()) {
 			ControllerAdviceBean advice = entry.getKey();
 			if (advice.isApplicableToBeanType(handlerType)) {

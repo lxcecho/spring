@@ -56,6 +56,7 @@ public class ExceptionHandlerMethodResolver {
 
 
 	/**
+	 * 扫描当前这个 ControllerAdvice 中所有标注了 @ExceptionHandlerr 方法
 	 * A constructor that finds {@link ExceptionHandler} methods in the given type.
 	 * @param handlerType the type to introspect
 	 */
@@ -95,6 +96,12 @@ public class ExceptionHandlerMethodResolver {
 		result.addAll(Arrays.asList(ann.value()));
 	}
 
+	/**
+	 * 每一个方法能处理什么异常类型
+	 *
+	 * @param exceptionType
+	 * @param method
+	 */
 	private void addExceptionMapping(Class<? extends Throwable> exceptionType, Method method) {
 		Method oldMethod = this.mappedMethods.put(exceptionType, method);
 		if (oldMethod != null && !oldMethod.equals(method)) {
