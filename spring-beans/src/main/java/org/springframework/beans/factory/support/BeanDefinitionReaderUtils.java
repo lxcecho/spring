@@ -61,6 +61,7 @@ public abstract class BeanDefinitionReaderUtils {
 
 		// 创建一个 BeanDefinition ，准备封装所有的标签信息
 		GenericBeanDefinition bd = new GenericBeanDefinition();
+		// parentName 可能为空
 		bd.setParentName(parentName);
 		if (className != null) {
 			if (classLoader != null) {

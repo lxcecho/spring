@@ -45,6 +45,13 @@ public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
 	private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
 
 
+	/**
+	 * 注入所有的 WebMvcConfigurer
+	 * That means if we extend our @Configuration class with WebMvcConfigurerAdapter (an adapter implementation of WebMvcConfigurer)
+	 * then it will also get injected above.
+	 *
+	 * @param configurers
+	 */
 	@Autowired(required = false)
 	public void setConfigurers(List<WebMvcConfigurer> configurers) {
 		if (!CollectionUtils.isEmpty(configurers)) {
