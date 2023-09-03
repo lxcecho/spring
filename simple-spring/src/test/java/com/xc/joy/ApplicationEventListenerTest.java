@@ -5,7 +5,7 @@ import com.xc.joy.conf.AppConfig;
 import com.xc.joy.listener.AppEventPublisher;
 import com.xc.joy.listener.ChangedEvent;
 import com.xc.joy.listener.MessageEvent;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

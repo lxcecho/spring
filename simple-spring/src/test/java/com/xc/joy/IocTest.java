@@ -11,7 +11,7 @@ import com.xc.joy.model.EmanConfig;
 import com.xc.joy.model.People;
 import com.xc.joy.service.Demo1;
 import com.xc.joy.service.PeopleService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;

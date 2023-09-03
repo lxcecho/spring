@@ -4,7 +4,7 @@ import com.xc.joy.aop.HelloService;
 import com.xc.joy.conf.AopOpenConfig;
 import com.xc.joy.conf.AppConfig;
 import com.xc.joy.dao.IndexDao;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.support.BeanDefinitionReader;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
