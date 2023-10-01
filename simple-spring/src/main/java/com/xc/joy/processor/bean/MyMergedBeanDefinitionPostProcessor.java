@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
 	public MyMergedBeanDefinitionPostProcessor() {
-		System.out.println("MyMergedBeanDefinitionPostProcessor...");
+		System.out.println("MyMergedBeanDefinitionPostProcessor.......Constructor");
 	}
 
 	@Override

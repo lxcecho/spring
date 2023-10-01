@@ -96,6 +96,7 @@ final class PostProcessorRegistrationDelegate {
 			for (String ppName : postProcessorNames) {
 				if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
 					// 从工厂中获取这个组件【getBean 整个组件创建的流程】并放到这个集合
+					// ConfigurationClassBeanPostProcessor
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
 					processedBeans.add(ppName);
 				}

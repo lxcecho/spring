@@ -544,7 +544,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
-	 * 真正创建 Bean 的方法
+	 * 真正创建 Bean 的方法：闭环逻辑（容器中有就直接用，没有就创建）
+	 * 循环依赖——所有组件的获取都是通过 getBean();
 	 *
 	 * Actually create the specified bean. Pre-creation processing has already happened
 	 * at this point, e.g. checking {@code postProcessBeforeInstantiation} callbacks.

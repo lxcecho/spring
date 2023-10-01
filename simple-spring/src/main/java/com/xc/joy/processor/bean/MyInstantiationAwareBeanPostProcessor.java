@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
 	public MyInstantiationAwareBeanPostProcessor() {
-		System.out.println("MyInstantiationAwareBeanPostProcessor...");
+		System.out.println("MyInstantiationAwareBeanPostProcessor.......Constructor");
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
 	@Override
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
  		System.out.println("MyInstantiationAwareBeanPostProcessor...postProcessBeforeInstantiation=>" + beanClass + "--" + beanName);
-		// 如果我们自己创建了对象返回。Spring则不会帮我们创建对象，用我们自己创建的对象？ 我们创建的这个对象，Spring会保存单实例？还是每次getBean都调到我们这里创建一个新的？
+		// 如果我们自己创建了对象返回。Spring 则不会帮我们创建对象，用我们自己创建的对象？ 我们创建的这个对象，Spring 会保存单实例？还是每次 getBean 都调到我们这里创建一个新的？
 		/*if(beanClass.isAssignableFrom(Cat.class)) {
 			return new Dog();
 		}*/

@@ -16,7 +16,7 @@ import java.lang.reflect.Constructor;
 public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
 
 	public MySmartInstantiationAwareBeanPostProcessor() {
-		System.out.println("MySmartInstantiationAwareBeanPostProcessor...");
+		System.out.println("MySmartInstantiationAwareBeanPostProcessor.......Constructor");
 	}
 
 	/**

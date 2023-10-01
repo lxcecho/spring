@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 	public MyBeanDefinitionRegistryPostProcessor() {
-		System.out.println("MyBeanDefinitionRegistryPostProcessor");
+		System.out.println("MyBeanDefinitionRegistryPostProcessor....Constructor");
 	}
 
 	@Override  // 紧接着执行

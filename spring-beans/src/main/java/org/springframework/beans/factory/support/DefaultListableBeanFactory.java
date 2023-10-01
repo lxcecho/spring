@@ -518,7 +518,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	}
 
 	/**
-	 * 获取某一个组件在容器中的名字
+	 * 按照类型去获取某一个组件在容器中的名字
+	 * 	1.先拿到所有组件的名字：beanDefinitionNames
 	 *
 	 * @param type
 	 * @param includeNonSingletons

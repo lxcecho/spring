@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 	public MyBeanFactoryPostProcessor() {
-		System.out.println("MyBeanFactoryPostProcessor...");
+		System.out.println("MyBeanFactoryPostProcessor.......Constructor");
 	}
 
 	@Override
