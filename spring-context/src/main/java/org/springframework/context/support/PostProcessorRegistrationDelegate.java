@@ -41,6 +41,7 @@ import org.springframework.core.PriorityOrdered;
 import org.springframework.lang.Nullable;
 
 /**
+ * 管理所有后置处理器的执行【BeanDefinitionRegistryPostProcessor/BeanFactoryPostProcessor/BeanPostProcessor】
  * Delegate for AbstractApplicationContext's post-processor handling.
  *
  * @author Juergen Hoeller
@@ -284,7 +285,7 @@ final class PostProcessorRegistrationDelegate {
 		registerBeanPostProcessors(beanFactory, internalPostProcessors);
 
 		// Re-register post-processor for detecting inner beans as ApplicationListeners,
-		// 把他放到后置处理器的最后一位： moving it to the end of the processor chain (for picking up proxies etc).
+		// 把他放到后置处理器的最后一位【虽然前面注册过，但是为了调整个顺序】 moving it to the end of the processor chain (for picking up proxies etc).
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext));
 	}
 

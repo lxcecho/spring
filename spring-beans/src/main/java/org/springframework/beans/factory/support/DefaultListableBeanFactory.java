@@ -883,7 +883,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	}
 
 	/**
-	 * 对配置 lazy-init 属性单态 Bean 的预实例化，即 非懒加载单例 Bean 初始化
+	 * 对配置 lazy-init 属性单态 Bean 的预实例化，即 非懒加载单例 Bean 初始化【所有的 BeanPostProcessor 开始工作，进行单个组件的功能增强】
 	 *
 	 * @throws BeansException
 	 */
@@ -941,6 +941,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;
 				if (System.getSecurityManager() != null) {
 					AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+						// 执行所有后 初始化操作
 						smartSingleton.afterSingletonsInstantiated();
 						return null;
 					}, getAccessControlContext());
