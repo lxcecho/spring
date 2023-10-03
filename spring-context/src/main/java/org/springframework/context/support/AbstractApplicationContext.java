@@ -704,7 +704,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Configure the bean factory with context callbacks.
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this)); // 准备一个处理 Aware 接口的后置处理器
-		beanFactory.ignoreDependencyInterface(EnvironmentAware.class); // 告诉 spring 先别管这些接口
+
+		// 告诉 spring 先别管这些接口
+		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
 		beanFactory.ignoreDependencyInterface(ApplicationEventPublisherAware.class);

@@ -68,7 +68,9 @@ final class PostProcessorRegistrationDelegate {
 
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+			// 记录从底层注册的 BeanFactoryPostProcessor 类型处理器【prepareBeanFactory】
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
+			// 记录从底层注册的 BeanDefinitionRegistryPostProcessor 类型处理器【BeanDefinitionRegistryPostProcessor】
 			List<BeanDefinitionRegistryPostProcessor> registryProcessors = new ArrayList<>();
 
 			// 先拿到底层默认的 BeanFactoryPostProcessor
@@ -160,7 +162,7 @@ final class PostProcessorRegistrationDelegate {
 			invokeBeanFactoryPostProcessors(beanFactoryPostProcessors, beanFactory);
 		}
 
-		/** 以前执行 BeanDefinitionRegistryPostProcessor，以后来执行 BeanFactoryPostProcessor */
+		/* TODO 以前执行 BeanDefinitionRegistryPostProcessor，以后来执行 BeanFactoryPostProcessor */
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
