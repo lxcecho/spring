@@ -1169,7 +1169,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		for (BeanPostProcessor bp : getBeanPostProcessors()) {
 			if (bp instanceof InstantiationAwareBeanPostProcessor) {
 				InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
-				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName);
+				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator
 				if (result != null) {
 					return result;
 				}
@@ -1362,7 +1362,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				// 将实例化的对象封装起来
 				beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, this);
 			}
-			// Bean 创建完后，使用 BeanWrapper 进行包装
+			// Bean 创建完后，使用 BeanWrapper 进行包装【wrapper（还有功能增强）/holder（只用来包装）】
 			BeanWrapper bw = new BeanWrapperImpl(beanInstance);
 			initBeanWrapper(bw);
 			return bw;

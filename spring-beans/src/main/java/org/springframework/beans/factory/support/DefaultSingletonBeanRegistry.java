@@ -76,14 +76,13 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private static final int SUPPRESSED_EXCEPTIONS_LIMIT = 100;
 
 
-	/** Cache of singleton objects: bean name to bean instance. */
-	// 【单例组件享元池】IOC容器--单例对象池，缓存所有单实例对象
+	/** Cache of singleton objects: bean name to bean instance. 【单例组件享元池】IOC容器--单例对象池，缓存所有单实例对象 */
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
-	/** Cache of singleton factories: bean name to ObjectFactory. */
+	/** Cache of singleton factories: bean name to ObjectFactory. 单例工厂池 */
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
-	/** Cache of early singleton objects: bean name to bean instance. */
+	/** Cache of early singleton objects: bean name to bean instance. 早期临时单例对象池 */
 	private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(16);
 
 	/** Set of registered singletons, containing the bean names in registration order. */
@@ -133,7 +132,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * Add the given singleton object to the singleton cache of this factory.
-	 * <p>To be called for eager registration of singletons.
+	 * <p>To be called for eager registration of singletons. 在单例的即时注册时被调用
 	 * @param beanName the name of the bean
 	 * @param singletonObject the singleton object
 	 */
@@ -185,16 +184,16 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		// Quick check for existing instance without full singleton lock
 		// 先检查单例缓存池，获取当前对象
 		Object singletonObject = this.singletonObjects.get(beanName); // 一级缓存。检查缓存中有没有，如果是第一次获取肯定是没有的
-		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) { // 如果当前Bean正在创建过程中，而且缓存中没有则继续
+		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) { // 如果当前 Bean 正在创建过程中，而且缓存中没有则继续
 			singletonObject = this.earlySingletonObjects.get(beanName); // 二级缓存
 			if (singletonObject == null && allowEarlyReference) {
-				synchronized (this.singletonObjects) {
+				synchronized (this.singletonObjects) { // singletonObjects 单例享元池
 					// Consistent creation of early reference within full singleton lock
 					singletonObject = this.singletonObjects.get(beanName);
 					if (singletonObject == null) {
 						singletonObject = this.earlySingletonObjects.get(beanName); // 三级缓存
 						if (singletonObject == null) {
-							ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+							ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName); // singletonFactories 单例工厂池
 							if (singletonFactory != null) {
 								singletonObject = singletonFactory.getObject();
 								this.earlySingletonObjects.put(beanName, singletonObject);
@@ -229,6 +228,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 				if (logger.isDebugEnabled()) {
 					logger.debug("Creating shared instance of singleton bean '" + beanName + "'");
 				}
+				// TODO 创建之前，把当前正要创建的对象的 beanName 保存起来：singletonsCurrentlyInCreation
 				beforeSingletonCreation(beanName);
 				boolean newSingleton = false;
 				boolean recordSuppressedExceptions = (this.suppressedExceptions == null);
@@ -260,9 +260,11 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 					if (recordSuppressedExceptions) {
 						this.suppressedExceptions = null;
 					}
+					// TODO 创建完成后，移除 singletonsCurrentlyInCreation 里面的 Bean 的名字
 					afterSingletonCreation(beanName);
 				}
 				if (newSingleton) {
+					// 创建完成后，并将单例名字注册到单例池
 					addSingleton(beanName, singletonObject);
 				}
 			}
@@ -364,7 +366,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	}
 
 	/**
-	 * Callback after singleton creation.
+	 * Callback after singleton creation. 创建单例后的回调，默认实现将单例标记为不再处于创建状态
 	 * <p>The default implementation marks the singleton as not in creation anymore.
 	 * @param beanName the name of the singleton that has been created
 	 * @see #isSingletonCurrentlyInCreation

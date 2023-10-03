@@ -142,7 +142,14 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	/**
-	 * Register all relevant annotation post processors in the given registry.
+	 * Register all relevant annotation post processors in the given registry. 注册一个注解配置的处理器：加载底层功能组件的后置处理器【各种解析器】
+	 * 给工厂注册核心组件：【这里还没有进行初始化】
+	 * 	- org.springframework.context.annotation.internalConfigurationAnnotationProcessor==>ConfigurationClassPostProcessor【BeanFactoryPostProcessor】配置类后置处理器
+	 * 	- org.springframework.context.annotation.internalAutowiredAnnotationProcessor==>AutowiredAnnotationBeanPostProcessor【SmartInstantiationAwareBeanPostProcessor】自动装配功能
+	 * 	- org.springframework.context.annotation.internalCommonAnnotationProcessor==>CommonAnnotationBeanPostProcessor【InstantiationAwareBeanPostProcessor】普通 JSR250 注解处理，支持 @PostConstruct、@PreDestroy、@Resource 相关注解
+	 * 	- org.springframework.context.annotation.internalPersistenceAnnotationProcessor==>PersistenceAnnotationProcessor【JPA 功能支持】
+	 * 	- org.springframework.context.event.internalEventListenerProcessor==>EventListenerMethodProcessor 事件功能/事件方法的后置处理器
+	 * 	- org.springframework.context.event.internalEventListenerFactory==>DefaultEventListenerFactory 事件工厂
 	 *
 	 * @param registry the registry to operate on
 	 * @param source   the configuration source element (already extracted)
@@ -169,7 +176,7 @@ public abstract class AnnotationConfigUtils {
 
 		// 注册底层的 配置文件处理器
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
-			// 3、往BeanDefinitionMap注册一个ConfigurationClassPostProcessor
+			// 3、往 BeanDefinitionMap 注册一个 ConfigurationClassPostProcessor
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));

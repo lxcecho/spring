@@ -282,6 +282,7 @@ public class AnnotatedBeanDefinitionReader {
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
 
 		// 特定注解解析，本例中均没传入 dependsOn，LazyInit 这些注解，这些注解就和 <bean/> 标签里面的属性作用是一样的，处理注解 Bean 定义中的通用注解
+		// 解析 @Lazy、@Primary、@DependsOn、@Description
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
 		// 本例中 qualifiers 传入的是 null，qualifiers 就是用来决定接口的实现类的，如果在向容器注册注解 Bean 定义时，使用了额外的限定符注解，则解析限定符注解。
 		// 主要是配置的关于 autowiring 自动依赖注入装配的限定条件，即 @Qualifier 注解，Spring 自动依赖注入装配默认是按类型装配，如果使用 @Qualifier 则按名称
