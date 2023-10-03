@@ -27,7 +27,7 @@ import java.util.Arrays;
  * logReturn(): {sayHello}, args: [{[lxcecho]}], result: {Hello, lxcecho---7}
  * logEnd(): {sayHello}, args: [{[lxcecho]}]
  * <p>
- * https://www.eclipse.org/aspectj/doc/released/progguide/index.html
+ * <a href="https://www.eclipse.org/aspectj/doc/released/progguide/index.html">...</a>
  *
  * @author lxcecho 909231497@qq.com
  * @since 03.05.2022
