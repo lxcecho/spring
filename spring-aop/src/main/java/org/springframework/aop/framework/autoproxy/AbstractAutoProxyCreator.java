@@ -241,7 +241,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
-	 * AOP 后置拦截
+	 * Bean 创建之前，AOP 的后置拦截
 	 *
 	 * @param beanClass the class of the bean to be instantiated
 	 * @param beanName the name of the bean
@@ -446,7 +446,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
-	 * Create an AOP proxy for the given bean.
+	 * Create an AOP proxy for the given bean. 给当前 Bean 创建 AOP 代理
 	 * @param beanClass the class of the bean
 	 * @param beanName the name of the bean
 	 * @param specificInterceptors the set of interceptors that is

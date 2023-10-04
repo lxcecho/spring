@@ -434,7 +434,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// 遍历容器为所创建的 Bean 添加的所有 BeanPostProcessor 后置处理器
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			// 调用 Bean 实例所有的后置处理中的初始化后处理方法，为 Bean 实例对象在初始化之后做一些自定义的处理操作
-			Object current = processor.postProcessAfterInitialization(result, beanName);
+			Object current = processor.postProcessAfterInitialization(result, beanName); // TODO AOP 代理对象会在这里创建
 			if (current == null) {
 				return result;
 			}
@@ -1171,7 +1171,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		for (BeanPostProcessor bp : getBeanPostProcessors()) {
 			if (bp instanceof InstantiationAwareBeanPostProcessor) {
 				InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
-				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator
+				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator：会在这里扫描所有的增强器
 				if (result != null) {
 					return result;
 				}

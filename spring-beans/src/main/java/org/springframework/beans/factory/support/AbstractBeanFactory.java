@@ -592,7 +592,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		boolean isFactoryDereference = BeanFactoryUtils.isFactoryDereference(name);
 
 		// Check manually registered singletons.
-		// 检查是否已经有这个 BeanName 的单例对象，有了直接用对象的Class，没有可以最后一次决定这个组件的类型：
+		// 检查是否已经有这个 BeanName 的单例对象，有了直接用对象的 Class，没有可以最后一次决定这个组件的类型：
 		// SmartInstantiationAwareBeanPostProcessor.predictBean();
 		Object beanInstance = getSingleton(beanName, false);
 		if (beanInstance != null && beanInstance.getClass() != NullBean.class) {

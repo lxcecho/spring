@@ -288,11 +288,11 @@ public class AnnotatedBeanDefinitionReader {
 		// 主要是配置的关于 autowiring 自动依赖注入装配的限定条件，即 @Qualifier 注解，Spring 自动依赖注入装配默认是按类型装配，如果使用 @Qualifier 则按名称
 		if (qualifiers != null) {
 			for (Class<? extends Annotation> qualifier : qualifiers) {
-				//如果配置了 @Primary 注解，设置该 Bean 为 autowiring 自动依赖注入装配时的首选
+				// 如果配置了 @Primary 注解，设置该 Bean 为 autowiring 自动依赖注入装配时的首选
 				if (Primary.class == qualifier) {
 					abd.setPrimary(true);
 				}
-				//如果配置了 @Lazy 注解，则设置该 Bean 为非延迟初始化，如果没有配置，则该 Bean 为预实例化
+				// 如果配置了 @Lazy 注解，则设置该 Bean 为非延迟初始化，如果没有配置，则该 Bean 为预实例化
 				else if (Lazy.class == qualifier) {
 					abd.setLazyInit(true);
 				}

@@ -984,7 +984,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 		}
 
-		// 先检查档案馆有没有这个bean信息
+		// 先检查档案馆有没有这个 bean 信息
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
 		if (existingDefinition != null) {
 			if (!isAllowBeanDefinitionOverriding()) {
@@ -1036,7 +1036,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			this.frozenBeanDefinitionNames = null;
 		}
 
-		// 检查是否有同名的 BeanDefinition 已经在 IOC 容器中注册
+		// 检查是否有同名的 BeanDefinition 即：已经在 IOC 容器中注册
 		if (existingDefinition != null || containsSingleton(beanName)) {
 			// 重置所有已经注册过的 BeanDefinition 的缓存
 			resetBeanDefinition(beanName);
