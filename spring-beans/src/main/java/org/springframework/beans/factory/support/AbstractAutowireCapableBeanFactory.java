@@ -1156,6 +1156,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
+	 * 解析 BeforeInstantiation；希望后置处理器在此返回一个代理对象，如果能返回代理对象就使用，如果不能就继续；——后置处理器先尝试返回对象；
 	 * Apply InstantiationAwareBeanPostProcessors to the specified bean definition
 	 * (by class and name), invoking their {@code postProcessBeforeInstantiation} methods.
 	 * <p>Any returned object will be used as the bean instead of actually instantiating
@@ -1171,7 +1172,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		for (BeanPostProcessor bp : getBeanPostProcessors()) {
 			if (bp instanceof InstantiationAwareBeanPostProcessor) {
 				InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
-				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator：会在这里扫描所有的增强器
+				// 后置处理器先尝试返回对象
+				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // TODO AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator：会在这里扫描所有的增强器
 				if (result != null) {
 					return result;
 				}
@@ -1892,7 +1894,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (System.getSecurityManager() != null) {
 			// 实现 PrivilegedAction 接口的匿名内部类
 			AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
-				// 激活 Aware 方法
+				// 激活 Aware 方法，即 处理 Aware 接口方法的回调
 				invokeAwareMethods(beanName, bean);
 				return null;
 			}, getAccessControlContext());
@@ -1910,7 +1912,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
-			// 调用 Bean 实例对象初始化的方法，这个初始化方法时在 Spring Bean 定义配置文件中通过 init-method 属性指定的
+			// 调用 Bean 实例对象初始化的方法，这个初始化方法时在 Spring Bean 定义配置文件中通过 init-method 属性指定的【执行自定义的初始化方法；如果组件实现了 InitializingBean 接口，就调用组件自己的 afterPropertiesSet() 方法；】
 			invokeInitMethods(beanName, wrappedBean, mbd);
 		}
 		catch (Throwable ex) {

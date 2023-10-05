@@ -111,6 +111,12 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 		return advisors;
 	}
 
+	/**
+	 * 判断当前本是否是基础类型的 Advice、Pointcut、Advisor、AopInfrastructureBean 或者是否是切面（@Aspect）
+	 *
+	 * @param beanClass the class of the bean
+	 * @return
+	 */
 	@Override
 	protected boolean isInfrastructureClass(Class<?> beanClass) {
 		// Previously we setProxyTargetClass(true) in the constructor, but that has too

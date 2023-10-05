@@ -16,6 +16,13 @@ public class HelloService {
         System.out.println("HelloService Constructor...");
     }
 
+	/**
+	 * 会先调用 CglibAopProxy.intercept(); 拦截目标方法的执行
+	 * org.springframework.aop.framework.CglibAopProxy.DynamicAdvisedInterceptor#intercept(java.lang.Object, java.lang.reflect.Method, java.lang.Object[], org.springframework.cglib.proxy.MethodProxy)
+	 *
+	 * @param name
+	 * @return
+	 */
     public String sayHello(String name) {
         String result = "Hello, " + name;
         System.out.println("result: {" + result + "}");

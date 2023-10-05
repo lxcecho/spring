@@ -146,7 +146,7 @@ class ConfigurationClassBeanDefinitionReader {
 
 		// 处理 @ImportResource
 		loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());
-		// 处理 @Import 注解
+		// 处理 @Import 注解【TODO 这里会对 AOP 注解 @EnableAspectJAutoProxy 创建一个 AnnotationAwareAspectJAutoProxyCreator Bean定义信息】
 		loadBeanDefinitionsFromRegistrars(configClass.getImportBeanDefinitionRegistrars());
 	}
 

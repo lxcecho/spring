@@ -690,7 +690,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 				target = targetSource.getTarget();
 				Class<?> targetClass = (target != null ? target.getClass() : null);
 				// 从 advised 中取得配置好的 AOP 通知，根据 ProxyFactory 对象获取将要执行的目标方法拦截器链；
-				// 即 chain 是 AOP 后置处理器在第一次运行的时候就生成好的5个增强器，然后封装成的 MethodInterceptor
+				// 即 chain 是 AOP 后置处理器在第一次运行的时候就生成好的 5 个增强器，然后封装成的 MethodInterceptor
 				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 				Object retVal;
 				// Check whether we only have one InvokerInterceptor: that is,

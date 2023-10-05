@@ -241,7 +241,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
-	 * Bean 创建之前，AOP 的后置拦截
+	 * Bean 创建之前，AOP 的后置拦截，即 禅师用后置处理器返回对象
 	 *
 	 * @param beanClass the class of the bean to be instantiated
 	 * @param beanName the name of the bean
@@ -252,9 +252,11 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		Object cacheKey = getCacheKey(beanClass, beanName);
 
 		if (!StringUtils.hasLength(beanName) || !this.targetSourcedBeans.contains(beanName)) {
+			// 1. 判断当前 bean 是否在 adviseBeans 中（adviseBeans：保存了所有需要增强 bean）；
 			if (this.advisedBeans.containsKey(cacheKey)) {
 				return null;
 			}
+			// 2. 判断当前本是否是基础类型的 Advice、Pointcut、Advisor、AopInfrastructureBean 或者是否是切面（@Aspect）；
 			// 判断是否切面，所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强的 bean，我们就放在缓存中
 			if (isInfrastructureClass(beanClass) || shouldSkip(beanClass, beanName)) {
 				this.advisedBeans.put(cacheKey, Boolean.FALSE);
