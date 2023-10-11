@@ -3,14 +3,11 @@ package com.xc.joy;
 import com.xc.joy.beans.Cat;
 import com.xc.joy.beans.Hello;
 import com.xc.joy.beans.Person;
-import com.xc.joy.beans.Users;
+import com.xc.joy.beans.User;
 import com.xc.joy.conf.AppConfig;
-import com.xc.joy.dao.TestDao;
 import com.xc.joy.model.Eman;
 import com.xc.joy.model.EmanConfig;
-import com.xc.joy.model.People;
 import com.xc.joy.service.Demo1;
-import com.xc.joy.service.PeopleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -107,7 +104,7 @@ public class IocTest {
         // 定义一个 BeanDefinition
         AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition();
         // 当前 Bean 对象的类型
-        beanDefinition.setBeanClass(Users.class);
+        beanDefinition.setBeanClass(User.class);
 
         // 设置  Bean 的其他属性
 
@@ -148,7 +145,7 @@ public class IocTest {
     @Test
     public void testIocByXml06() {
         AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition();
-        beanDefinition.setBeanClass(Users.class);
+        beanDefinition.setBeanClass(User.class);
 
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         // 注册 BeanDefinition
@@ -172,11 +169,11 @@ public class IocTest {
         // 获取 Bean 对象
         System.out.println(beanFactory.getBean("user11"));
         // 根据类型获取 beanNames
-        String[] beanNamesForType = beanFactory.getBeanNamesForType(Users.class);
+        String[] beanNamesForType = beanFactory.getBeanNamesForType(User.class);
         for (String s : beanNamesForType) {
             System.out.println(s);
         }
-        System.out.println(beanFactory.getBeanNamesForType(Users.class));
+        System.out.println(beanFactory.getBeanNamesForType(User.class));
     }
 
     @Test
@@ -227,22 +224,6 @@ public class IocTest {
         System.out.println(cat == cat1);// true
         System.out.println(cat + "," + cat1);
         System.out.println(stu1 + "," + stu2);*/
-    }
-
-    @Test
-    public void testTransaction() {
-        Resource resource = new ClassPathResource("");
-        DefaultListableBeanFactory listableBeanFactory = new DefaultListableBeanFactory();
-        BeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(listableBeanFactory);
-        beanDefinitionReader.loadBeanDefinitions(resource);
-        // todo 断点处
-        PeopleService peopleService = (PeopleService) listableBeanFactory.getBean("peopleServiceProxy");
-
-        People people = new People();
-        people.setUsername("lxcecho");
-        people.setAge(110);
-
-        peopleService.savePeople(people);
     }
 
 }
