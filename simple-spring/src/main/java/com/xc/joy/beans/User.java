@@ -1,7 +1,5 @@
 package com.xc.joy.beans;
 
-import java.util.Date;
-
 /**
  * @author lxcecho
  * @since 08.04.2021

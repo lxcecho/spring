@@ -27,6 +27,7 @@ public class Person implements ApplicationContextAware, MessageSourceAware {
 
 	//	@Autowired
 	ApplicationContext context; // 可以拿到 ioc 容器 又或者 实现 ApplicationContextAware 接口
+
 	MessageSource messageSource;
 
 	private String name;

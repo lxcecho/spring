@@ -29,6 +29,7 @@ import org.springframework.util.Assert;
 
 /**
  * 第一次运行的时候，就把切面信息和增强器（Advisor 缓存起来）信息都解析好了，提前保存起来，它是一个 Bean 后置增强器，会干预到每个组件的创建环节
+ * 即：在别的对象创建的时候，AspectJAwareAdvisorAutoProxyCreator 就开始干预了
  *
  * {@link AspectJAwareAdvisorAutoProxyCreator} subclass that processes all AspectJ
  * annotation aspects in the current application context, as well as Spring Advisors.
@@ -105,7 +106,8 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 		// Add all the Spring advisors found according to superclass rules. 判断这个 bean 是否需要增强，只需要找到他的所有增强器
 		List<Advisor> advisors = super.findCandidateAdvisors();
 		// Build Advisors for all AspectJ aspects in the bean factory. 构建增强器
-		if (this.aspectJAdvisorsBuilder != null) { // 增强器的构建只要有
+		if (this.aspectJAdvisorsBuilder != null) {
+			// 增强器的构建只要有
 			advisors.addAll(this.aspectJAdvisorsBuilder.buildAspectJAdvisors());
 		}
 		return advisors;
@@ -153,9 +155,9 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 
 
 	/**
+	 * 建造者：负责保存和产生功能增强器
 	 * Subclass of BeanFactoryAspectJAdvisorsBuilderAdapter that delegates to
 	 * surrounding AnnotationAwareAspectJAutoProxyCreator facilities.
-	 * 建造者：负责保存和产生功能增强器
 	 */
 	private class BeanFactoryAspectJAdvisorsBuilderAdapter extends BeanFactoryAspectJAdvisorsBuilder {
 

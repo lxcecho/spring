@@ -242,6 +242,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 	/**
 	 * Bean 创建之前，AOP 的后置拦截，即 禅师用后置处理器返回对象
+	 * 第一次运行的时候就会找到切面，并缓存
 	 *
 	 * @param beanClass the class of the bean to be instantiated
 	 * @param beanName the name of the bean

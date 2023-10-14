@@ -40,6 +40,7 @@
 		<property name="transactionManager" ref="transactionManager"/>
 		<property name="transactionAttributes">
 			<props>
+				<!--PROPAGATION_REQUIRED：默认选择，如果当前没有事务，就新建一个事务，如果已经存在一个事务，则加入到这个事务中-->
 				<prop key="save">PROPAGATION_REQUIRED</prop>
 				<prop key="update">PROPAGATION_REQUIRED</prop>
 				<prop key="remove">PROPAGATION_REQUIRED</prop>

@@ -3,13 +3,15 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!--<context:component-scan base-package="com.xc.joy.processor"/>-->
+
 	<bean id="user" class="com.xc.joy.beans.User">
 
 	</bean>
 
 	<bean id="person" class="com.xc.joy.beans.Person">
 		<property name="name" value="lxcecho"/>
-		<property name="cat" ref="cat"></property>
+		<property name="cat" ref="cat"/>
 	</bean>
 
 	<bean id="cat" class="com.xc.joy.beans.Cat">
@@ -21,4 +23,5 @@
 	<bean class="com.xc.joy.beans.HelloFactory" id="hello" />
 
 <!--	<import resource=""/>-->
+
 </beans>

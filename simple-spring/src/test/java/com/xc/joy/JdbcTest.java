@@ -17,7 +17,7 @@ public class JdbcTest {
 	public void testQuery() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
 		UserDao userDao = context.getBean(UserDao.class);
-		User user = userDao.findById(1);
+		User user = userDao.findById(3);
 		System.out.println(user);
 	}
 

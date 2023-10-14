@@ -1173,7 +1173,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			if (bp instanceof InstantiationAwareBeanPostProcessor) {
 				InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 				// 后置处理器先尝试返回对象
-				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName); // TODO AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator：会在这里扫描所有的增强器
+				// TODO AOP 后置处理器：AnnotationAwareAspectJAutoProxyCreator：会在这里扫描所有的增强器
+				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName);
 				if (result != null) {
 					return result;
 				}

@@ -74,10 +74,10 @@ public class IocTest {
          * xml 版 Spring 的用法，beanDefinitionMap 调试 —— beans.xml
          * AbstractApplicationContext 构造器 和 registerBean 断点
          */
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         // 多个资源文件路径可以用 ,;\t\n 等分隔
-//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml, beans2.xml");
-//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"beans.xml, beans2.xml"});
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml, beans.xml");
+//		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"beans.xml, beans.xml"});
 
 //		Person bean = context.getBean(Person.class);
         // 生命周期 cat，需要将配置文件中的 <context> 注释掉
@@ -87,20 +87,6 @@ public class IocTest {
 
     @Test
     public void testIocByXml03() {
-        System.out.println("Hello, lxcecho.");
-
-        /*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(TestDao.class);
-        context.refresh();
-        TestDao dao = context.getBean(TestDao.class);
-        dao.query();*/
-
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-        System.out.println(context.getBean(Demo1.class));
-    }
-
-    @Test
-    public void testIocByXml04() {
         // 定义一个 BeanDefinition
         AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition();
         // 当前 Bean 对象的类型
