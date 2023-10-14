@@ -1,4 +1,4 @@
-package com.xc.joy.exception;
+package com.lxcecho.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

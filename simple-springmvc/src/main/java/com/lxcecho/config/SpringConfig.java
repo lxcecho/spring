@@ -1,4 +1,4 @@
-package com.xc.joy.config;
+package com.lxcecho.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

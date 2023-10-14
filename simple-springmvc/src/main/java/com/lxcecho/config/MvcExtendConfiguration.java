@@ -1,13 +1,10 @@
-package com.xc.joy.config;
+package com.lxcecho.config;
 
-import com.xc.joy.view.MeiNvViewResolver;
-import org.springframework.context.annotation.Bean;
+import com.lxcecho.view.MeiNvViewResolver;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * 我的视图解析器和 SpringMVC 默认的都在一起

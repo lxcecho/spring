@@ -1,4 +1,4 @@
-package com.xc.joy.view;
+package com.lxcecho.view;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
-package com.xc.joy;
+package com.lxcecho;
 
-import com.xc.joy.config.SpringConfig;
-import com.xc.joy.config.SpringMvcConfig;
+import com.lxcecho.config.SpringConfig;
+import com.lxcecho.config.SpringMvcConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

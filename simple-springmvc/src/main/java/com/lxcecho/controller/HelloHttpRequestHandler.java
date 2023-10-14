@@ -1,4 +1,4 @@
-package com.xc.joy.controller;
+package com.lxcecho.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpRequestHandler;

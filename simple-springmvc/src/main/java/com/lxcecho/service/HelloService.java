@@ -1,4 +1,4 @@
-package com.xc.joy.service;
+package com.lxcecho.service;
 
 import org.springframework.stereotype.Service;
 

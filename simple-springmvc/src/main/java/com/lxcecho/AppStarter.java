@@ -1,7 +1,6 @@
-package com.xc.joy;
+package com.lxcecho;
 
-import com.xc.joy.config.SpringConfig;
-import org.springframework.web.WebApplicationInitializer;
+import com.lxcecho.config.SpringConfig;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 

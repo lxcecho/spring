@@ -1,4 +1,4 @@
-package com.xc.joy.view;
+package com.lxcecho.view;
 
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
