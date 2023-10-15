@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * @since 2023/10/15
  */
 @Configuration
-@ComponentScan("com.imooc.controller")
+@ComponentScan("com.selfdev.controller")
 @EnableWebMvc
 public class MVCConfig {
 	@Bean
