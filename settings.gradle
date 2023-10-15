@@ -38,5 +38,3 @@ rootProject.children.each {project ->
 }
 include 'simple-spring'
 include 'simple-springmvc'
-include 'echo-spring'
-

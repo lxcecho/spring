@@ -12,20 +12,20 @@ import java.util.Arrays;
  * 正常：前置通知--目标方法--返回通知--后置通知
  * 异常：前置通知--目标方法--异常通知--后置通知
  * try {
- * 前置通知
- * 目标方法
- * 返回通知
+ * 	前置通知
+ * 	目标方法
+ * 	返回通知
  * } catch (Exception e) {
- * 异常通知
+ * 	异常通知
  * } finally {
- * 后置通知
+ * 	后置通知
  * }
  * <p>
  * 案例结果输出：
- * logStart(): {sayHello}, args: [{[lxcecho]}]
- * result: {Hello, lxcecho}
- * logReturn(): {sayHello}, args: [{[lxcecho]}], result: {Hello, lxcecho---7}
- * logEnd(): {sayHello}, args: [{[lxcecho]}]
+ * 	logStart(): {sayHello}, args: [{[lxcecho]}]
+ * 	result: {Hello, lxcecho}
+ * 	logReturn(): {sayHello}, args: [{[lxcecho]}], result: {Hello, lxcecho---7}
+ * 	logEnd(): {sayHello}, args: [{[lxcecho]}]
  * <p>
  * <a href="https://www.eclipse.org/aspectj/doc/released/progguide/index.html">...</a>
  *
@@ -39,7 +39,7 @@ public class LogAspect {
     /**
      * 配置切入点：该方法无方法体，主要为方便同类中其他方法使用此处配置的切入点
      */
-    @Pointcut("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+    @Pointcut("execution(* com.lxcecho.aop.HelloService.sayHello(..))")
     public void aspect() {
 
     }
@@ -53,7 +53,7 @@ public class LogAspect {
      *
      * @param joinPoint
      */
-//	@Before("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+//	@Before("execution(* com.lxcecho.aop.HelloService.sayHello(..))")
     @Before("aspect()")
     public void logStart(JoinPoint joinPoint) {
         String name = joinPoint.getSignature().getName();
@@ -66,7 +66,7 @@ public class LogAspect {
      * @param joinPoint
      * @param result
      */
-//	@AfterReturning(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", returning = "result")
+//	@AfterReturning(value = "execution(* com.lxcecho.aop.HelloService.sayHello(..))", returning = "result")
     @AfterReturning(value = "aspect()", returning = "result")
     public void logReturn(JoinPoint joinPoint, Object result) { // JoinPoint一定要出现在参数表的第一位，否则报错
         String name = joinPoint.getSignature().getName();
@@ -78,7 +78,7 @@ public class LogAspect {
      *
      * @param joinPoint
      */
-//	@After("execution(* com.xc.joy.aop.HelloService.sayHello(..))")
+//	@After("execution(* com.lxcecho.aop.HelloService.sayHello(..))")
     @After("aspect()")
     public void logEnd(JoinPoint joinPoint) {
         String name = joinPoint.getSignature().getName();
@@ -88,7 +88,7 @@ public class LogAspect {
     /**
      * 异常通知：在目标方法出现异常之后运行；
      */
-//	@AfterThrowing(value = "execution(* com.xc.joy.aop.HelloService.sayHello(..))", throwing = "e")
+//	@AfterThrowing(value = "execution(* com.lxcecho.aop.HelloService.sayHello(..))", throwing = "e")
     @AfterThrowing(value = "aspect()", throwing = "e")
     public void logError(JoinPoint joinPoint, Exception e) {
         String name = joinPoint.getSignature().getName();
