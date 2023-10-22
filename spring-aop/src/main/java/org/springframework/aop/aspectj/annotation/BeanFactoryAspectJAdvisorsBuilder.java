@@ -120,12 +120,14 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
-								// 获取增强器
+								// 获取增强器：Aspect 里面的 advice 和 pointcut 被拆分程一个个 advisor，advisor 里的 advice 和 pointcut 是 1对1 的关系
 								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
 								if (this.beanFactory.isSingleton(beanName)) {
+									// 单例则直接将 Advisor 类存到缓存
 									this.advisorsCache.put(beanName, classAdvisors);
 								}
 								else {
+									// 否则将其对应的工厂缓存
 									this.aspectFactoryCache.put(beanName, factory);
 								}
 								advisors.addAll(classAdvisors);

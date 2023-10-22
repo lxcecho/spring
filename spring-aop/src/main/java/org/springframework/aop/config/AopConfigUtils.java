@@ -143,6 +143,7 @@ public abstract class AopConfigUtils {
 			return null;
 		}
 
+		// 若用户自己没有定义，那就用默认的 AnnotationAwareAspectJAutoProxyCreator
 		RootBeanDefinition beanDefinition = new RootBeanDefinition(cls);
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);

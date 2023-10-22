@@ -19,7 +19,7 @@ package org.springframework.beans.factory.support;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
- * 在 BeanPostProcessor 的基础上增加了在实例化和实例化后之间的扩展点
+ * 在 BeanPostProcessor 的基础上增加了在实例化和实例化后之间的扩展点，即 用来将 merged BeanDefinition 暴露出来
  *
  * Post-processor callback interface for <i>merged</i> bean definitions at runtime.
  * {@link BeanPostProcessor} implementations may implement this sub-interface in order
@@ -41,6 +41,10 @@ public interface MergedBeanDefinitionPostProcessor extends BeanPostProcessor {
 
 	/**
 	 * AOP 和这个没有关系
+	 * 在 bean 实例化完毕后调用，可以用来修改 merged BeanDefinition 的一些 properties 或者用来给后续回调中缓存一些 meta 信息使用
+	 * 这个算是将 merged BeanDefinition 暴露出来的一个回调
+	 * 重点关注 AutowiredAnnotationBeanPostProcessor，该类会把 @Autowired 等标记的
+	 * 需要依赖注入的成员变量或者方法实例给记录下来，方便后续 populateBean 使用
 	 *
 	 * Post-process the given merged bean definition for the specified bean.
 	 * @param beanDefinition the merged bean definition for the bean

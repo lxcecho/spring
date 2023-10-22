@@ -250,11 +250,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 */
 	@Override
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) {
+		// 获取 BeanClass 的缓存 Key
 		Object cacheKey = getCacheKey(beanClass, beanName);
 
 		if (!StringUtils.hasLength(beanName) || !this.targetSourcedBeans.contains(beanName)) {
-			// 1. 判断当前 bean 是否在 adviseBeans 中（adviseBeans：保存了所有需要增强 bean）；
-			if (this.advisedBeans.containsKey(cacheKey)) {
+			// 1. 判断当前 bean 是否在 adviseBeans 中（adviseBeans：保存了所有需要增强 bean【即保存了所有已经做过动态代理的 Bean】）；
+			if (this.advisedBeans.containsKey(cacheKey)) { // 如果被解析过，直接返回
 				return null;
 			}
 			// 2. 判断当前本是否是基础类型的 Advice、Pointcut、Advisor、AopInfrastructureBean 或者是否是切面（@Aspect）；
@@ -273,9 +274,11 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			if (StringUtils.hasLength(beanName)) {
 				this.targetSourcedBeans.add(beanName);
 			}
+			// 获取 Advisors，交给子类去实现的
 			Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(beanClass, beanName, targetSource);
 			Object proxy = createProxy(beanClass, beanName, specificInterceptors, targetSource);
 			this.proxyTypes.put(cacheKey, proxy.getClass());
+			// 返回代理对象
 			return proxy;
 		}
 
@@ -299,6 +302,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 	/**
 	 * AOP 判断此对象如果有增强方法（有切面切入它）：挨个判断所有的增强器的正则是否能切入这个对象【有增强器就为这个对象创建代理】
+	 *
 	 * Create a proxy with the configured interceptors if the bean is
 	 * identified as one to proxy by the subclass.
 	 * @see #getAdvicesAndAdvisorsForBean
@@ -308,6 +312,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		if (bean != null) {
 			// 根据给定的 Bean 的 class 和 name 构建出一个 key，格式：beanClassName_beanName
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
+			// 当 Bean 被循环引用且被暴露了，则会通过 getEarlyBeanReference 来创建代理类
+			// 通过判断 earlyProxyReferences 中是否存在 beanName 来决定是否需要对 target 进行动态代理
 			if (this.earlyProxyReferences.remove(cacheKey) != bean) {
 				// 如果他适合被代理，则需要封装指定的 Bean
 				return wrapIfNecessary(bean, beanName, cacheKey);

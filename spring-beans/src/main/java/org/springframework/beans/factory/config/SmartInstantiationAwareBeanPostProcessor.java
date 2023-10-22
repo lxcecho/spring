@@ -22,6 +22,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.lang.Nullable;
 
 /**
+ * 主要供 spring 框架内部来使用
+ *
  * Extension of the {@link InstantiationAwareBeanPostProcessor} interface,
  * adding a callback for predicting the eventual type of a processed bean.
  *
@@ -38,6 +40,8 @@ import org.springframework.lang.Nullable;
 public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationAwareBeanPostProcessor {
 
 	/**
+	 * 用来返回目标对象的最终类型(比如代理对象通过 beanClass 获取 proxy type）
+	 *
 	 * Predict the type of the bean to be eventually returned from this
 	 * processor's {@link #postProcessBeforeInstantiation} callback.
 	 * <p>The default implementation returns {@code null}.
@@ -52,6 +56,8 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	}
 
 	/**
+	 * 提供一个拓展点用来解析获取用来实例化的构造器（比如未通过 bean 定义构造器以及参数的情况下，会根据这个回调来确定构造器）
+	 *
 	 * Determine the candidate constructors to use for the given bean.
 	 * <p>The default implementation returns {@code null}.
 	 * @param beanClass the raw class of the bean (never {@code null})
@@ -67,6 +73,8 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	}
 
 	/**
+	 * 获取要提前暴露的 bean 的引用，用来支持单例对象的循环引用（一般是 bean 自身，如果是代理对象则需要取用代理引用）
+	 *
 	 * Obtain a reference for early access to the specified bean,
 	 * typically for the purpose of resolving a circular reference.
 	 * <p>This callback gives post-processors a chance to expose a wrapper

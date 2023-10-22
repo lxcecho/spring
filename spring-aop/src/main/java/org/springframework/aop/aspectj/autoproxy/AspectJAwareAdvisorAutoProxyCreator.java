@@ -96,7 +96,7 @@ public class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProx
 	}
 
 	/**
-	 * 判断是否需要跳过当前类
+	 * 判断是否需要跳过当前类【AOP 解析直接解析出我们的切面信息，而事务在这里是不会解析的】
 	 *
 	 * @param beanClass the class of the bean
 	 * @param beanName the name of the bean

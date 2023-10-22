@@ -23,7 +23,7 @@ import org.springframework.beans.PropertyValues;
 import org.springframework.lang.Nullable;
 
 /**
- * 在 BeanPostProcessor 的基础上增加了实例化前、实例化后、填充属性后
+ * 在 BeanPostProcessor 的基础上增加了实例化前、实例化后、填充属性后【对象实例化前后以及实例化后设置 propertyValues 的回调】
  *
  * Subinterface of {@link BeanPostProcessor} that adds a before-instantiation callback,
  * and a callback after instantiation but before explicit properties are set or
@@ -49,6 +49,8 @@ import org.springframework.lang.Nullable;
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
 	/**
+	 * 用来在对象实例化前直接返回一个对象（如代理对象）来代替通过内置的实例化流程创建对象
+	 *
 	 * Apply this BeanPostProcessor <i>before the target bean gets instantiated</i>.
 	 * The returned bean object may be a proxy to use instead of the target bean,
 	 * effectively suppressing default instantiation of the target bean.
@@ -78,6 +80,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	}
 
 	/**
+	 * 在对象实例化完毕执行 populateBean 之前，如果返回 false，则 Spring 不再对对应的 Bean 实例进行自动依赖注入
+	 *
 	 * Perform operations after the bean has been instantiated, via a constructor or factory method,
 	 * but before Spring property population (from explicit properties or autowiring) occurs.
 	 * <p>This is the ideal callback for performing custom field injection on the given bean
@@ -98,7 +102,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	}
 
 	/**
-	 * AOP 介入了但是没有做任何事情
+	 * AOP 介入了但是没有做任何事情。这里是在 Spring 处理完默认的成员属性，应用到指定的 Bean 之前进行回调，可用来检查和修改属性，最终返回的 PropertyValues 会应用到 bean 中；
+	 * @Autowired @Resource 等就是根据这个回调来实现最终注入依赖的属性的。
 	 *
 	 * Post-process the given property values before the factory applies them
 	 * to the given bean, without any need for property descriptors.
@@ -125,6 +130,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	}
 
 	/**
+	 * postProcessPropertyValues 已经被标注 @Deprecated，后续将会被 postProcessProperties 取代
+	 *
 	 * Post-process the given property values before the factory applies them
 	 * to the given bean. Allows for checking whether all dependencies have been
 	 * satisfied, for example based on a "Required" annotation on bean property setters.

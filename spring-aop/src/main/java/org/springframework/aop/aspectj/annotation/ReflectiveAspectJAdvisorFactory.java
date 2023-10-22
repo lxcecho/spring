@@ -126,6 +126,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 	public List<Advisor> getAdvisors(MetadataAwareAspectInstanceFactory aspectInstanceFactory) {
 		// 获取标记为 AspectJ 的类
 		Class<?> aspectClass = aspectInstanceFactory.getAspectMetadata().getAspectClass();
+		// 获取 AspectJ 的名字
 		String aspectName = aspectInstanceFactory.getAspectMetadata().getAspectName();
 		validate(aspectClass);
 
@@ -246,12 +247,22 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 		return ajexp;
 	}
 
-
+	/**
+	 * 获取并实例化切面
+	 *
+	 * @param candidateAdviceMethod the candidate advice method
+	 * @param expressionPointcut the AspectJ expression pointcut
+	 * @param aspectInstanceFactory the aspect instance factory
+	 * @param declarationOrder the declaration order within the aspect
+	 * @param aspectName the name of the aspect
+	 * @return
+	 */
 	@Override
 	@Nullable
 	public Advice getAdvice(Method candidateAdviceMethod, AspectJExpressionPointcut expressionPointcut,
 			MetadataAwareAspectInstanceFactory aspectInstanceFactory, int declarationOrder, String aspectName) {
 
+		// 获取切面类的 class 对象
 		Class<?> candidateAspectClass = aspectInstanceFactory.getAspectMetadata().getAspectClass();
 		validate(candidateAspectClass);
 

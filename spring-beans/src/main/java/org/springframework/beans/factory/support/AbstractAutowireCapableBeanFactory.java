@@ -433,8 +433,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object result = existingBean;
 		// 遍历容器为所创建的 Bean 添加的所有 BeanPostProcessor 后置处理器
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
-			// 调用 Bean 实例所有的后置处理中的初始化后处理方法，为 Bean 实例对象在初始化之后做一些自定义的处理操作
-			Object current = processor.postProcessAfterInitialization(result, beanName); // TODO AOP 代理对象会在这里创建
+			// 调用 Bean 实例所有的后置处理中的初始化后处理方法，为 Bean 实例对象在初始化之后做一些自定义的处理操作【AOP 正常流程的织入入口】
+			Object current = processor.postProcessAfterInitialization(result, beanName); // TODO AOP 在这里对 Bean 进行横切逻辑织入
 			if (current == null) {
 				return result;
 			}
@@ -993,6 +993,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object exposedObject = bean;
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
+				// 如果是 SmartInstantiationAwareBeanPostProcessor 类型，就进行处理，如果没有相关处理内容，就返回默认的实例。
+				// 里面的 AbstractAutoProxyCreator 类是 AOP 的关键
 				if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
 					SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;
 					exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);
@@ -1139,8 +1141,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	@Nullable
 	protected Object resolveBeforeInstantiation(String beanName, RootBeanDefinition mbd) {
 		Object bean = null;
+		// 如果 beforeInstantiationResolved 还没有设置或者为 false【说明还没有需要在实例化前执行的操作】
 		if (!Boolean.FALSE.equals(mbd.beforeInstantiationResolved)) {
-			// Make sure bean class is actually resolved at this point.
+			// Make sure bean class is actually resolved at this point. mbd.isSynthetic() 默认为 false
 			if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 				Class<?> targetType = determineTargetType(beanName, mbd);
 				if (targetType != null) {
@@ -1491,6 +1494,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+					// 在这里会对 @Autowired 标记的属性进行依赖注入
 					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
 					if (pvsToUse == null) {
 						if (filteredPds == null) {
