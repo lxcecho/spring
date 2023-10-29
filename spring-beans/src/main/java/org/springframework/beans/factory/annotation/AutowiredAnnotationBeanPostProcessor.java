@@ -295,7 +295,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		// Quick check on the concurrent map first, with minimal locking.
 		Constructor<?>[] candidateConstructors = this.candidateConstructorsCache.get(beanClass);
 		if (candidateConstructors == null) {
-			// Fully synchronized resolution now...
+			// Fully synchronized resolution now... 双重检查应用==线程安全
 			synchronized (this.candidateConstructorsCache) {
 				candidateConstructors = this.candidateConstructorsCache.get(beanClass);
 				if (candidateConstructors == null) {

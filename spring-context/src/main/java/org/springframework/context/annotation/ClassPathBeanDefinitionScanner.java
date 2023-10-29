@@ -278,7 +278,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 	}
 
 	/**
-	 * 类路径 Bean 定义扫描器扫描给定包及其子包
+	 * 类路径 Bean 定义扫描器扫描给定包及其子包，并注册其 Bean 定义信息
 	 *
 	 * Perform a scan within the specified base packages,
 	 * returning the registered bean definitions.

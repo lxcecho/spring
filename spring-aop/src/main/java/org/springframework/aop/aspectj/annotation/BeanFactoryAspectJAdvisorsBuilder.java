@@ -85,7 +85,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	 * @see #isEligibleBean
 	 */
 	public List<Advisor> buildAspectJAdvisors() {
-		List<String> aspectNames = this.aspectBeanNames; // 它是怎么知道切面名字的？
+		List<String> aspectNames = this.aspectBeanNames; // TODO 它是怎么知道切面名字的？
 
 		// 双检查锁的写法
 		if (aspectNames == null) {

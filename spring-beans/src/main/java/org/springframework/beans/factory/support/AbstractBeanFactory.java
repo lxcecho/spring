@@ -1793,7 +1793,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * @param beanName the name of the bean
 	 */
 	protected void markBeanAsCreated(String beanName) {
-		if (!this.alreadyCreated.contains(beanName)) {
+		if (!this.alreadyCreated.contains(beanName)) { // 双重检查应用 ==> 线程安全
 			synchronized (this.mergedBeanDefinitions) {
 				if (!this.alreadyCreated.contains(beanName)) {
 					// Let the bean definition get re-merged now that we're actually creating
