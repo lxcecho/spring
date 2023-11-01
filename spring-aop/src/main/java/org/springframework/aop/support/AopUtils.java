@@ -295,6 +295,8 @@ public abstract class AopUtils {
 	}
 
 	/**
+	 * 挨个判断所有的增强器的正则是否能切入这个对象
+	 *
 	 * Determine the sublist of the {@code candidateAdvisors} list
 	 * that is applicable to the given class.
 	 * @param candidateAdvisors the Advisors to evaluate
@@ -307,6 +309,7 @@ public abstract class AopUtils {
 			return candidateAdvisors;
 		}
 		List<Advisor> eligibleAdvisors = new ArrayList<>();
+		// 挨个判断所有的增强器的正则是否能切入这个对象
 		for (Advisor candidate : candidateAdvisors) {
 			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {
 				eligibleAdvisors.add(candidate);

@@ -243,6 +243,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Bean 实例化之前，AOP 的后置拦截，即 禅师用后置处理器返回对象
 	 * 第一次运行的时候就会找到切面，并缓存
+	 * 【前置的这个过程没有做什么事】
 	 *
 	 * @param beanClass the class of the bean to be instantiated
 	 * @param beanName the name of the bean
@@ -260,7 +261,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			}
 			// 2. 判断当前本是否是基础类型的 Advice、Pointcut、Advisor、AopInfrastructureBean 或者是否是切面（@Aspect）；
 			// 判断是否切面，所有增强了的组件会被缓存在 advisedBeans，如果我们需要增强的 bean，我们就放在缓存中
-			if (isInfrastructureClass(beanClass) || shouldSkip(beanClass, beanName)) {
+			if (isInfrastructureClass(beanClass) || shouldSkip(beanClass, beanName)) { // 执行的是子类 AnnotationAwareAspectJAutoProxyCreator 中的方法
 				this.advisedBeans.put(cacheKey, Boolean.FALSE);
 				return null;
 			}
@@ -369,6 +370,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		// Create proxy if we have advice. 如果有切面的通知方法切入这个对象，就给对象创建代理
 		// 1. 获取当前 bean 的所有增强器（通知方法）
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
+		// 有增强器就为i这个对象创建代理
 		if (specificInterceptors != DO_NOT_PROXY) {
 			// 2. 保存当前 bean 在 advisedBeans 中
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);

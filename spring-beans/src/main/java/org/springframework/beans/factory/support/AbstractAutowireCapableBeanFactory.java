@@ -417,7 +417,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// 遍历容器为所创建的 Bean 添加的所有 BeanPostProcessor 后置处理器
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			// 调用 Bean 实例所有的后置处理中的初始化前处理方法，为 Bean 实例对象在初始化之前做一些自定义的处理操作
-			Object current = processor.postProcessBeforeInitialization(result, beanName);
+			Object current = processor.postProcessBeforeInitialization(result, beanName); // AOP 也在此工作，直接返回 Bean 原生对象
 			if (current == null) { // 不管 null 的值
 				return result;
 			}
@@ -434,7 +434,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// 遍历容器为所创建的 Bean 添加的所有 BeanPostProcessor 后置处理器
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
 			// 调用 Bean 实例所有的后置处理中的初始化后处理方法，为 Bean 实例对象在初始化之后做一些自定义的处理操作【AOP 正常流程的织入入口】
-			Object current = processor.postProcessAfterInitialization(result, beanName); // TODO AOP 在这里对 Bean 进行横切逻辑织入
+			Object current = processor.postProcessAfterInitialization(result, beanName); // TODO AOP 在这里对 Bean 进行横切逻辑织入【即判断此对象有增强方法，有切面切入他】
 			if (current == null) {
 				return result;
 			}
@@ -584,7 +584,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				try {
-					applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
+					applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName); // AOP 和这个没有关系
 				}
 				catch (Throwable ex) {
 					throw new BeanCreationException(mbd.getResourceDescription(), beanName,
@@ -1452,7 +1452,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 					// 如果 InstantiationAwareBeanPostProcessor 返回 false，则 Bean 的赋值全部结束【即：决定后续处理器是否可以继续执行】
-					if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {
+					if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) { // AOP 介入了，但是没做事
 						return;
 					}
 				}
@@ -1522,6 +1522,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// TODO XML 版的所有配置会来到这里给属性赋值
 			applyPropertyValues(beanName, mbd, bw, pvs);
 		}
+		// Autowired 赋值结束
 	}
 
 	/**

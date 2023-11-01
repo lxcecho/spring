@@ -36,3 +36,5 @@ The Spring Framework is released under version 2.0 of the [Apache License](https
 ## 5.2x document
 
 [document](https://docs.spring.io/spring-framework/docs/5.2.22.RELEASE/spring-framework-reference/index.html)
+
+[Spring 注解学习视频](https://www.bilibili.com/video/BV1gW411W7wy/?p=33&vd_source=4ef6b983bd71911bed895c11d5ce2147)
