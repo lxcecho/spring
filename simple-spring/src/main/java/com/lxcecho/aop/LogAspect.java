@@ -37,6 +37,10 @@ import java.util.Arrays;
 public class LogAspect {
 
     /**
+	 * 抽取公共的切入点表达式：
+	 * 	1.本类引用
+	 * 	2.其他的切面引用
+	 *
      * 配置切入点：该方法无方法体，主要为方便同类中其他方法使用此处配置的切入点
      */
     @Pointcut("execution(* com.lxcecho.aop.HelloService.sayHello(..))")
@@ -47,6 +51,8 @@ public class LogAspect {
     public LogAspect() {
         System.out.println("LogAspect...");
     }
+
+	// TODO JoinPoint 一定要出现在参数的第一位
 
     /**
      * 前置通知：在目标方法之前切入，切入点表达式（指定在哪个方法切入）
