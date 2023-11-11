@@ -1,5 +1,6 @@
 package com.lxcecho.entity;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 //@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 // 容器就应该给 Cat 再创建一个对象
 @Component
-public class Cat implements InitializingBean, SmartInitializingSingleton {
+public class Cat implements InitializingBean, SmartInitializingSingleton, DisposableBean {
 
 	private String name;
 
@@ -35,6 +36,12 @@ public class Cat implements InitializingBean, SmartInitializingSingleton {
 	 */
 	public void init() {
 		System.out.println("这是初始化方法");
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("cat...destroy...");
 	}
 
 	@Override

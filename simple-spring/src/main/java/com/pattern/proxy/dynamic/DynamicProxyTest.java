@@ -1,7 +1,7 @@
-package com.lxcecho.proxy.dynamic;
+package com.pattern.proxy.dynamic;
 
-import com.lxcecho.dao.IndexDao;
-import com.lxcecho.dao.impl.MemberDaoImpl;
+import com.pattern.proxy.MemberDao;
+import com.pattern.proxy.staticproxy.MemberDaoImpl;
 
 import java.lang.reflect.Proxy;
 
@@ -15,7 +15,7 @@ import java.lang.reflect.Proxy;
  */
 public class DynamicProxyTest {
     public static void main(String[] args) {
-        IndexDao target = new MemberDaoImpl();
+        MemberDao target = new MemberDaoImpl();
 
         /**
          * public static Object newProxyInstance(ClassLoader loader,
@@ -29,7 +29,7 @@ public class DynamicProxyTest {
          * 5 Class.forName("xxx").newInstance 反射实例化这个对象 proxyObject
          * 6 直接产生了在内存中的字节码
          */
-        IndexDao proxy = (IndexDao) Proxy.newProxyInstance(target.getClass().getClassLoader(),
+        MemberDao proxy = (MemberDao) Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 target.getClass().getInterfaces(),
                 new CustomInvocationHandler(target));
         proxy.query("proxy", 111);

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 
 /**
+ * Bean 组件的 PostProcessor，后置处理器：初始化前后进行处理goon工作，将后置处理器加入到容器中
+ *
  * @author lxcecho 909231497@qq.com
  * @since 20.06.2021
- * <p>
- * Bean 组件的 PostProcessor；
  */
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {

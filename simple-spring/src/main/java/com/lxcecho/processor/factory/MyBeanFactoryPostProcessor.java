@@ -5,6 +5,8 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 /**
  * @author lxcecho 909231497@qq.com
  * @since 20.06.2021
@@ -20,5 +22,9 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		System.out.println("BeanFactoryPostProcessor....postProcessBeanFactory==>" + beanFactory);
+		int count = beanFactory.getBeanDefinitionCount();
+		String[] names = beanFactory.getBeanDefinitionNames();
+		System.out.println("当前 BeanFactory 中有 " + count + " 个 Bean");
+		System.out.println(Arrays.asList(names));
 	}
 }

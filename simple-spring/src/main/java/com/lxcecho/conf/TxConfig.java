@@ -57,10 +57,10 @@ public class TxConfig {
 	@Bean(name="dataSource")
 	public DataSource dataSource(){
 		DruidDataSource dataSource = new DruidDataSource();
-		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(env.getProperty("jdbc.url"));
-		dataSource.setUsername(env.getProperty("jdbc.username"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setDriverClassName(env.getProperty("db.driverClassName"));
+		dataSource.setUrl(env.getProperty("db.url"));
+		dataSource.setUsername(env.getProperty("db.username"));
+		dataSource.setPassword(env.getProperty("db.password"));
 		return dataSource;
 	}
 

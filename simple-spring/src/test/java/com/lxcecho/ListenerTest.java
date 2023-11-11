@@ -1,7 +1,7 @@
 package com.lxcecho;
 
-import com.lxcecho.entity.circle.A;
-import com.lxcecho.conf.AppConfig;
+import com.lxcecho.conf.ListenerConfig;
+import com.lxcecho.entity.Person;
 import com.lxcecho.listener.AppEventPublisher;
 import com.lxcecho.listener.ChangedEvent;
 import com.lxcecho.listener.MessageEvent;
@@ -13,16 +13,17 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @author lxcecho azaki0426@gmail.com
  * @since 2023/5/28
  */
-public class ApplicationEventListenerTest {
+public class ListenerTest {
 
 	@Test
 	public void testEventListener() {
-		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ListenerConfig.class);
 		// 测试事件
 		AppEventPublisher eventPublisher = applicationContext.getBean(AppEventPublisher.class);
-		eventPublisher.publish(new A());
+		// 发布事件
+		eventPublisher.publish(new Person());
 		eventPublisher.publish(new MessageEvent("hello，你好"));
-		eventPublisher.publish(new ChangedEvent(eventPublisher, "sending..."));
+		eventPublisher.publish(new ChangedEvent("sending..."));
 	}
 
 }

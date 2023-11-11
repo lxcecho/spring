@@ -1,6 +1,6 @@
-package com.lxcecho.proxy.staticproxy;
+package com.pattern.proxy.staticproxy;
 
-import com.lxcecho.dao.IndexDao;
+import com.pattern.proxy.MemberDao;
 
 /**
  * 静态代理：
@@ -11,19 +11,19 @@ import com.lxcecho.dao.IndexDao;
  * @Copyright: Copyright (c) 2021
  * @since 17.04.2021
  */
-public class MemberTime implements IndexDao {
+public class MemberTime implements MemberDao {
 
     // TargetObject
-    private IndexDao indexDao;
+    private MemberDao memberDao;
 
-    public MemberTime(IndexDao indexDao) {
-        this.indexDao = indexDao;
+    public MemberTime(MemberDao memberDao) {
+        this.memberDao = memberDao;
     }
 
     @Override
     public String query(String name, Integer age) {
         System.out.println("---------before-----time-------------");
-        String result = indexDao.query(name, age);
+        String result = memberDao.query(name, age);
         System.out.println("---------after-----time-------------");
         return result;
     }

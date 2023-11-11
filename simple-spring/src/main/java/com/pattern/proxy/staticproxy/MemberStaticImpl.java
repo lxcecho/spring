@@ -1,6 +1,4 @@
-package com.lxcecho.proxy.staticproxy;
-
-import com.lxcecho.dao.impl.MemberDaoImpl;
+package com.pattern.proxy.staticproxy;
 
 /**
  * 静态代理得缺点：

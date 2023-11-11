@@ -1,4 +1,4 @@
-package com.lxcecho.proxy.dynamic;
+package com.pattern.proxy.dynamic;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

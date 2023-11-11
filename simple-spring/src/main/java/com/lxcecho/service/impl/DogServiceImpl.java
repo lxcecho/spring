@@ -4,6 +4,8 @@ import com.lxcecho.dao.DogDao;
 import com.lxcecho.entity.Dog;
 import com.lxcecho.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,5 +21,10 @@ public class DogServiceImpl implements DogService {
 	@Override
 	public int save(Dog dog) {
 		return dogDao.insert(dog);
+	}
+
+	@EventListener(classes = {ApplicationEvent.class})
+	public void listen(ApplicationEvent event) {
+		System.out.println("DogService。。监听到的事件：" + event);
 	}
 }

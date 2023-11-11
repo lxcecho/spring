@@ -57,26 +57,4 @@ public class JdbcTest {
 		System.out.println(count);
 	}
 
-	@Test
-	public void testTransaction() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
-		// todo 断点处
-		UserService peopleService = (UserService) context.getBean("userServiceProxy");
-
-		User user = new User();
-		user.setName("lxcecho");
-		user.setAge(110);
-
-		peopleService.save(user);
-	}
-
-	@Test
-	public void testTransactionByAnnotation() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TxConfig.class);
-		DogService dogService = context.getBean(DogServiceImpl.class);
-		dogService.save(new Dog("小黄", 3));
-		context.close();
-
-	}
-
 }

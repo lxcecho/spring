@@ -1,7 +1,6 @@
-package com.lxcecho.proxy.staticproxy;
+package com.pattern.proxy.staticproxy;
 
-import com.lxcecho.dao.IndexDao;
-import com.lxcecho.dao.impl.MemberDaoImpl;
+import com.pattern.proxy.MemberDao;
 
 /**
  * 静态代理测试
@@ -13,10 +12,10 @@ import com.lxcecho.dao.impl.MemberDaoImpl;
 public class StaticProxyTest {
 	public static void main(String[] args) {
 		// 静态代理测试
-		IndexDao indexDao = new MemberStaticImpl();
-		indexDao.query("lxcecho", 24);
+		MemberDao memberDao = new MemberStaticImpl();
+		memberDao.query("lxcecho", 24);
 
-		IndexDao dao = new MemberTime(new MemberDaoImpl());
+		MemberDao dao = new MemberTime(new MemberDaoImpl());
 		System.out.println(dao.query("lxcecho", 18));
 
 	}

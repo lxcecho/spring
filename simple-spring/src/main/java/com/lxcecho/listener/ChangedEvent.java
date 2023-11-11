@@ -16,19 +16,8 @@ public class ChangedEvent extends ApplicationEvent implements Serializable {
 
 	private String state;
 
-	/**
-	 * Create a new {@code ApplicationEvent}.
-	 *
-	 * @param source the object on which the event initially occurred or with
-	 *               which the event is associated (never {@code null})
-	 */
 	public ChangedEvent(Object source) {
 		super(source);
-	}
-
-	public ChangedEvent(Object source, String state) {
-		super(source);
-		this.state = state;
 	}
 
 	public String getState() {

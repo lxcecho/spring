@@ -1,12 +1,12 @@
-package com.lxcecho.dao.impl;
+package com.pattern.proxy.staticproxy;
 
-import com.lxcecho.dao.IndexDao;
+import com.pattern.proxy.MemberDao;
 
 /**
  * @author lxcecho 909231497@qq.com
  * @since 17.04.2021
  */
-public class MemberDaoImpl implements IndexDao {
+public class MemberDaoImpl implements MemberDao {
 	@Override
 	public String query(String name, Integer age) {
 		System.out.println("------query----------");
