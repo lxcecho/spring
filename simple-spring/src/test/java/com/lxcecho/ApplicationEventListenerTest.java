@@ -1,6 +1,6 @@
 package com.lxcecho;
 
-import com.lxcecho.beans.circle.A;
+import com.lxcecho.entity.circle.A;
 import com.lxcecho.conf.AppConfig;
 import com.lxcecho.listener.AppEventPublisher;
 import com.lxcecho.listener.ChangedEvent;

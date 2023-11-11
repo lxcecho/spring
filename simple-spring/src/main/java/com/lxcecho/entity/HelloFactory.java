@@ -1,4 +1,4 @@
-package com.lxcecho.beans;
+package com.lxcecho.entity;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;

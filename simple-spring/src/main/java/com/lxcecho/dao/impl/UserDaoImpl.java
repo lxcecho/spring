@@ -1,6 +1,6 @@
 package com.lxcecho.dao.impl;
 
-import com.lxcecho.beans.User;
+import com.lxcecho.entity.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author lxcecho azaki0426@gmail.com
  * @since 2023/10/11
  */
-public class UserDao {
+public class UserDaoImpl {
 
 	private JdbcTemplate jdbcTemplate;
 

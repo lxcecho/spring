@@ -1,4 +1,4 @@
-package com.lxcecho.service;
+package com.lxcecho.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
  * @since 08.04.2021
  */
 @Component
-public class Demo2 {
+public class Demo1 {
 
 	@Autowired
-	Demo1 demo1;
+	Demo2 demo2;
 
-	public Demo2(){
-		System.out.println("Y created");
+	public Demo1(){
+		System.out.println("X created");
 	}
 
 }

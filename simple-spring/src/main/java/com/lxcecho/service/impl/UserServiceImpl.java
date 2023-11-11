@@ -1,7 +1,7 @@
 package com.lxcecho.service.impl;
 
-import com.lxcecho.beans.User;
-import com.lxcecho.dao.impl.UserDao;
+import com.lxcecho.dao.impl.UserDaoImpl;
+import com.lxcecho.entity.User;
 import com.lxcecho.service.UserService;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -11,21 +11,25 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  */
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
+	private UserDaoImpl userDao;
 
 	private DataSourceTransactionManager transactionManager;
 
+//	@Transactional
 	@Override
 	public void save(User user) {
 		userDao.insert(user);
+		// otherDao.other
+		System.out.println("Insert Finished...");
+//		int i = 10/0;
 	}
 
-	public UserDao getUserDao() {
+	public UserDaoImpl getUserDao() {
 		return userDao;
 	}
 
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
+	public void setUserDao(UserDaoImpl userDaoImpl) {
+		this.userDao = userDaoImpl;
 	}
 
 	public DataSourceTransactionManager getTransactionManager() {

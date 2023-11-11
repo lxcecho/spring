@@ -552,7 +552,7 @@ beans>> and <<beans-factory-autowire,autowiring collaborators>>.
 The convention is to use the standard Java convention for instance field names when
 naming beans. That is, bean names start with a lowercase letter and are camel-cased
 from there. Examples of such names include `accountManager`,
-`accountService`, `userDao`, `loginController`, and so forth.
+`accountService`, `userDaoImpl`, `loginController`, and so forth.
 
 Naming beans consistently makes your configuration easier to read and understand.
 Also, if you use Spring AOP, it helps a lot when applying advice to a set of beans
@@ -10405,7 +10405,7 @@ converted into `String` objects and inserted into placeholders in the lookup mes
 
 		public void execute() {
 			String message = this.messages.getMessage("argument.required",
-				new Object [] {"userDao"}, "Required", Locale.ENGLISH);
+				new Object [] {"userDaoImpl"}, "Required", Locale.ENGLISH);
 			System.out.println(message);
 		}
 	}
@@ -10419,7 +10419,7 @@ converted into `String` objects and inserted into placeholders in the lookup mes
 
 	fun execute() {
 		val message = messages.getMessage("argument.required",
-				arrayOf("userDao"), "Required", Locale.ENGLISH)
+				arrayOf("userDaoImpl"), "Required", Locale.ENGLISH)
 		println(message)
 	}
 }
@@ -10429,7 +10429,7 @@ The resulting output from the invocation of the `execute()` method is as follows
 
 [literal,subs="verbatim,quotes"]
 ----
-The userDao argument is required.
+The userDaoImpl argument is required.
 ----
 
 With regard to internationalization ("`i18n`"), Spring's various `MessageSource`
@@ -10455,7 +10455,7 @@ argument.required=Ebagum lad, the ''{0}'' argument is required, I say, required.
 	public static void main(final String[] args) {
 		MessageSource resources = new ClassPathXmlApplicationContext("beans.xml");
 		String message = resources.getMessage("argument.required",
-			new Object [] {"userDao"}, "Required", Locale.UK);
+			new Object [] {"userDaoImpl"}, "Required", Locale.UK);
 		System.out.println(message);
 	}
 ----
@@ -10465,7 +10465,7 @@ argument.required=Ebagum lad, the ''{0}'' argument is required, I say, required.
 	fun main() {
 		val resources = ClassPathXmlApplicationContext("beans.xml")
 		val message = resources.getMessage("argument.required",
-				arrayOf("userDao"), "Required", Locale.UK)
+				arrayOf("userDaoImpl"), "Required", Locale.UK)
 		println(message)
 	}
 ----
@@ -10474,7 +10474,7 @@ The resulting output from the running of the above program is as follows:
 
 [literal,subs="verbatim,quotes"]
 ----
-Ebagum lad, the 'userDao' argument is required, I say, required.
+Ebagum lad, the 'userDaoImpl' argument is required, I say, required.
 ----
 
 You can also use the `MessageSourceAware` interface to acquire a reference to any

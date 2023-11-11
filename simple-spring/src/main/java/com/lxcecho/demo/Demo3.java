@@ -1,4 +1,4 @@
-package com.lxcecho.service;
+package com.lxcecho.demo;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

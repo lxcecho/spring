@@ -1,6 +1,6 @@
 package com.lxcecho.proxy.staticproxy;
 
-import com.lxcecho.dao.impl.MemberDao;
+import com.lxcecho.dao.impl.MemberDaoImpl;
 
 /**
  * 静态代理得缺点：
@@ -11,7 +11,7 @@ import com.lxcecho.dao.impl.MemberDao;
  * @Copyright: Copyright (c) 2021
  * @since 17.04.2021
  */
-public class MemberStatic extends MemberDao {
+public class MemberStaticImpl extends MemberDaoImpl {
     @Override
     public String query(String name, Integer age) {
         System.out.println("==========log=============");

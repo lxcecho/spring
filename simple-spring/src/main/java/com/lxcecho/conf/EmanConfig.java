@@ -1,5 +1,6 @@
-package com.lxcecho.model;
+package com.lxcecho.conf;
 
+import com.lxcecho.entity.Eman;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

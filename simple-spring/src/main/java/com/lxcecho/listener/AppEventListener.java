@@ -1,6 +1,6 @@
 package com.lxcecho.listener;
 
-import com.lxcecho.beans.circle.A;
+import com.lxcecho.entity.circle.A;
 import org.springframework.context.PayloadApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.lxcecho.conf;
 
-import com.lxcecho.beans.Cat;
-import com.lxcecho.beans.Person;
+import com.lxcecho.entity.Cat;
+import com.lxcecho.entity.Person;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.*;

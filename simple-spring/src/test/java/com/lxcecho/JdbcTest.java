@@ -1,10 +1,15 @@
 package com.lxcecho;
 
-import com.lxcecho.beans.User;
-import com.lxcecho.dao.impl.UserDao;
+import com.lxcecho.dao.impl.UserDaoImpl;
+import com.lxcecho.entity.Dog;
+import com.lxcecho.entity.User;
+import com.lxcecho.conf.TxConfig;
+import com.lxcecho.service.DogService;
 import com.lxcecho.service.UserService;
+import com.lxcecho.service.impl.DogServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -16,39 +21,39 @@ public class JdbcTest {
 	@Test
 	public void testQuery() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
-		UserDao userDao = context.getBean(UserDao.class);
-		User user = userDao.findById(3);
+		UserDaoImpl userDaoImpl = context.getBean(UserDaoImpl.class);
+		User user = userDaoImpl.findById(3);
 		System.out.println(user);
 	}
 
 	@Test
 	public void testInsert() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
-		UserDao userDao = context.getBean(UserDao.class);
+		UserDaoImpl userDaoImpl = context.getBean(UserDaoImpl.class);
 		User user = new User();
 		user.setName("eman");
 		user.setAge(2);
-		Integer count = userDao.insert(user);
+		Integer count = userDaoImpl.insert(user);
 		System.out.println(count);
 	}
 
 	@Test
 	public void testUpdate() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
-		UserDao userDao = context.getBean(UserDao.class);
+		UserDaoImpl userDaoImpl = context.getBean(UserDaoImpl.class);
 		User user = new User();
 		user.setId(2);
 		user.setName("eman000000000000000");
 		user.setAge(3);
-		Integer count = userDao.update(user);
+		Integer count = userDaoImpl.update(user);
 		System.out.println(count);
 	}
 
 	@Test
 	public void testDelete() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-jdbc.xml");
-		UserDao userDao = context.getBean(UserDao.class);
-		Integer count = userDao.delete(1);
+		UserDaoImpl userDaoImpl = context.getBean(UserDaoImpl.class);
+		Integer count = userDaoImpl.delete(1);
 		System.out.println(count);
 	}
 
@@ -63,6 +68,15 @@ public class JdbcTest {
 		user.setAge(110);
 
 		peopleService.save(user);
+	}
+
+	@Test
+	public void testTransactionByAnnotation() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TxConfig.class);
+		DogService dogService = context.getBean(DogServiceImpl.class);
+		dogService.save(new Dog("小黄", 3));
+		context.close();
+
 	}
 
 }

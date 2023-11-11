@@ -1,6 +1,5 @@
 package com.lxcecho.processor.bean;
 
-import com.lxcecho.beans.Cat;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;

@@ -1,7 +1,7 @@
 package com.lxcecho.proxy.dynamic;
 
 import com.lxcecho.dao.IndexDao;
-import com.lxcecho.dao.impl.MemberDao;
+import com.lxcecho.dao.impl.MemberDaoImpl;
 
 import java.lang.reflect.Proxy;
 
@@ -15,7 +15,7 @@ import java.lang.reflect.Proxy;
  */
 public class DynamicProxyTest {
     public static void main(String[] args) {
-        IndexDao target = new MemberDao();
+        IndexDao target = new MemberDaoImpl();
 
         /**
          * public static Object newProxyInstance(ClassLoader loader,

@@ -1,4 +1,4 @@
-package com.lxcecho.beans;
+package com.lxcecho.entity;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
-import org.springframework.stereotype.Component;
 
 /**
  * @author lxcecho 909231497@qq.com

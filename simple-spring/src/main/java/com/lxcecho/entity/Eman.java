@@ -1,4 +1,4 @@
-package com.lxcecho.model;
+package com.lxcecho.entity;
 
 /**
  * @author lxcecho 909231497@qq.com

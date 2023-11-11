@@ -1,6 +1,6 @@
 package com.lxcecho.service;
 
-import com.lxcecho.beans.User;
+import com.lxcecho.entity.User;
 
 /**
  * @author lxcecho 909231497@qq.com

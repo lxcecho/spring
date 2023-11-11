@@ -1,4 +1,4 @@
-package com.lxcecho.beans;
+package com.lxcecho.entity;
 
 /**
  * @author lxcecho

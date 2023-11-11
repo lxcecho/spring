@@ -1,8 +1,4 @@
-package com.lxcecho.beans;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.stereotype.Component;
+package com.lxcecho.entity;
 
 /**
  * @author lxcecho 909231497@qq.com

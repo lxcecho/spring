@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--定义目标对象-->
-    <bean id="indexDao" class="com.lxcecho.dao.impl.MemberDao"/>
+    <bean id="indexDao" class="com.lxcecho.dao.impl.MemberDaoImpl"/>
     <!--通知器：实现定义了需要对目标对象进行增强的切面行为，也就是 Advice 通知-->
     <bean id="myAdvisor" class="com.lxcecho.proxy.advisor.MyAdvisor"/>
 

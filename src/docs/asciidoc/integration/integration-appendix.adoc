@@ -49,7 +49,7 @@ The following example shows how to use JNDI to look up a data source without the
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="jdbc/MyDataSource"/>
 	</bean>
-	<bean id="userDao" class="com.foo.JdbcUserDao">
+	<bean id="userDaoImpl" class="com.foo.JdbcUserDao">
 		<!-- Spring will do the cast automatically (as usual) -->
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
@@ -63,7 +63,7 @@ schema:
 ----
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/MyDataSource"/>
 
-	<bean id="userDao" class="com.foo.JdbcUserDao">
+	<bean id="userDaoImpl" class="com.foo.JdbcUserDao">
 		<!-- Spring will do the cast automatically (as usual) -->
 		<property name="dataSource" ref="dataSource"/>
 	</bean>

@@ -55,6 +55,6 @@ public class ServiceAspect {
 		System.out.println("抛出异常通知  " + joinPoint + "   " + exception.getMessage());
 	}
 
-	@DeclareParents(value = "com.imooc.controller..*", defaultImpl = com.selfdev.introduction.impl.LittleUniverseImpl.class)
+	@DeclareParents(value = "com.selfdev.controller..*", defaultImpl = com.selfdev.introduction.impl.LittleUniverseImpl.class)
 	public LittleUniverse littleUniverse;
 }

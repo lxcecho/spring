@@ -5,22 +5,22 @@
 
 	<!--<context:component-scan base-package="com.lxcecho.processor"/>-->
 
-	<bean id="user" class="com.lxcecho.beans.User">
+	<bean id="user" class="com.lxcecho.entity.User">
 
 	</bean>
 
-	<bean id="person" class="com.lxcecho.beans.Person">
+	<bean id="person" class="com.lxcecho.entity.Person">
 		<property name="name" value="lxcecho"/>
 		<property name="cat" ref="cat"/>
 	</bean>
 
-	<bean id="cat" class="com.lxcecho.beans.Cat">
+	<bean id="cat" class="com.lxcecho.entity.Cat">
 <!--		<constructor-arg/>-->
 		<property name="name" value="kitty"/>
 	</bean>
 	<!--xml 转为 BeanDefinition 这个Java 对象-->
 
-	<bean class="com.lxcecho.beans.HelloFactory" id="hello" />
+	<bean class="com.lxcecho.entity.HelloFactory" id="hello" />
 
 <!--	<import resource=""/>-->
 

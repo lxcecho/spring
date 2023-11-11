@@ -1,13 +1,12 @@
 package com.lxcecho;
 
-import com.lxcecho.beans.Cat;
-import com.lxcecho.beans.Hello;
-import com.lxcecho.beans.Person;
-import com.lxcecho.beans.User;
+import com.lxcecho.entity.Cat;
+import com.lxcecho.entity.Hello;
+import com.lxcecho.entity.Person;
+import com.lxcecho.entity.User;
 import com.lxcecho.conf.AppConfig;
-import com.lxcecho.model.Eman;
-import com.lxcecho.model.EmanConfig;
-import com.lxcecho.service.Demo1;
+import com.lxcecho.entity.Eman;
+import com.lxcecho.conf.EmanConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -62,7 +61,7 @@ public class IocTest {
 
         // bring in some property values from a Properties file
 //		PropertySourcesPlaceholderConfigurer cfg = new PropertySourcesPlaceholderConfigurer();
-//		cfg.setLocation(new FileSystemResource("jdbc.properties"));
+//		cfg.setLocation(new FileSystemResource("db.properties"));
 
         // now actually do the replacement
 //		cfg.postProcessBeanFactory(defaultListableBeanFactory);
