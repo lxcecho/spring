@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @PropertySource(value={"classpath:/people.properties"})
 @Configuration
-public class MainConfigOfPropertyValues {
+public class PropertyValuesConfig {
 
 	@Bean
 	public People people(){

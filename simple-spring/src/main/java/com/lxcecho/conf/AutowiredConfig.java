@@ -2,9 +2,6 @@ package com.lxcecho.conf;
 
 import com.lxcecho.dao.BookDao;
 import com.lxcecho.dao.impl.BookDaoImpl;
-import com.lxcecho.dao.impl.DogDaoImpl;
-import com.lxcecho.entity.Car;
-import com.lxcecho.entity.Color;
 import org.springframework.context.annotation.*;
 
 /**
@@ -52,9 +49,10 @@ import org.springframework.context.annotation.*;
 @Configuration
 @ComponentScan(value = {"com.lxcecho.service",
 		"com.lxcecho.dao",
+		"com.lxcecho.conf",
 		"com.lxcecho.controller",
 		"com.lxcecho.bean"})
-public class MainConfigOfAutowired {
+public class AutowiredConfig {
 
 	@Primary
 	@Bean("bookDao2")
@@ -66,13 +64,13 @@ public class MainConfigOfAutowired {
 
 	/**
 	 * @param car
-	 * @return @Bean标注的方法创建对象的时候，方法参数的值从容器中获取
+	 * @return @Bean 标注的方法创建对象的时候，方法参数的值从容器中获取
 	 */
-	@Bean
+	/*@Bean
 	public Color color(Car car) {
 		Color color = new Color();
 		color.setCar(car);
 		return color;
-	}
+	}*/
 
 }

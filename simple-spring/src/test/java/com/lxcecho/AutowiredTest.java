@@ -1,6 +1,6 @@
 package com.lxcecho;
 
-import com.lxcecho.conf.MainConfigOfAutowired;
+import com.lxcecho.conf.AutowiredConfig;
 import com.lxcecho.entity.Boss;
 import com.lxcecho.entity.Car;
 import com.lxcecho.entity.Color;
@@ -16,7 +16,7 @@ public class AutowiredTest {
 
 	@Test
 	public void test01(){
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AutowiredConfig.class);
 
 		BookService bookService = applicationContext.getBean(BookService.class);
 		System.out.println(bookService);

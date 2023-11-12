@@ -58,7 +58,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @ComponentScan("com.lxcecho.entity")
 @Configuration
-public class MainConfigOfLifeCycle {
+public class LifeCycleConfig {
 
 	//@Scope("prototype")
 	@Bean(initMethod = "init", destroyMethod = "destroy")

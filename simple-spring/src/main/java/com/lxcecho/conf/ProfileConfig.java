@@ -32,7 +32,7 @@ import javax.sql.DataSource;
 
 @PropertySource("classpath:/db.properties")
 @Configuration
-public class MainConfigOfProfile implements EmbeddedValueResolverAware {
+public class ProfileConfig implements EmbeddedValueResolverAware {
 
 	@Value("${jdbc.username}")
 	private String username;

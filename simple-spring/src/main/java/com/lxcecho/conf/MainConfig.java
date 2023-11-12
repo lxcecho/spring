@@ -1,6 +1,7 @@
 package com.lxcecho.conf;
 
 import com.lxcecho.entity.People;
+import com.lxcecho.filter.MyTypeFilter;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 

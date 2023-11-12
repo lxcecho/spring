@@ -1,6 +1,6 @@
 package com.lxcecho;
 
-import com.lxcecho.conf.MainConfigOfPropertyValues;
+import com.lxcecho.conf.PropertyValuesConfig;
 import com.lxcecho.entity.People;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,7 +11,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @since 2023/11/11
  */
 public class PropertyValueTest {
-	AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfigOfPropertyValues.class);
+	AnnotationConfigApplicationContext applicationContext =
+			new AnnotationConfigApplicationContext(PropertyValuesConfig.class);
 
 	@Test
 	public void test01() {

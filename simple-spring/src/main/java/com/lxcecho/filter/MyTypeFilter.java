@@ -1,4 +1,4 @@
-package com.lxcecho.conf;
+package com.lxcecho.filter;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.AnnotationMetadata;

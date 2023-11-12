@@ -1,6 +1,6 @@
 package com.lxcecho;
 
-import com.lxcecho.conf.MainConfigOfProfile;
+import com.lxcecho.conf.ProfileConfig;
 import com.lxcecho.entity.Yellow;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,10 +25,9 @@ public class ProfileTest {
 		// 2、设置需要激活的环境
 		applicationContext.getEnvironment().setActiveProfiles("dev");
 		// 3、注册主配置类
-		applicationContext.register(MainConfigOfProfile.class);
+		applicationContext.register(ProfileConfig.class);
 		// 4、启动刷新容器
 		applicationContext.refresh();
-
 
 		String[] namesForType = applicationContext.getBeanNamesForType(DataSource.class);
 		for (String string : namesForType) {

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.*;
  */
 //@Import({Person.class, AppConfig.MyImportRegister.class})
 @Configuration
-@ComponentScan("com.lxcecho")
+@ComponentScan("com.lxcecho.listener")
 public class ListenerConfig {
 
 	//	@Bean // @Bean 这种方式注册的Bean，@Lookup 不生效

@@ -23,8 +23,4 @@ public class DogServiceImpl implements DogService {
 		return dogDao.insert(dog);
 	}
 
-	@EventListener(classes = {ApplicationEvent.class})
-	public void listen(ApplicationEvent event) {
-		System.out.println("DogService。。监听到的事件：" + event);
-	}
 }

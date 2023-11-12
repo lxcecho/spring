@@ -15,7 +15,7 @@ import org.springframework.context.annotation.*;
  */
 @Conditional({WindowsCondition.class})
 @Configuration
-@Import({Color.class, Red.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class})
+@Import({/*Color.class,*/ Red.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class})
 //@Import 导入组件，id 默认是组件的全类名
 public class MainConfig2 {
 
