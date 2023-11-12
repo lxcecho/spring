@@ -1,7 +1,6 @@
 package com.lxcecho;
 
 import com.lxcecho.conf.MainConfig;
-import com.lxcecho.conf.MainConfig2;
 import com.lxcecho.entity.*;
 import com.lxcecho.conf.ListenerConfig;
 import com.lxcecho.conf.EmanConfig;
@@ -87,7 +86,7 @@ public class IocTest {
 	}
 
 	@Test
-	public void testIocByXml03() {
+	public void testIoc() {
 		// 定义一个 BeanDefinition
 		AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition();
 		// 当前 Bean 对象的类型
@@ -110,7 +109,7 @@ public class IocTest {
 	}
 
 	@Test
-	public void testIocByXml05() {
+	public void testIoc02() {
         /*DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 		AnnotatedBeanDefinitionReader annotatedBeanDefinitionReader = new AnnotatedBeanDefinitionReader(beanFactory);
 		// 将 Users.class 解析为 BeanDefinition
@@ -130,7 +129,7 @@ public class IocTest {
 	}
 
 	@Test
-	public void testIocByXml06() {
+	public void testIoc03() {
 		AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition();
 		beanDefinition.setBeanClass(User.class);
 
@@ -214,27 +213,9 @@ public class IocTest {
 	}
 
 	@Test
-	@SuppressWarnings("resource")
-	public void testTest() {
-//		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
-//		Person bean = (Person) applicationContext.getBean("person");
-//		System.out.println(bean);
-
-		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
-		Person bean = applicationContext.getBean(Person.class);
-		System.out.println(bean);
-
-		String[] namesForType = applicationContext.getBeanNamesForType(Person.class);
-		for (String name : namesForType) {
-			System.out.println(name);
-		}
-	}
-
-	AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
-
-
-	@Test
 	public void testImport(){
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
+
 		printBeans(applicationContext);
 		Blue bean = applicationContext.getBean(Blue.class);
 		System.out.println(bean);
@@ -258,7 +239,9 @@ public class IocTest {
 
 	@Test
 	public void test03(){
-		String[] namesForType = applicationContext.getBeanNamesForType(Person.class);
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
+
+		String[] namesForType = applicationContext.getBeanNamesForType(People.class);
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		//动态获取环境变量的值；Windows 10
 		String property = environment.getProperty("os.name");
@@ -267,33 +250,9 @@ public class IocTest {
 			System.out.println(name);
 		}
 
-		Map<String, Person> persons = applicationContext.getBeansOfType(Person.class);
-		System.out.println(persons);
+		Map<String, People> peopleMap = applicationContext.getBeansOfType(People.class);
+		System.out.println(peopleMap);
 
-	}
-
-	@Test
-	public void test02(){
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
-//		String[] definitionNames = applicationContext.getBeanDefinitionNames();
-//		for (String name : definitionNames) {
-//			System.out.println(name);
-//		}
-//
-		System.out.println("ioc容器创建完成....");
-		Object bean = applicationContext.getBean("person");
-		Object bean2 = applicationContext.getBean("person");
-		System.out.println(bean == bean2);
-	}
-
-	@SuppressWarnings("resource")
-	@Test
-	public void test01(){
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
-		String[] definitionNames = applicationContext.getBeanDefinitionNames();
-		for (String name : definitionNames) {
-			System.out.println(name);
-		}
 	}
 
 }
