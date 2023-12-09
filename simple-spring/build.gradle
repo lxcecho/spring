@@ -11,6 +11,7 @@ dependencies {
     compile(project(":spring-aspects"))
     compile(project(":spring-jdbc"))
     compile(project(":spring-core"))
+    compile(project(":spring-test"))
 
     implementation 'com.alibaba:druid:1.1.14'
     implementation 'mysql:mysql-connector-java:8.0.30'

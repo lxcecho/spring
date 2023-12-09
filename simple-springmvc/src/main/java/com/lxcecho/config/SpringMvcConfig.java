@@ -9,6 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * SpringMVC 只扫描 controller 组件，可以不指定父容器类，让 MVC 扫所有。@Component + @RequestMapping 就生效了
+ * useDefaultFilters=false 禁用默认的过滤规则；
  *
  * @author lxcecho azaki0426@gmail.com
  * @since 2023/5/28
